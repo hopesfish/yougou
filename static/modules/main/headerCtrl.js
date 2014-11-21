@@ -6,6 +6,7 @@ define(function (require, exports, module) {
         app.controller('headerCtrl', ['$scope', '$routeParams', '$location', '$http',
             function($scope, $routeParams, $location, $http) {
                 $scope.header = {};
+                $scope.header.tab = 'activity';
             }]
         );
     }
