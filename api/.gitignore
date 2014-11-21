@@ -1,0 +1,5 @@
+**/.DS_Store
+.idea
+.metadata
+**/node_modules
+**/sftp-config.json*

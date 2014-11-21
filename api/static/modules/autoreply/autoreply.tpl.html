@@ -1,0 +1,36 @@
+<div id="wx-autoreply">
+	<div>
+		<button class="btn" type="button" ng-click="autoreply.refresh()">刷新</button>
+	    <a href="#/autoreply/new" class="btn btn-primary">新增</a>
+	    <button class="btn" type="button"
+	        ng-click="autoreply.remove()"
+	        ng-disabled="autoreply.selected == null" ng-class="{'btn-danger': autoreply.selected != null}">删除</button>
+      <input type="text" placeholder="请输入关键词,支持模糊查询" ng-model="autoreply.query">
+      <button class="btn btn-primary" type="button" ng-click="autoreply.refresh()">查询</button>
+    </div>
+    <br/>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>名称</th>
+          <th>状态</th>
+          <th>匹配关键字</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in autoreply.record" ng-class="{'selected': item.id == autoreply.selected.id}" ng-click="autoreply.selected = item">
+          <td>{{$index + 1}}</td>
+          <td>{{item.name}}</td>
+          <td>
+            <span ng-show="item.enabled == 1">已启用</span>
+            <span ng-show="item.enabled == 0" style="color:red">已禁用</span>
+          </td>
+          <td width="50%">{{item.keywords}}</td>
+          <td>
+          <a class="btn btn-primary" href="#/autoreply/{{item.id}}">查看</a>
+        </tr>
+      </tbody>
+    </table>
+</div>

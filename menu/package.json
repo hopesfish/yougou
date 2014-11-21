@@ -1,0 +1,11 @@
+{
+  "name": "yougou-menu",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node test.js"
+  },
+  "dependencies": {
+    "wechat": "~0.6.7"
+  }
+}

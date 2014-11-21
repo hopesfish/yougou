@@ -1,0 +1,108 @@
+<div id="wx-activity">
+    <div>
+        <form name="saveForm">
+            <fieldset>
+                <table>
+                    <tr>
+                        <td width="180px" valign="top">名称：</td>
+                        <td>
+                            <input id="name" type="text" ng-required="true" ng-model="activity.record.name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>类型：</td>
+                        <td valign="top">
+                            <button class="btn btn-small" type="button"
+                                    ng-class="{'btn-primary': activity.record.type == 0}" ng-click="activity.record.type = 0">关键词回复</button>
+                            <button class="btn btn-small" type="button"
+                                    ng-class="{'btn-primary': activity.record.type == 1}" ng-click="activity.record.type = 1">优惠券发放</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="padding-top:10px;">
+                            <span ng-show="activity.record.type == 0">匹配关键字：</span>
+                            <span ng-show="activity.record.type == 1">领取编码：</span>
+                        </td>
+                        <td style="padding-top:10px;">
+                            <input type="text" ng-required="true" ng-model="activity.record.code">
+                            <div ng-show="activity.record.type == 0" style="color:red">
+                                1) 多个关键字请用半角逗号隔开：如 <b>优购,商城</b>;
+                                <br/>
+                                2) 在【匹配关键字】一栏中输入英文'WELCOME'，下方设置的【回复文本】则为粉丝首次关注微信账号时收到的欢迎词语;
+                                <br/>
+                                3) 在【匹配关键字】一栏中输入符号'*'，下方设置的【回复文本】则为没有关键字匹配时的默认回复;
+                                <br/>
+                                4) 如果关键词中含有优惠券的【领取编码】，系统将忽略该关键词回复。
+                                <br/>
+                                5) 关键词中如含有小写英文字母，系统将自动转成大写。
+                            </div>
+                            <div ng-show="activity.record.type == 1" style="color:red">
+                                   领取编码只能由大写英文字母或数字组成，每一次的活动编码确保不可重复。
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="padding-top:20px;">
+                            <span ng-show="activity.record.type == 0">回复：</span>
+                            <span ng-show="activity.record.type == 1">领取成功时回复：</span>
+                        </td>
+                        <td style="padding-top:10px;">
+                            <input type="hidden" ng-required="true" ng-model="activity.record.reply" ng-maxlength="200">
+                            <div text-angular ng-model="activity.record.reply" ta-toolbar="[['html', 'insertLink', 'unlink']]"></div>
+                            <div style="color:red">
+                                 <br/>
+                                1) 只能是纯文本或者超链接，最多200个字。 如需回复表情，请输入/微笑 /玫瑰 /可爱 <br/>
+                            </div>
+                            <div style="color:red" ng-show="activity.record.type == 1">
+                                2) 领取成功时回复的文本中必须含有 {YHQ} ，否则无法发放优惠码 <br/>
+                                3) 已领取优惠券的用户，再次发送领取编码时，依然会收到领取成功时的回复文本。
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-show="activity.record.type == 1">
+                        <td valign="top" style="padding-top:20px;">
+                            <span ng-show="activity.record.type == 1">无优惠券可领取时回复：</span>
+                        </td>
+                        <td style="padding-top:10px;">
+                            <input type="hidden" ng-required="activity.record.type == 1" ng-model="activity.record.endReply" ng-maxlength="200">
+                            <div text-angular ng-model="activity.record.endReply" ta-toolbar="[['html', 'insertLink', 'unlink']]"></div>
+                        </td>
+                    </tr>
+                    <tr ng-show="activity.record.type == 1">
+                        <td valign="top" style="padding-top:20px;">
+                            <span >限制领取设置：</span>
+                        </td>
+                        <td style="padding-top:20px;">
+                            <div>
+                            <input id="restrictDays" type="text" ng-required="activity.record.type == 1" style="width:40px" ng-pattern="/^\d{1,4}$/"
+                                   ng-model="activity.record.restrictDays">
+                            <span>天内领取过其他活动优惠券时，将无法获得本活动优惠券 (范围：0 ~ 9999)</span>
+                            </div>
+
+                            <div>
+                            <button class="btn btn-small" type="button" ng-click="activity.record.restrictDays = 0">无限制</button>
+                            <button class="btn btn-small" type="button" ng-click="activity.record.restrictDays = 3650">限新粉</button>
+                            </div>
+
+                            <div style="margin-top: 20px;">当满足限制条件，无法领取时，回复以下文本：</div>
+                            <input type="hidden" ng-required="activity.record.type == 1" ng-model="activity.record.restrictDaysReply" ng-maxlength="200">
+                            <div text-angular ng-model="activity.record.restrictDaysReply" ta-toolbar="[['html', 'insertLink', 'unlink']]"></div>
+                            <div style="color:red">
+                                 <br/>
+                                1) 只能是纯文本或者超链接，最多200个字。 如需回复表情，请输入/微笑 /玫瑰 /可爱 <br/>
+                                2) 当天数设置为0时，该规则失效 <br/>
+                                3) 当优惠券只能新粉领取时，建议将限制天数设置为3650天（十年）甚至更多 <br/>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </form>
+        <div class="wx-buttons">
+            <button class="btn" type="button"
+                    ng-disabled="!saveForm.$valid"
+                    ng-class="{'btn-primary': saveForm.$valid}" ng-click="activity.saveRecord()">提交</button>
+            <a class="btn" href="#/activity">返回</a>
+        </div>
+    </div>
+</div>

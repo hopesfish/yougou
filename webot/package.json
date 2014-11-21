@@ -1,0 +1,19 @@
+{
+  "name": "weixiao",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.4.4",
+    "debug": "*",
+    "ejs": "*",
+    "q": "*",
+    "wechat": "*",
+    "weixin-robot": "*",
+    "request": "*",
+    "date-utils": "*",
+    "node-xlsx": "*"
+  }
+}

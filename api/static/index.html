@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>积木盒子微信后台管理</title>
+    <meta name="description" content="积木盒子微信后台管理">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="cleartype" content="on">
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileColor" content="#222222">
+    <!-- For iOS web apps. Delete if not needed. https://github.com/h5bp/mobile-boilerplate/issues/94 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="积木盒子微信后台管理">
+    <meta name="Author" contect="wechat.jimubox.com"/>
+
+    <link rel="stylesheet" type="text/css" href="js/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="js/bootstrap/css/bootstrap-responsive.css">
+    <link rel="stylesheet" type="text/css" href=http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css>
+    <link rel="stylesheet" type="text/css" href="css/style.css?mobile_build_version">
+</head>
+<body>
+
+<div id="loading">
+    <div>努力加载中,请稍候...</div>
+</div>
+
+<div class="content ecgContent">
+    <div class="container">
+        <div wx-header></div>
+        <div data-ng-view data-ng-cloak id="view"></div>
+    </div>
+</div>
+
+<div wx-standby></div>
+<div style="height:50px;"></div>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/sea.js" id="seajsnode"></script>
+<script src="js/angular/angular.min.js"></script>
+<script src="js/angular/angular-sanitize.min.js"></script>
+<script src="js/angular/angular-route.min.js"></script>
+<script src="js/angular/angular-lazyload.min.js"></script>
+<script src="js/bootstrap/js/bootstrap.js"></script>
+<script src='js/angular/textAngular-sanitize.min.js'></script>
+<script src='js/angular/textAngular.min.js'></script>
+<script src="main.js?mobile_build_version"></script>
+</body>
+</html>

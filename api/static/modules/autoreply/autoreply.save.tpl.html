@@ -1,0 +1,94 @@
+<div id="wx-autoreply">
+    <div class="wx-buttons" ng-show="autoreply.record.id">
+        <button class="btn btn-primary" type="button" ng-click="autoreply.refresh()">刷新</button>
+        <button ng-disabled="!saveForm.$valid" 
+                ng-class="{'btn-primary': saveForm.$valid}" class="btn" type="button" ng-click="autoreply.saveRecord()">保存</button>
+        <button class="btn btn-danger" type="button" ng-click="autoreply.disable()">{{autoreply.disableLabel}}</button>
+        <a class="btn" href="#/autoreply">返回</a>
+    </div>
+
+    <div>
+        <form name="saveForm" class="wx-form">
+            <fieldset>
+                <table>
+                    <tr>
+                        <td width="180px" valign="top">规则名称：</td>
+                        <td>
+                            <input id="name" type="text" ng-required="true" ng-model="autoreply.record.name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <label>匹配关键字/事件：</label>
+                        </td>
+                        <td>
+                            <textarea ng-required="true" ng-model="autoreply.record.keywords"></textarea>
+                            <div style="color:red">
+                                - 多个关键字请用半角逗号隔开：如 <b>积木盒子,互联网金融</b>
+                                <br/>
+                                - 如果某个关键词已经存在，将无法添加该关键词，但不影响添加回复规则;
+                                <br/>
+                                - 在【匹配关键字】一栏中输入英文'SUBSCRIBE'，下方设置的【回复文本】则为粉丝首次关注微信账号时收到的欢迎词语;
+                                <br/>
+                                - 关键词中的英文会自动转成大写字母;
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <label>回复类型：</label>
+                        </td>
+                        <td>
+                            <button class="btn btn-small" ng-class="{'btn-primary': autoreply.record.type == 0}"
+                                ng-click="autoreply.record.type = 0" type="button">文本消息</button>
+                            <button class="btn btn-small" ng-class="{'btn-primary': autoreply.record.type == 1}"
+                                ng-click="autoreply.record.type = 1" type="button">图文消息</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <label>回复内容：</label>
+                        </td>
+                        <td>
+                            <input type="hidden" ng-required="true" ng-model="autoreply.record.reply" ng-maxlength="200">
+                            <div ng-show="autoreply.record.type == 0">
+                                <div text-angular ng-model="autoreply.record.reply" ta-toolbar="[['html', 'insertLink', 'unlink']]"></div>
+                                <div style="color:red">
+                                    <br/>
+                                    - 只能是纯文本或者超链接，最多200个字。 如需回复表情，请输入/微笑 /玫瑰 /可爱 <br/>
+                                </div>
+                            </div>
+                            <div ng-show="autoreply.record.type == 1">
+                                <button class="btn btn-mini btn-primaray" ng-click="autoreply.createReply()" type="button">新增图文消息</button>
+                                <br/>
+                                <br/>
+                                <div ng-repeat="item in autoreply.record.replies" class="wx-reply">
+                                    <p><span>标题：</span><input type="text" ng-required="autoreply.record.type == 1" ng-model="item.title"></p>
+                                    <p><span>网页地址：</span><textarea ng-required="autoreply.record.type == 1" ng-model="item.url"></textarea></p>
+                                    <p><span>图片地址：</span><textarea ng-required="autoreply.record.type == 1" ng-model="item.picUrl"></textarea></p>
+                                    <p><span>描述：</span><textarea ng-required="autoreply.record.type == 1" ng-model="item.description"></textarea></p>
+                                    <button ng-show="autoreply.record.replies.length > 1" class="btn btn-small btn-danger"
+                                            ng-click="autoreply.removeReply(item, $index)" type="button">删除</button>
+                                    <button ng-show="autoreply.record.replies.length > 1" class="btn btn-small"
+                                            ng-disabled="$index == 0"
+                                            ng-click="autoreply.move(item, $index, -1)" type="button">上移</button>
+                                    <button ng-show="autoreply.record.replies.length > 1" class="btn btn-small"
+                                            ng-disabled="$index == autoreply.record.replies.length - 1"
+                                            ng-click="autoreply.move(item, $index, 1)" type="button">下移</button>
+                                    <br/>
+                                </div>
+                                <button class="btn btn-mini btn-primaray" ng-click="autoreply.createReply()" type="button">新增图文消息</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </form>
+        <div class="wx-buttons" <div ng-show="!autoreply.record.id">
+            <button class="btn" type="button"
+                    ng-disabled="!saveForm.$valid"
+                    ng-class="{'btn-primary': saveForm.$valid}" ng-click="autoreply.saveRecord()">保存</button>
+            <a class="btn" href="#/autoreply">返回</a>
+        </div>
+    </div>
+</div>

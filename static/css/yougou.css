@@ -1,0 +1,31 @@
+html, body { height: 100%; font-size: 1em; }
+a { text-decoration: none; color: #006699; font-weight: bold !important; font-size: 1em;}
+.clear { clear: both; }
+h4 { border-bottom: 1px solid #ccc; line-height:2em;}
+
+#loading { width: 100%; padding: auto; padding-top: 8%; text-align: center; height: 100%; z-index: 101; background-color: #fff; position: fixed;}
+#loading img{ width: 90%; margin: auto; max-width: 400px; }
+
+.table tr { cursor: pointer; }
+.table tr.selected td { background-color: #eee !important; }
+
+.ecgContent { margin-top: 60px; }
+#wx-standby { display: none; position: fixed; background-color: #000; opacity: 0.8; width: 100%; height: 120%; top:0px; left:0px; z-index: 102;  }
+#wx-standby .spinner{width:200px;text-align:center;margin:15% auto 0; color: #fff;}
+#wx-standby .spinner > div{width:30px;height:30px;background-color:#00b1dd;border-radius:100%;display:inline-block;-webkit-animation:bouncedelay 1.4s infinite ease-in-out;animation:bouncedelay 1.4s infinite ease-in-out;-webkit-animation-fill-mode:both;animation-fill-mode:both}
+#wx-standby .spinner .bounce1{-webkit-animation-delay:-.32s;animation-delay:-.32s}
+#wx-standby .spinner .bounce2{-webkit-animation-delay:-.16s;animation-delay:-.16s}
+
+#taTextElement {
+    border:1px solid rgba(2,2,2,0.1);
+    border-radius: 6px;
+    vertical-align: text-bottom;
+    height: 130px;
+    width: 750px;
+}
+#taHtmlElement {
+	height: 130px;
+    width: 500px;
+}
+
+#wx-coupon-chart { width: 98%; margin:auto; }

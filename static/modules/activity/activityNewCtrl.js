@@ -1,0 +1,48 @@
+/**
+ * 需要外部传入的app, 则`module.exports`为function
+ */
+define(function (require, exports, module) {
+    'use strict';
+
+    module.exports = function(app){
+    //Step6: use `app.register` to register controller/service/directive/filter
+    app.register.controller('activityNewCtrl', ['$scope', '$routeParams', '$location', '$http', '$timeout', 'UserService', 'ActivityService',
+        function($scope, $routeParams, $location, $http, $timeout, UserService, ActivityService) {
+            $scope.activity = {};
+            $scope.activity.record = {name: '', code: '', type: 0, reply: '', restrictDays: 0, restrictDaysReply: '限制天数为0,该规则失效!'};
+
+            $scope.$watch("session.user", function() {
+                if (!$scope.session.user) {
+                    return;
+                }
+            });
+            
+            $scope.activity.saveRecord = function() {
+                if ($scope.activity.record.type == 1 && 
+                    !/^([A-Z]|[0-9])*$/.test($scope.activity.record.code)) {
+                    alert("领取编码格式不正确！");
+                    return;
+                }
+                if ($scope.activity.record.type == 1 && $scope.activity.record.reply.indexOf('{YHQ}') < 0) {
+                    alert("必须含有{YHQ}！");
+                    return;
+                }
+                $scope.common.standby.show();
+                $scope.activity.record.code = $scope.activity.record.code.toUpperCase();
+                ActivityService.save($scope.activity.record).then(function(id) {
+                    $scope.common.standby.hide();
+                    alert('新增成功。');
+                    if ($scope.activity.record.type == 1 && confirm('立刻上传优惠券？')) {
+                        $location.path('/activity/' + id + '/upload');
+                    } else {
+                        $location.path('/activity');
+                    }
+                }, function() {
+                    $scope.common.standby.hide();
+                    alert('新增失败，可能已存在同名编码。');
+                });
+            };
+        }]
+    );
+    }
+});

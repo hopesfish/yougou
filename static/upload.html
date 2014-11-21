@@ -1,0 +1,28 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="js/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="js/bootstrap/css/bootstrap-responsive.css">
+</head>
+<body>
+<form id="myform" method="post" enctype="multipart/form-data" action="/file-upload">
+    <input type="hidden" id="activityId" name="activityId" value="">
+    <input type="file" id="myfile" name="thumbnail">
+</form>
+<input id="uploadBtn" type="button" value="上传"  class="btn btn-primary">
+<script src="js/jquery.min.js"></script>
+<script>
+document.getElementById("activityId").value = window.location.href.split("id=")[1];
+$("#uploadBtn").click(function() {
+    if (!$('#activityId').val()) {
+        alert('没有活动ID,无法上传');
+        return;
+    }
+    if (!$('#myfile').val()) {
+        alert('未选择文件,无法上传');
+        return;
+    }
+    document.getElementById("myform").submit();
+});
+</script>
+</body>
+</html>

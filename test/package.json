@@ -1,0 +1,15 @@
+{
+  "name": "weixiao-test",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node test.js"
+  },
+  "dependencies": {
+    "q": "*",
+    "request": "*",
+    "date-utils": "*",
+    "async": "*",
+    "node-xlsx": "*"
+  }
+}

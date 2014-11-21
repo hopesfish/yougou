@@ -1,0 +1,142 @@
+<div id="wx-activity">
+    <div>
+        <button ng-show="activity.record.type == 1" class="btn btn-primary" type="button" ng-click="activity.refresh()">刷新</button>
+        <button ng-disabled="!saveForm.$valid" 
+                ng-class="{'btn-primary': saveForm.$valid}" class="btn" type="button" ng-click="activity.saveRecord()">保存</button>
+        <button ng-disabled="activity.unachieved == 0" 
+                ng-class="{'btn-danger': activity.unachieved > 0}" class="btn" type="button"
+                ng-click="activity.disable()">{{activity.disableLabel}}</button>
+        <a ng-show="activity.record.type == 1" class="btn btn-primary" href="#/activity/{{activity.record.id}}/upload">继续上传优惠券</a>
+        <a class="btn" href="#/activity">返回</a>
+    </div>
+    <br/>
+    <div>
+         <h4>基本信息</h4>
+        <form name="saveForm">
+            <fieldset>
+                <table>
+                    <tr>
+                        <td width="150px" valign="top">名称：</td>
+                        <td>
+                        {{activity.record.name}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top">类型：</td>
+                        <td>
+                            <span ng-show="activity.record.type == 0">关键词回复</span>
+                            <span ng-show="activity.record.type == 1">优惠券发放</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <span ng-show="activity.record.type == 0">匹配关键字：</span>
+                            <span ng-show="activity.record.type == 1">领取编码：</span>
+                        </td>
+                        <td>
+                        <input ng-show="activity.record.type == 0" type="text" ng-required="true" ng-model="activity.record.code">
+                        <span ng-show="activity.record.type == 1">{{activity.record.code}}</span>
+                        </td>
+                    </tr>
+                    <tr ng-show="activity.record.type == 1">
+                        <td valign="top">优惠券数量：</td>
+                        <td>
+                        {{activity.total}}
+                        </td>
+                    </tr>
+                    <tr ng-show="activity.record.type == 1">
+                        <td valign="top">已领取：</td>
+                        <td>
+                        {{activity.achieved}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="padding-top:20px;">
+                            <span ng-show="activity.record.type == 0">回复文本：</span>
+                            <span ng-show="activity.record.type == 1">领取成功时回复文本：</span>
+                        </td>
+                        <td style="padding-top:10px;">
+                            <input type="hidden" ng-required="true" ng-model="activity.record.reply" ng-maxlength="200">
+                            <div text-angular ng-model="activity.record.reply" ta-toolbar="[['html', 'insertLink', 'unlink']]"></div>
+                            <div style="color:red">
+                                 <br/>
+                                1) 回复文本只能是纯文本或者超链接，最多200个字。 如需回复表情，请输入/微笑 /玫瑰 /可爱 <br/>
+                            </div>
+                            <div style="color:red" ng-show="activity.record.type == 1">
+                                2) 领取成功时回复的文本中必须含有 {YHQ} ，否则无法发放优惠码 <br/>
+                                3) 已领取优惠券的用户，再次发送领取编码时，依然会收到领取成功时的回复文本。
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-show="activity.record.type == 1">
+                        <td valign="top" style="padding-top:20px;">
+                            <span ng-show="activity.record.type == 1">无优惠券可领取时回复文本：</span>
+                        </td>
+                        <td style="padding-top:10px;">
+                            <input type="hidden" ng-required="activity.record.type == 1" ng-model="activity.record.endReply" ng-maxlength="200">
+                            <div text-angular ng-model="activity.record.endReply" ta-toolbar="[['html', 'insertLink', 'unlink']]"></div>
+                            <div style="color:red">
+                                 <br/>
+                                1) 当活动暂定发放时，将回复该文本。 <br/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-show="activity.record.type == 1">
+                        <td valign="top" style="padding-top:20px;">
+                            <span >限制领取设置：</span>
+                        </td>
+                        <td style="padding-top:20px;">
+                            <div>
+                            <input id="restrictDays" type="text" ng-required="activity.record.type == 1" style="width:40px" ng-pattern="/^\d{1,4}$/"
+                                   ng-model="activity.record.restrictDays">
+                            <span>天内领取过其他活动优惠券时，将无法获得本活动优惠券 (范围：0 ~ 9999)</span>
+                            </div>
+
+                            <div>
+                            <button class="btn btn-small" type="button" ng-click="activity.record.restrictDays = 0">无限制</button>
+                            <button class="btn btn-small" type="button" ng-click="activity.record.restrictDays = 3650">限新粉</button>
+                            </div>
+
+                            <div style="margin-top: 20px;">当满足限制条件，无法领取时，回复以下文本：</div>
+                            <input type="hidden" ng-required="activity.record.type == 1" ng-model="activity.record.restrictDaysReply" ng-maxlength="200">
+                            <div text-angular ng-model="activity.record.restrictDaysReply" ta-toolbar="[['html', 'insertLink', 'unlink']]"></div>
+                            <div style="color:red">
+                                 <br/>
+                                1) 只能是纯文本或者超链接，最多200个字。 如需回复表情，请输入/微笑 /玫瑰 /可爱 <br/>
+                                2) 当天数设置为0时，该规则失效 <br/>
+                                3) 当优惠券只能新粉领取时，建议将限制天数设置为3650天（十年）甚至更多 <br/>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </form>
+    </div>
+    <div ng-show="activity.record.type == 1">
+        <ul class="nav nav-tabs">
+          <li ng-class="{'active': activity.tab == 'chart'}" ng-click="activity.tab = 'chart'"><a href="javascript:void(0)" data-toggle="tab">领取时间分布图(单位:小时)</a></li>
+          <li ng-class="{'active': activity.tab == 'table'}" ng-click="activity.tab = 'table'"><a href="javascript:void(0)" data-toggle="tab">优惠券及领取情况清单</a></li>
+        </ul>
+        <div wx-coupon-chart ng-show="activity.tab == 'chart'"></div>
+        <div>
+        <div ng-show="activity.tab == 'table'" style="width:98%; margin:auto;">
+            <table class="table table-striped" >
+              <thead>
+                <tr>
+                  <th>优惠券编码</th>
+                  <th>领取人</th>
+                  <th>领取时间</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in activity.coupons">
+                  <td>{{item.code}}</td>
+                  <td>{{item.openId}}</td>
+                  <td>{{item.achievedTime}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div ng-show="activity.total > activity.coupons.length" style="text-align:center; color: blue;font-size:1.2em; cursor:pointer" ng-click="activity.refresh()">点击加载更多</div>
+        </div>
+    </div>
+</div>
