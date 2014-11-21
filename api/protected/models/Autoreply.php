@@ -8,7 +8,7 @@ class Autoreply extends WexActiveRecord
      */
     public function tableName()
     {
-        return 'webot_autoreply';
+        return 'wex_autoreply';
     }
 
     /**

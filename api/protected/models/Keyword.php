@@ -8,7 +8,7 @@ class Keyword extends WexActiveRecord
      */
     public function tableName()
     {
-        return 'webot_keyword';
+        return 'wex_keyword';
     }
 
     /**

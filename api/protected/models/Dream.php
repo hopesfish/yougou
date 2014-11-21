@@ -7,7 +7,7 @@ class Dream extends WexActiveRecord {
      */
     public function tableName()
     {
-        return 'wx_dream';
+        return 'wex_dream';
     }
 
     /**

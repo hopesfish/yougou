@@ -7,7 +7,7 @@ class Vote extends WexActiveRecord {
      */
     public function tableName()
     {
-        return 'wx_dream_vote';
+        return 'wex_dream_vote';
     }
 
     /**
