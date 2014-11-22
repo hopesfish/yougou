@@ -10,18 +10,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>类型：</td>
-                        <td valign="top">
-                            <button class="btn btn-small" type="button"
-                                    ng-class="{'btn-primary': activity.record.type == 0}" ng-click="activity.record.type = 0">关键词回复</button>
-                            <button class="btn btn-small" type="button"
-                                    ng-class="{'btn-primary': activity.record.type == 1}" ng-click="activity.record.type = 1">优惠券发放</button>
-                        </td>
-                    </tr>
-                    <tr>
                         <td valign="top" style="padding-top:10px;">
-                            <span ng-show="activity.record.type == 0">匹配关键字：</span>
-                            <span ng-show="activity.record.type == 1">领取编码：</span>
+                            <span>领取编码：</span>
                         </td>
                         <td style="padding-top:10px;">
                             <input type="text" ng-required="true" ng-model="activity.record.code">

@@ -22,16 +22,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td valign="top">类型：</td>
-                        <td>
-                            <span ng-show="activity.record.type == 0">关键词回复</span>
-                            <span ng-show="activity.record.type == 1">优惠券发放</span>
-                        </td>
-                    </tr>
-                    <tr>
                         <td valign="top">
-                            <span ng-show="activity.record.type == 0">匹配关键字：</span>
-                            <span ng-show="activity.record.type == 1">领取编码：</span>
+                            <span>领取编码：</span>
                         </td>
                         <td>
                         <input ng-show="activity.record.type == 0" type="text" ng-required="true" ng-model="activity.record.code">
@@ -44,7 +36,7 @@
                         {{activity.total}}
                         </td>
                     </tr>
-                    <tr ng-show="activity.record.type == 1">
+                    <tr>
                         <td valign="top">已领取：</td>
                         <td>
                         {{activity.achieved}}
@@ -68,7 +60,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr ng-show="activity.record.type == 1">
+                    <tr>
                         <td valign="top" style="padding-top:20px;">
                             <span ng-show="activity.record.type == 1">无优惠券可领取时回复文本：</span>
                         </td>
@@ -81,7 +73,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr ng-show="activity.record.type == 1">
+                    <tr>
                         <td valign="top" style="padding-top:20px;">
                             <span >限制领取设置：</span>
                         </td>
@@ -112,7 +104,7 @@
             </fieldset>
         </form>
     </div>
-    <div ng-show="activity.record.type == 1">
+    <div>
         <ul class="nav nav-tabs">
           <li ng-class="{'active': activity.tab == 'chart'}" ng-click="activity.tab = 'chart'"><a href="javascript:void(0)" data-toggle="tab">领取时间分布图(单位:小时)</a></li>
           <li ng-class="{'active': activity.tab == 'table'}" ng-click="activity.tab = 'table'"><a href="javascript:void(0)" data-toggle="tab">优惠券及领取情况清单</a></li>

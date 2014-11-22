@@ -10,20 +10,10 @@ define(function (require, exports, module) {
             function($scope, $routeParams, $location, $http, $timeout, UserService, ActivityService) {
                 $scope.activity = {};
                 $scope.activity.selected = null;
-                $scope.activity.type = 'all';
                 $scope.activity.typeLabel = '全部';
 
                 function refresh(type) {
                     var params = {};
-
-                    if (type) {
-                        $scope.activity.type = type;
-                    } else {
-                        type = $scope.activity.type;
-                    }
-                    if (type !== 'all') {
-                        params.type = type;
-                    }
 
                     $scope.common.standby.show();
                     ActivityService.queryPaging(params).then(function(paging) {
@@ -35,29 +25,8 @@ define(function (require, exports, module) {
                     });
                 }
                 $scope.activity.refresh = refresh;
+                refresh();
                 
-                $scope.$watch("activity.type", function() {
-                    var type = $scope.activity.type;
-                    if (type == 0) {
-                        $scope.activity.typeLabel = '关键词回复';
-                    } else if (type == 1){
-                        $scope.activity.typeLabel = '优惠券发放';
-                    } else {
-                        $scope.activity.typeLabel = '全部';
-                    }
-                    $.cookie("activity.type", $scope.activity.type);
-
-                    refresh($scope.activity.type);
-                });
-
-                var cookieVal = $.cookie("activity.type");
-                if (cookieVal) {
-                    $scope.activity.type = cookieVal;
-                    refresh($scope.activity.type);
-                } else {
-                    refresh();
-                }
-
                 $scope.activity.remove = function() {
                     if (!$scope.activity.selected) {
                         return null;

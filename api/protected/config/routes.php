@@ -8,6 +8,8 @@ return array(
 		'api/activity/<activityId:[\d\w-]{36}?>'=>'activity/restupdate',
 		'api/activity/<activityId:[\d\w-]{36}?>/coupon'=>'coupon/restcreate',
 		'api/activity/<activityId:[\d\w-]{36}?>/coupon/<couponId:[\d\w-]{36}?>'=>'coupon/restupdate',
+		'api/autoreply'=>'autoreply/restcreate',
+		'api/autoreply/<replyId:\d+>'=>'autoreply/restupdate',
 	),
 
 	'@get'=>array(
@@ -18,7 +20,9 @@ return array(
 		'api/coupon'=>'coupon/restindex',
 		'api/activity/<activityId:[\d\w-]{36}?>/coupon'=>'coupon/restindex',
 		'api/activity/<activityId:[\d\w-]{36}?>/coupon/timeline'=>'coupon/resttimeline',
-		'api/activity/<activityId:[\d\w-]{36}?>/achieve'=>'activity/restachieve',
+		'api/coupon/achieve'=>'coupon/restachieve',
+		'api/autoreply'=>'autoreply/restlist',
+		'api/autoreply/<replyId:[\d\w-]{36}?>'=>'autoreply/restget',
 	),
 
 
@@ -26,6 +30,7 @@ return array(
 		'api/user/<userId:[\d\w-]{36}?>'=>'user/restremove',
 		'api/activity/<activityId:[\d\w-]{36}?>'=>'activity/restremove',
 		'api/activity/<id:[\d\w-]{36}?>/coupon/<couponId:[\d\w-]{36}?>'=>'coupon/restremove',
+		'api/autoreply/<replyId:[\d\w-]{36}?>'=>'autoreply/restremove',
 	),
 );
 ?>

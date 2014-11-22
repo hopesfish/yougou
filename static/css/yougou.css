@@ -2,12 +2,35 @@ html, body { height: 100%; font-size: 1em; }
 a { text-decoration: none; color: #006699; font-weight: bold !important; font-size: 1em;}
 .clear { clear: both; }
 h4 { border-bottom: 1px solid #ccc; line-height:2em;}
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input { margin: 0px; }
 
 #loading { width: 100%; padding: auto; padding-top: 8%; text-align: center; height: 100%; z-index: 101; background-color: #fff; position: fixed;}
 #loading img{ width: 90%; margin: auto; max-width: 400px; }
 
 .table tr { cursor: pointer; }
 .table tr.selected td { background-color: #eee !important; }
+
+.wx-buttons {
+    margin: 5px;
+}
+.wx-form td {
+    padding: 5px;
+}
 
 .ecgContent { margin-top: 60px; }
 #wx-standby { display: none; position: fixed; background-color: #000; opacity: 0.8; width: 100%; height: 120%; top:0px; left:0px; z-index: 102;  }
@@ -27,5 +50,21 @@ h4 { border-bottom: 1px solid #ccc; line-height:2em;}
 	height: 130px;
     width: 500px;
 }
+
+#wx-autoreply textarea {
+    min-width: 36em;
+    min-height: 3em;
+    vertical-align: top;
+}
+.wx-reply {
+    margin: 10px 0px;
+}
+.wx-reply span {
+    display: inline-block;
+    min-width: 6em;
+    vertical-align: top;
+}
+
+
 
 #wx-coupon-chart { width: 98%; margin:auto; }

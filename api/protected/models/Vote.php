@@ -49,9 +49,9 @@ class Vote extends WexActiveRecord {
             'open_id' => 'openid',
             'ip_address' => 'ip',
             'vote_at' => '投票时间',
-            'created_at' => 'Created Time',
+            'created_time' => 'Created Time',
             'created_by' => 'Created By',
-            'updated_at' => 'Updated Time',
+            'updated_time' => 'Updated Time',
             'updated_by' => 'Updated By'
         );
     }

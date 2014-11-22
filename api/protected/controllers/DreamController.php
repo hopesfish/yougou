@@ -35,7 +35,7 @@ class DreamController extends Controller {
     */
     public function actionRestlist() {
         $criteria = new CDbCriteria();
-        $criteria->order = 'created_at DESC';
+        $criteria->order = 'created_time DESC';
 
 
         $result = Dream::model()->findAll($criteria);
@@ -69,7 +69,7 @@ class DreamController extends Controller {
         $criteria = new CDbCriteria();
         $criteria->limit = $take;
         $criteria->offset = $skip;
-        $criteria->order = 'created_at DESC';
+        $criteria->order = 'created_time DESC';
 
 
         $result = Dream::model()->findAll($criteria);

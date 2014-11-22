@@ -14,6 +14,7 @@ define(function (require, exports, module) {
     require('./modules/main/config.js')(app);
     require('./modules/user/config.js')(app);
     require('./modules/activity/config.js')(app);
+    require('./modules/autoreply/config.js')(app);
 
     //配置期
     app.config(['$httpProvider', '$routeProvider', function($httpProvider, $routeProvider) {

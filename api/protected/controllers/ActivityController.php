@@ -1,6 +1,5 @@
 <?php
-Yii::import('application.controllers.BaseController');
-class ActivityController extends BaseController
+class ActivityController extends Controller
 {
 
     /**
@@ -205,14 +204,6 @@ class ActivityController extends BaseController
             $activity->name = $_POST['name'];
         }
 
-        if (isset($_POST['code'])) {
-            // 判断新的code是否唯一
-            if ($activity->code != $_POST['code'] && !$this->checkCodeIsUnqinue($_POST['code'])) {
-                return $this->sendResponse(400, 'code is not unique');
-            }
-            $activity->code = $_POST['code'];
-        }
-
         if (isset($_POST['reply'])) {
             $activity->reply = $_POST['reply'];
         }
@@ -288,112 +279,6 @@ class ActivityController extends BaseController
         } else {
             $this->sendResponse(500, 'failed to remove.');
         }
-    }
-
-    /**
-     * 获得该活动优惠码
-     * GET /api/activity/{activityId}/achieve
-     */
-    public function actionRestachieve() {
-        $this->checkRestAuth();
-
-        $activity = Activity::model()->findByPk($_GET['activityId']);
-        if ($activity == null || $activity->archived == 0) {
-            return $this->sendResponse(404, 'activity is not found');
-        }
-        if ($activity->enabled == 0) {
-            return $this->sendResponse(404, 'activity is disabled');
-        }
-
-        if (!isset($_GET['openId'])) {
-            return $this->sendResponse(400, 'open id is required');
-        }
-        
-        // 先判断有没有优惠券
-        $criteria = new CDbCriteria();
-        $criteria->compare('archived', 1);
-        $criteria->addCondition('achieved_time IS NULL');
-        $criteria->addCondition('open_id IS NULL');
-        $criteria->compare('activity_id', $activity->id);
-        $criteria->limit = 1;
-        
-        $total = Coupon::model()->count($criteria);
-        
-        if ($total == 0) {
-            return $this->sendResponse(400, 'no code');
-        }
-
-        $openId = $_GET['openId'];
-
-        // 判断是否可以继续领取
-        if (intval($activity->restrict_days) > 0) {
-            $criteria = new CDbCriteria();
-            $criteria->compare('archived', 1);
-            $criteria->compare('open_id', $openId);
-            $criteria->addNotInCondition('activity_id', array($activity->id));
-            $criteria->order = 'achieved_time desc';
-            $criteria->limit = 1;
-
-            $achieves = Coupon::model()->findAll($criteria);
-            if (count($achieves) > 0) {
-                if ((time() - strtotime($achieves[0]->achieved_time)) < (intval($activity->restrict_days) * 60 * 60 * 24)) {
-                    return $this->sendResponse(400, 'you are restricted to archive '.time().' '.strtotime($achieves[0]->achieved_time));
-                }
-            }
-        }
-
-        // 判断是否领取过
-        /*
-        $criteria = new CDbCriteria();
-        $criteria->compare('archived', 1);
-        $criteria->compare('open_id', $openId);
-        $criteria->compare('activity_id', $activity->id);
-
-        $couponCount = Coupon::model()->count($criteria);
-        if ($couponCount > 0) {
-            return $this->sendResponse(400, 'you have got one.');
-        }*/
-
-        // 再次获取优惠券总数
-        $criteria = new CDbCriteria();
-        $criteria->compare('archived', 1);
-        $criteria->addCondition('achieved_time IS NULL');
-        $criteria->addCondition('open_id IS NULL');
-        $criteria->compare('activity_id', $activity->id);
-        
-        $total = Coupon::model()->count($criteria);
-
-         // 随机获得优惠券
-        $offset = 0;
-        if ($total == 0) {
-            return $this->sendResponse(400, 'no code');
-        } else if ($total == 1) {
-            $offset = 0;
-        } else if ($total > 1) {
-            $offset = (int)($total * rand(0, 1));
-            if ($offset != 0) {
-                $offset -= 1;
-            } if ($offset >= $total) {
-                $offset = 0;
-            }
-        }
-
-        $criteria->offset = $offset;
-        $criteria->limit = 1;
-
-        // 写入领取记录
-        $coupons = Coupon::model()->findAll($criteria);
-        $coupon = $coupons[0];
-        $coupon->open_id = $openId;
-        $coupon->achieved_time = new CDbExpression('NOW()');
-        if ($coupon->save()) {
-            $array = array();
-            array_push($array, $coupon->code);
-            echo CJSON::encode($array);
-        } else {
-            return $this->sendResponse(500, "failed");
-        }
-
     }
 }
 

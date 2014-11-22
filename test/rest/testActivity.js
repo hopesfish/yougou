@@ -144,22 +144,6 @@ module.exports = function() {
             });
         });
         
-        it('failed to update activity data with same code', function(done){
-            // an example using an object instead of an array
-            async.series({
-                action: function(callback){
-                    base.update("/api/activity/" + secActivityId, {name: '活动', code: hd1code}, {token: 'basic-valid'})
-                    .then(function(id) {
-                        callback(new Error("should not updated"));
-                    }, function(err) {
-                        done();
-                    });
-                }
-            }, function(err, results) {
-                done(err);
-            });
-        });
-        
         it('success to update the sec activity data within token', function(done){
             // an example using an object instead of an array
             async.series({

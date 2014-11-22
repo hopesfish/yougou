@@ -6,80 +6,76 @@
 class Controller extends CController
 {
 	/**
-	 * @var string the default layout for the controller view. Defaults to '//layouts/column1',
-	 * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
+	 * tip
 	 */
-	public $layout='//layouts/column1';
-	/**
-	 * @var array context menu items. This property will be assigned to {@link CMenu::items}.
-	 */
-	public $menu=array();
-	/**
-	 * @var array the breadcrumbs of the current page. The value of this property will
-	 * be assigned to {@link CBreadcrumbs::links}. Please refer to {@link CBreadcrumbs::links}
-	 * for more details on how to specify this property.
-	 */
-	public $breadcrumbs=array();
-
-
-	protected $salt = 'restjimubox!@#123$%^456';
+	public function showTip($tip)
+	{
+		$this->render("/site/tip",array(
+			'tip'=>$tip,
+		));
+		return;
+	}
 
 	/**
 	 * 权限验证
 	 */
 	public function checkRestAuth()
 	{
-		$wexkey = null;
-		$wextoken = null;
-
-		if(isset($_SERVER['HTTP_WEXKEY']) && isset($_SERVER['HTTP_WEXTOKEN'])) {
-			$wexkey = $_SERVER['HTTP_WEXKEY'];
-			$wextoken = $_SERVER['HTTP_WEXTOKEN'];
-		}
-
-		$cookies = Yii::app()->request->getCookies();
-		if (isset($cookies['wexkey']) && isset($cookies['wextoken'])) {
-			$wexkey = $cookies['wexkey'];
-			$wextoken = $cookies['wextoken'];
-		}
-
-		if (!isset($wexkey) || !isset($wextoken)) {
-			return $this->sendResponse('403', 'Unauthorized');
+		if(!(isset($_SERVER['HTTP_WEXKEY'])) || !(isset($_SERVER['HTTP_WEXTOKEN']))) {
+			// Error: Unauthorized
+			$this->sendResponse(401,'No Token');
 		}
 		
+		$wexkey = $_SERVER['HTTP_WEXKEY'];
+		$wextoken = $_SERVER['HTTP_WEXTOKEN'];
+		$wexuser = null;
+		
+		$salt = 'restyougouwxg1qw23er4';
 		$token;
-		$today = date("Ymd");
-		$token = md5($wexkey.$this->salt.$today);
-	
-		if ($wextoken != $token) {
-			return $this->sendResponse(403, 'invalid token');
+		$suffix = ' by user request ';
+		if (isset($_SERVER['HTTP_WEXUSER'])) {
+		    $wexuser = $_SERVER['HTTP_WEXUSER'];
+			$token = md5($wexkey.$salt.$wexuser);
+		} else {
+			$today = date("Ymd");
+			$token = md5($wexkey.$salt.$today);
+			$suffix = ' by normal request ';
 		}
-	
-		return null;
+		
+		if ($wextoken != $token) {
+			$this->sendResponse(401, 'Token is invalid'.$suffix);
+			Yii::app()->end();
+		}
+		
+		if ($wexuser != null) {
+			$user = User::model()->findByPk($wexuser);
+			if ($user == null || $user->archived == 0) {
+				$this->sendResponse(403, 'User Token is invalid');
+				Yii::app()->end();
+			}
+			return $user;
+		} else {
+			return null;
+		}
 	}
-	
+
 	/**
 	 * 获得token
 	 */
-	public function getAuthToken($user = null)
+	public function getAuthToken($user)
 	{
 		list($s1, $s2) = explode(' ', microtime());
 		$wexkey = (int)((floatval($s1) + floatval($s2)) * 1000);
-		$salt = $this->salt;
+		$salt = 'restyougouwxg1qw23er4';
 		$today = date("Ymd");
 		//$token = md5($wexkey.$salt.$today);
-		if ($user == null) {
-			$token = md5($wexkey.$salt.$today);
-		} else {
-			$token = md5($wexkey.$salt.$user);
-		}
-		
+		$token = md5($wexkey.$salt.$user);
 		return array(
 			"wexkey"=>$wexkey,
 			"wextoken"=>$token
 		);
 	}
-
+	
 	/**
 	 * 返回信息
 	 */
@@ -121,4 +117,5 @@ class Controller extends CController
 		);
 		return (isset($codes[$status])) ? $codes[$status] : '';
 	}
+	
 }

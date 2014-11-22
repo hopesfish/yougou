@@ -1,6 +1,5 @@
 <?php
-Yii::import('application.controllers.BaseController');
-class CouponController extends BaseController
+class CouponController extends Controller
 {
 
 	/**
@@ -82,7 +81,7 @@ class CouponController extends BaseController
         	$criteria->addCondition('open_id IS NOT NULL');
         }
         if (isset($_GET['code'])) {
-        	$criteria->addSearchCondition('code', $_GET['code']);
+        	$criteria->compare('code', $_GET['code']);
         }
         if (isset($_GET['limit'])) { // 该参数仅仅是为了活动已领取和未领取得数目
         	$criteria->limit = 1;
@@ -202,65 +201,6 @@ class CouponController extends BaseController
 	}
 
 	/**
-	 * 某名优惠券数据
-	 * GET /api/activity/{activityId}/coupon/{id}
-	 */
-	public function actionRestget() {
-		$this->checkRestAuth();
-		$id = $_GET['id'];
-		if (!isset($id)) {
-			return $this->sendResponse(404, 'id is not provided.');
-		}
-		$coupon = Coupon::model()->findByPk($id);
-		if ($coupon == null || $coupon->archived == 0) {
-			return $this->sendResponse(400, 'coupon is not found.');
-		}
-		echo CJSON::encode($this->JSONMapper($coupon));
-	}
-
-	/**
-	 * 更新优惠券信息
-	 * POST /api/activity/{activityId}/coupon/{couponId}
-	 */
-	public function actionRestupdate() {
-		$this->checkRestAuth();
-
-		// check activity
-		$activity = Activity::model()->findByPk($_GET['activityId']);
-		if ($activity == null || $activity->archived == 0) {
-			return $this->sendResponse(404, 'activity is not found');
-		}
-
-		$coupon = Coupon::model()->findByPk($_GET['couponId']);
-		if ($coupon == null || $coupon->archived == 0) {
-			return $this->sendResponse(404, 'coupon is not found');
-		}
-
-		if (isset($_POST['name'])) {
-			$coupon->name = $_POST['name'];
-		}
-
-		if (isset($_POST['openId'])) {
-			// 判断新的code是否唯一
-			if ( $coupon->open_id != $_POST['openId'] && 
-				!$this->checkOpenIdIsUnqinue($activity->id, $_POST['openId'])) {
-				return $this->sendResponse(400, 'open id is not unique');
-			}
-			$coupon->openId = $_POST['openId'];
-		}
-
-		if (isset($_POST['updatedBy'])) {
-			$coupon->updated_by = $_POST['updatedBy'];
-		}
-
-		if ($coupon->save()) {
-			$this->sendResponse(200, 'updated.');
-		} else {
-			$this->sendResponse(500, 'failed to update.');
-		}
-	}
-
-	/**
 	 * 删除优惠券信息
 	 * DELETE /api/activity/{activityId}/coupon/{couponId}
 	 */
@@ -280,5 +220,119 @@ class CouponController extends BaseController
 		} else {
 			$this->sendResponse(500, 'failed to remove.');
 		}
+	}
+
+	/**
+	 * 通过活动编码和OpenId获得优惠券
+	 * GET /api/coupon/achieve
+	 */
+	public function actionRestachieve() {
+		$this->checkRestAuth();
+
+		// 检查参数
+		if (!isset($_GET['code']) || !isset($_GET['openId'])) {
+			return $this->sendResponse(400, 'missed parameters');
+		}
+
+		// 结果对象
+		$result = array(
+			'activities' => array(),
+			'coupons' => array()
+		);
+
+		// 判断活动当前状态
+		$criteria = new CDbCriteria();
+		$criteria->compare('code', $_GET['code']);
+        $criteria->compare('archived', 1);
+        $criteria->limit = 1;
+        $criteria->order = 'created_time desc';
+
+        $activities = Activity::model()->findAll($criteria);
+        $activity;
+        // 找不到
+        if (count($activities) != 1) {
+        	echo CJSON::encode($result);
+        	return;
+        } else {
+        	$result['activities'] = $activities;
+        	$activity = $activities[0];
+        	// 暂停状态
+        	if ($activity->enabled == 0) {
+        		echo CJSON::encode($result);
+        		return;
+        	}
+        }
+        
+        // 先判断有没有优惠券
+        $criteria = new CDbCriteria();
+        $criteria->compare('archived', 1);
+        $criteria->addCondition('achieved_time IS NULL');
+        $criteria->addCondition('open_id IS NULL');
+        $criteria->compare('activity_id', $activity->id);
+        $criteria->limit = 1;
+        
+        $coupons = Coupon::model()->findAll($criteria);
+        
+        if (count($coupons) == 0) {
+        	echo CJSON::encode($result);
+        	return;
+        }
+
+        $openId = $_GET['openId'];
+
+        // 
+        $criteria = new CDbCriteria();
+        $criteria->compare('archived', 1);
+        $criteria->compare('open_id', $openId);
+        $criteria->order = 'achieved_time desc';
+        $criteria->limit = 1;
+
+        $achieves = array();
+
+        if (intval($activity->restrict_days) > 0) {
+        	// 如果已经领过优惠券,且不符合该活动有N天限制,不可以领取
+        	$achieves = Coupon::model()->findAll($criteria);
+            if (count($achieves) > 0) {
+                if ((time() - strtotime($achieves[0]->achieved_time)) < (intval($activity->restrict_days) * 60 * 60 * 24)) {
+                	echo CJSON::encode($result);
+        			return;
+                }
+            }
+            $result['coupons'] = $achieves;
+        } else {
+        	$criteria->compare('activity_id', $activity->id);
+	    	$achieves = Coupon::model()->findAll($criteria);
+
+	        // 如果已经领过,判断是否还可以继续领取
+	        if (count($achieves) > 0) {
+	        	$result['coupons'] = $achieves;
+	        	echo CJSON::encode($result);
+        		return;
+	        }
+        }
+
+        // 随机获得优惠券
+        $total = count($coupons);
+        $offset = 0;
+
+        if ($total > 1) {
+            $offset = (int)($total * rand(0, 1));
+            if ($offset != 0) {
+                $offset -= 1;
+            } if ($offset >= $total) {
+                $offset = 0;
+            }
+        }
+
+        // 写入领取记录
+        $coupon = $coupons[$offset];
+        $coupon->open_id = $openId;
+        $coupon->achieved_time = new CDbExpression('NOW()');
+        if ($coupon->save()) {
+        	array_push($result['coupons'], $coupon);
+            echo CJSON::encode($result);
+        } else {
+        	echo CJSON::encode($result);
+        }
 	}
 }

@@ -28,16 +28,17 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
 
-//app.use(express.session({secret: 'weexiao secret', cookie: {maxAge: conf.timeout.val}}));
 app.use(express.query());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-// REST API
-require("./rest")(app);
+// Index
+app.get('/', function(req, res) {
+  res.send(200, 'wechat');
+});
 
-// 上传文件
-app.post('/file-upload', function(req, res, next) {
+// 优惠券
+app.post('/coupon-upload', function(req, res, next) {
    var obj = xlsx.parse(req.files.thumbnail.path); // parses a file
    var batch = (new Date()).getTime();
 
@@ -46,12 +47,13 @@ app.post('/file-upload', function(req, res, next) {
        return;
    }
 
-   for (var i=0; i<obj.worksheets[0].data.length; i++) {
-       var record = obj.worksheets[0].data[i];
+   var sheet = obj[0];
+   for (var i=0; i<sheet.data.length; i++) {
+       var record = sheet.data[i];
        if (!record) { continue; }
        if (!record[0]) { continue; }
        var url = "/api/activity/" + req.body.activityId + "/coupon";
-       var data = {batch: batch, code: record[0].value};
+       var data = {batch: batch, code: record[0]};
        ActivityServices.createCoupon(url, data).then(function() {
            console.info('done');
        }, function(err) {
@@ -65,13 +67,12 @@ app.post('/file-upload', function(req, res, next) {
 // 回复机器人
 var webot = require('weixin-robot');
 require("./wxbot")(webot);
-webot.watch(app, { token: conf.weixin, path: '/webot/weixin/api' });
+webot.watch(app, { token: conf.weixin, path: '/wxbot' });
 
 // 这个方法必须在webot.watch后面
 app.use(express.session({
 	secret: 'weexiao',
 	store: new express.session.MemoryStore(),
-    expires: new Date(Date.now() + conf.timeout.val)
 }));
 
 // 启动express

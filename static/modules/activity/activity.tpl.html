@@ -5,15 +5,6 @@
 	    <button class="btn" type="button"
 	        ng-click="activity.remove()"
 	        ng-disabled="activity.selected == null" ng-class="{'btn-danger': activity.selected != null}">删除</button>
-	    <span>类型：</span>
-        <div class="btn-group">
-           <button class="btn dropdown-toggle" data-toggle="dropdown">{{activity.typeLabel}}<span class="caret"></span></button>
-           <ul class="dropdown-menu">
-             <li><a ng-click="activity.type = 'all'" href="javascript:void(0)">全部</a></li>
-             <li><a ng-click="activity.type = 0" href="javascript:void(0)">关键词回复</a></li>
-             <li><a ng-click="activity.type = 1" href="javascript:void(0)">优惠券发放</a></li>
-           </ul>
-         </div>
     </div>
     <br/>
     <table class="table table-striped">
@@ -21,8 +12,7 @@
         <tr>
           <th>#</th>
           <th>名称</th>
-          <th>类型</th>
-          <th>匹配关键字/领取编码</th>
+          <th>领取编码</th>
           <th>操作</th>
         </tr>
       </thead>
@@ -30,10 +20,6 @@
         <tr ng-repeat="item in activity.record" ng-class="{'selected': item.id == activity.selected.id}" ng-click="activity.selected = item">
           <td>{{$index + 1}}</td>
           <td>{{item.name}}</td>
-          <td>
-            <span ng-show="item.type == 0">关键词回复</span>
-            <span ng-show="item.type == 1">优惠券发放</span>
-          </td>
           <td width="50%">{{item.code}}</td>
           <td>
           <a class="btn btn-primary" href="#/activity/{{item.id}}">查看</a>

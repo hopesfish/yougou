@@ -49,9 +49,9 @@ class Autoreply extends WexActiveRecord
             'type' => '类型',
             'reply' => '回复内容的JSON串',
             'enabled' => '是否启用',
-            'created_at' => 'Created Time',
+            'created_time' => 'Created Time',
             'created_by' => 'Created By',
-            'updated_at' => 'Updated Time',
+            'updated_time' => 'Updated Time',
             'updated_by' => 'Updated By',
             'archived' => '是否存档',
         );

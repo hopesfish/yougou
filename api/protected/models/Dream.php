@@ -54,9 +54,9 @@ class Dream extends WexActiveRecord {
             'nickname' => '用户昵称',
             'isdel' => 'Is Delete',
             'open_id' => '微信 openid',
-            'created_at' => 'Created Time',
+            'created_time' => 'Created Time',
             'created_by' => 'Created By',
-            'updated_at' => 'Updated Time',
+            'updated_time' => 'Updated Time',
             'updated_by' => 'Updated By'
         );
     }

@@ -1,6 +1,5 @@
 <?php
-Yii::import('application.controllers.BaseController');
-class UserController extends BaseController
+class UserController extends Controller
 {
 	/**
 	 * REST 登录认证接口

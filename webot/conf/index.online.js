@@ -6,7 +6,7 @@ module.exports = {
         desc : '十分钟',
         val : 1000 * 60 * 10
     },
-    api_root : 'http://api.yougouwx.com',
+    api_root : 'http://localhost:8082',
     salt : 'weexiao',
     weixin : 'yougouwx'
 };

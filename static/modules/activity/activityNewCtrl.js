@@ -9,7 +9,15 @@ define(function (require, exports, module) {
     app.register.controller('activityNewCtrl', ['$scope', '$routeParams', '$location', '$http', '$timeout', 'UserService', 'ActivityService',
         function($scope, $routeParams, $location, $http, $timeout, UserService, ActivityService) {
             $scope.activity = {};
-            $scope.activity.record = {name: '', code: '', type: 0, reply: '', restrictDays: 0, restrictDaysReply: '限制天数为0,该规则失效!'};
+            $scope.activity.record = {
+                name: '',
+                code: '', 
+                type: 1,
+                reply: '感谢亲关注优购时尚商城官方微信，小编双手奉上礼品卡代码如下：{YHQ} ;本卡有效期截止至2099/12/30 23:59:59；亲可要抓紧时间使用哦！',
+                endReply: '亲，本次活动已经结束，如果没有抢到的话没有关系！小编会在未来举办更多更好的微信活动，请亲多多参与，也多多推荐朋友关注“iyougou”哦！',
+                restrictDays: 0,
+                restrictDaysReply: '限制天数为0,该规则失效!'
+            };
 
             $scope.$watch("session.user", function() {
                 if (!$scope.session.user) {

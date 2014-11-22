@@ -82,7 +82,7 @@ class AutoreplyController extends Controller
         }
 
         $criteria->compare('archived', 1);
-        $criteria->order = 'created_at desc';
+        $criteria->order = 'created_time desc';
 
         // 分页
         $json = new JsonData();
