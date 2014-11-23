@@ -27,7 +27,7 @@ define(function (require, exports, module) {
             
             $scope.activity.saveRecord = function() {
                 if ($scope.activity.record.type == 1 && 
-                    !/^([A-Z]|[0-9])*$/.test($scope.activity.record.code)) {
+                    !/^[A-Za-z0-9]*$/.test($scope.activity.record.code)) {
                     alert("领取编码格式不正确！");
                     return;
                 }
