@@ -1,2 +1,2 @@
 <?php /* @var $this Controller */ ?>
-jimubox wechat
+yougou wechat

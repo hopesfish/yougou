@@ -7,7 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
     'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-    'name'=>'Jimubox Webot',
+    'name'=>'Yougou Webot',
 
     // preloading 'log' component
     'preload'=>array('log'),
@@ -98,6 +98,6 @@ return array(
     // using Yii::app()->params['paramName']
     'params'=>array(
         // this is used in contact page
-        'adminEmail'=>'wei.pan@jimubox.com',
+        'adminEmail'=>'hopesfish@163.com',
     ),
 );
