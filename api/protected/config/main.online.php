@@ -47,18 +47,18 @@ return array(
         ),
         'db' => array(
             'class'=>'DbConnectionMan',//Specify it,instead of CDbConnection,other options is same as CDbConnection
-            'connectionString' => 'mysql:host=master.6034.mysql.local;port=6034;dbname=wechat',
+            'connectionString' => 'mysql:host=yougouwx.mysql.rds.aliyuncs.com;port=3306;dbname=yougouwx',
             'emulatePrepare' => true,
-            'username' => 'wechat',
-            'password' => 'Y38sn9Vs3bAXm',
+            'username' => 'yougouwx',
+            'password' => 'yougouwx',
             'charset' => 'utf8',
             'enableSlave'=>true,//Read write splitting function is swithable.You can specify this value to false to disable it.
             'slaves'=>array(//slave connection config is same as CDbConnection
                 array(
-                    'connectionString'=>'mysql:host=slave.6034.mysql.local;port=6034;dbname=wechat',
+                    'connectionString'=>'mysql:host=yougouwx.mysql.rds.aliyuncs.com;port=3306;dbname=yougouwx',
                     'emulatePrepare' => true,
-                    'username'=>'wechat_r',
-                    'password'=>'Vm9T2IWFg7Ks',
+                    'username'=>'yougouwx_r',
+                    'password'=>'yougouwx',
                     'charset' => 'utf8',
                 )
             ),
