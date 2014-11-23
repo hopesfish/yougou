@@ -45,6 +45,7 @@ return array(
                 dirname(__FILE__).'/routes.php'
             )
         ),
+        /*
         'db' => array(
             'class'=>'DbConnectionMan',//Specify it,instead of CDbConnection,other options is same as CDbConnection
             'connectionString' => 'mysql:host=yougouwx.mysql.rds.aliyuncs.com;port=3306;dbname=yougouwx',
@@ -62,17 +63,15 @@ return array(
                     'charset' => 'utf8',
                 )
             ),
-        ),
+        ),*/
         // uncomment the following to use a MySQL database
-        /*
         'db'=>array(
-            'connectionString' => 'mysql:host=localhost;dbname=testdrive',
+            'connectionString' => 'mysql:host=yougouwx.mysql.rds.aliyuncs.com;port=3306;dbname=yougouwx',
             'emulatePrepare' => true,
-            'username' => 'root',
-            'password' => '',
+            'username' => 'yougouwx',
+            'password' => 'yougouwx',
             'charset' => 'utf8',
         ),
-        */
         'errorHandler'=>array(
             // use 'site/error' action to display errors
             'errorAction'=>'site/error',
