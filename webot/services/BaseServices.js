@@ -53,39 +53,7 @@ exports.getAuthoriedParams = function(schoolId, userId) {
 		'wextoken=' + token.wextoken
 	].join("&");
 }
-/**
- * get paging list
- */
-exports.queryPaging = function(url) {
-    var deferred = Q.defer();
 
-    var options = {
-        url: conf.api_root + url,
-        method: 'GET',
-        headers: getToken()
-    };
-
-    function callback(error, response, body) {
-        if (!error && response.statusCode == 200) {
-            var jsondata = JSON.parse(body);
-            if (jsondata && jsondata.result) {
-                deferred.resolve(jsondata.result);
-            } else {
-                deferred.resolve([]);
-            }
-        } else {
-            deferred.reject(error || body || new Error("unknown"));
-        }
-    }
-
-    request(options, callback);
-
-    return deferred.promise;
-}
-
-/**
- * get full list
- */
 exports.queryAll = function(url) {
     var deferred = Q.defer();
 
@@ -131,6 +99,36 @@ exports.create = function(url, record, userId) {
             deferred.resolve();
         } else {
             deferred.reject(error || body || new Error('unkown'));
+        }
+    }
+
+    request(options, callback);
+
+    return deferred.promise;
+}
+
+/**
+ * get object
+ */
+exports.get = function(url, options) {
+    var deferred = Q.defer();
+
+    var options = {
+        url: conf.api_root + url,
+        method: 'GET',
+        headers: getToken()
+    };
+
+    function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var jsondata = JSON.parse(body);
+            if (jsondata) {
+                deferred.resolve(jsondata);
+            } else {
+                deferred.resolve([]);
+            }
+        } else {
+            deferred.reject(error || body || new Error("unknown"));
         }
     }
 

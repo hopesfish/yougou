@@ -234,6 +234,8 @@ class CouponController extends Controller
 			return $this->sendResponse(400, 'missed parameters');
 		}
 
+		$openId = $_GET['openId'];
+
 		// 结果对象
 		$result = array(
 			'activities' => array(),
@@ -263,24 +265,7 @@ class CouponController extends Controller
         	}
         }
         
-        // 先判断有没有优惠券
-        $criteria = new CDbCriteria();
-        $criteria->compare('archived', 1);
-        $criteria->addCondition('achieved_time IS NULL');
-        $criteria->addCondition('open_id IS NULL');
-        $criteria->compare('activity_id', $activity->id);
-        $criteria->limit = 1;
-        
-        $coupons = Coupon::model()->findAll($criteria);
-        
-        if (count($coupons) == 0) {
-        	echo CJSON::encode($result);
-        	return;
-        }
-
-        $openId = $_GET['openId'];
-
-        // 
+        // 先判断是否已领取
         $criteria = new CDbCriteria();
         $criteria->compare('archived', 1);
         $criteria->compare('open_id', $openId);
@@ -288,27 +273,41 @@ class CouponController extends Controller
         $criteria->limit = 1;
 
         $achieves = array();
+        $isRestricted = false;
 
         if (intval($activity->restrict_days) > 0) {
         	// 如果已经领过优惠券,且不符合该活动有N天限制,不可以领取
         	$achieves = Coupon::model()->findAll($criteria);
             if (count($achieves) > 0) {
                 if ((time() - strtotime($achieves[0]->achieved_time)) < (intval($activity->restrict_days) * 60 * 60 * 24)) {
-                	echo CJSON::encode($result);
-        			return;
+        			$isRestricted = true;
                 }
             }
-            $result['coupons'] = $achieves;
-        } else {
-        	$criteria->compare('activity_id', $activity->id);
-	    	$achieves = Coupon::model()->findAll($criteria);
+        } 
 
-	        // 如果已经领过,判断是否还可以继续领取
-	        if (count($achieves) > 0) {
-	        	$result['coupons'] = $achieves;
-	        	echo CJSON::encode($result);
-        		return;
-	        }
+    	$criteria->compare('activity_id', $activity->id);
+    	$achieves = Coupon::model()->findAll($criteria);
+    	$result['coupons'] = $achieves;
+
+        // 判断是否还可以继续领取
+        if ($isRestricted || count($achieves) > 0) {
+        	echo CJSON::encode($result);
+    		return;
+        }
+
+        // 再判断有没有优惠券
+        $criteria = new CDbCriteria();
+        $criteria->compare('archived', 1);
+        $criteria->addCondition('achieved_time IS NULL');
+        $criteria->addCondition('open_id IS NULL');
+        $criteria->compare('activity_id', $activity->id);
+        $criteria->limit = 10;
+        
+        $coupons = Coupon::model()->findAll($criteria);
+        
+        if (count($coupons) == 0) {
+        	echo CJSON::encode($result);
+        	return;
         }
 
         // 随机获得优惠券

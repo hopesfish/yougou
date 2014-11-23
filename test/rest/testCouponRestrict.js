@@ -125,5 +125,24 @@ module.exports = function() {
                 done(err);
             });
         });
+
+        it('success to achieve a coupon data of 2nd activity with right code again', function(done){
+            // an example using an object instead of an array
+            async.series({
+                action: function(callback){
+                    base.queryAll("/api/coupon/achieve?code=" + (code + 1) + "&openId=" + openId, {token: 'basic-valid'})
+                    .then(function(result) {
+                        assert.equal(result.activities.length, 1);
+                        assert.equal(result.coupons.length, 1);
+                        done();
+                    }, function(err) {
+                        console.info(err);
+                        callback(err);
+                    });
+                }
+            }, function(err, results) {
+                done(err);
+            });
+        });
     });
 }

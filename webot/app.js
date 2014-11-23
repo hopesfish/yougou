@@ -67,7 +67,7 @@ app.post('/coupon-upload', function(req, res, next) {
 // 回复机器人
 var webot = require('weixin-robot');
 require("./wxbot")(webot);
-webot.watch(app, { token: conf.weixin, path: '/wxbot' });
+webot.watch(app, { token: conf.weixin, path: '/webot' });
 
 // 这个方法必须在webot.watch后面
 app.use(express.session({
