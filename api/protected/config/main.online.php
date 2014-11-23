@@ -66,7 +66,7 @@ return array(
         ),*/
         // uncomment the following to use a MySQL database
         'db'=>array(
-            'connectionString' => 'mysql:host=yougouwx.mysql.rds.aliyuncs.com;port=3306;dbname=yougouwx',
+            'connectionString' => 'mysql:host=localhost;port=3306;dbname=yougouwx',
             'emulatePrepare' => true,
             'username' => 'yougouwx',
             'password' => 'yougouwx',
