@@ -33,7 +33,7 @@ service php-fpm restart
 
 #webot
 cd /var/www/html/yougou-webot
-npm update
+#npm update
 cd /var/www/html/yougou-webot/conf
 mv -f index.online.js index.js
 

@@ -57,7 +57,7 @@ return array(
                 array(
                     'connectionString'=>'mysql:host=yougouwx.mysql.rds.aliyuncs.com;port=3306;dbname=yougouwx',
                     'emulatePrepare' => true,
-                    'username'=>'yougouwx_r',
+                    'username'=>'yougouwx',
                     'password'=>'yougouwx',
                     'charset' => 'utf8',
                 )
