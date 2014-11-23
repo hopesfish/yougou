@@ -19,6 +19,11 @@ cp -frap api/* /var/www/html/yougou
 cp -frap static/* /var/www/html/yougou-static
 cp -frap webot/* /var/www/html/yougou-webot
 
+#update ngingx
+cd /home/yougou/yougou/shells/online/nginx/conf.d
+rm -f /etc/nginx/conf.d/*
+cp -f *.conf /etc/nginx/conf.d
+
 #777
 mkdir /var/www/html/yougou/protected/runtime
 chmod 777 /var/www/html/yougou/protected/runtime
