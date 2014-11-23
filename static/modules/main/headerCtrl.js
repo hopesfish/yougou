@@ -7,6 +7,12 @@ define(function (require, exports, module) {
             function($scope, $routeParams, $location, $http) {
                 $scope.header = {};
                 $scope.header.tab = 'activity';
+
+                if ($location.path().indexOf('activity') > 0) {
+                    $scope.header.tab = 'activity';
+                } else {
+                    $scope.header.tab = 'autoreply';
+                }
             }]
         );
     }

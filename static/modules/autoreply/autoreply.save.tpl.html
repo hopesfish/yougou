@@ -11,24 +11,24 @@
         <form name="saveForm" class="wx-form">
             <fieldset>
                 <table>
-                    <tr>
+                    <!--tr>
                         <td width="180px" valign="top">规则名称：</td>
                         <td>
                             <input id="name" type="text" ng-required="true" ng-model="autoreply.record.name">
                         </td>
-                    </tr>
+                    </tr-->
                     <tr>
                         <td valign="top">
-                            <label>匹配关键字/事件：</label>
+                            <label>匹配关键字：</label>
                         </td>
                         <td>
                             <textarea ng-required="true" ng-model="autoreply.record.keywords"></textarea>
                             <div style="color:red">
-                                - 多个关键字请用半角逗号隔开：如 <b>积木盒子,互联网金融</b>
+                                - 多个关键字请用半角逗号隔开：如 <b>优购,微信公众号</b>
                                 <br/>
                                 - 如果某个关键词已经存在，将无法添加该关键词，但不影响添加回复规则;
                                 <br/>
-                                - 在【匹配关键字】一栏中输入英文'SUBSCRIBE'，下方设置的【回复文本】则为粉丝首次关注微信账号时收到的欢迎词语;
+                                - 在【匹配关键字】一栏中输入英文'WELCOME'，下方设置的【回复文本】则为粉丝首次关注微信账号时收到的欢迎词语;
                                 <br/>
                                 - 关键词中的英文会自动转成大写字母;
                             </div>

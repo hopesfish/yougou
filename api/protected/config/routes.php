@@ -22,6 +22,7 @@ return array(
 		'api/activity/<activityId:[\d\w-]{36}?>/coupon/timeline'=>'coupon/resttimeline',
 		'api/coupon/achieve'=>'coupon/restachieve',
 		'api/autoreply'=>'autoreply/restlist',
+		'api/autoreply/migrate'=>'autoreply/restmigrate',
 		'api/autoreply/<replyId:[\d\w-]{36}?>'=>'autoreply/restget',
 	),
 

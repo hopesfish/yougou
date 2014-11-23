@@ -12,22 +12,20 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>#</th>
-          <th>名称</th>
-          <th>状态</th>
+          <th width="30px">#</th>
           <th>匹配关键字</th>
-          <th>操作</th>
+          <th width="80px">状态</th>
+          <th width="80px">操作</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="item in autoreply.record" ng-class="{'selected': item.id == autoreply.selected.id}" ng-click="autoreply.selected = item">
           <td>{{$index + 1}}</td>
-          <td>{{item.name}}</td>
+          <td>{{item.keywords}}</td>
           <td>
             <span ng-show="item.enabled == 1">已启用</span>
             <span ng-show="item.enabled == 0" style="color:red">已禁用</span>
           </td>
-          <td width="50%">{{item.keywords}}</td>
           <td>
           <a class="btn btn-primary" href="#/autoreply/{{item.id}}">查看</a>
         </tr>

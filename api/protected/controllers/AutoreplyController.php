@@ -6,7 +6,7 @@ function getReplyId($kw) {
 
 class AutoreplyController extends Controller
 {
-        /**
+    /**
      * mapper the data into json object
      */
     protected function JSONMapper($reply) {
@@ -273,5 +273,57 @@ class AutoreplyController extends Controller
         }
 
         return $this->sendResponse(200, 'deleted');
+    }
+
+    /**
+     * 迁移
+     * GET /api/migrate
+     */
+    public function actionRestmigrate() {
+        $criteria = new CDbCriteria();
+        $criteria->compare('archived', 1);
+        $criteria->compare('type', 0);
+        $criteria->order = 'created_time asc';
+
+        $activities = Activity::model()->findAll($criteria);
+
+        foreach ($activities as $activity) {
+            // 创建reply
+            $reply = new Autoreply;
+            $reply->name = $activity->code;
+            $reply->type = 0;
+            $reply->reply = $activity->reply;
+
+            if (!$reply->save()) {
+                return $this->sendResponse(500, 'failed to save reply');
+            }
+
+            // 创建keywords
+            $keywords = split('，', $activity->code);
+
+            $count = 0;
+
+            foreach ($keywords as $keywordStr) {
+                $criteria = new CDbCriteria;
+                $criteria->compare('word', $keywordStr);
+                $criteria->compare('archived', 1);
+
+                if (Keyword::model()->count($criteria) == 0) {
+                    $keyword = new Keyword;
+                    $keyword->word = $keywordStr;
+                    $keyword->reply_id = $reply->id;
+
+                    $keyword->save();
+                }
+            }
+
+            $activity->archived = 0;
+            $activity->save();
+
+            sleep(1);
+        }
+
+
+        echo 'migrated';
     }
 }
