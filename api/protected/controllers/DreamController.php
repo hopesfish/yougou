@@ -1,59 +1,37 @@
 <?php
+class DreamController extends Controller
+{
 
-class DreamController extends Controller {
-
-
-    /**
-     * mapper the data into json object
-     */
     protected function JSONMapper($dream) {
 
         $newdream = array();
         $newdream['id'] = $dream->id;
-        $newdream['name'] = $dream->name;
-        $newdream['gender'] = intval($dream->gender);
-        $newdream['school'] = $dream->school;
-        $newdream['mobile'] = $dream->mobile;
-        $newdream['dream'] = $dream->dream;
-        $newdream['detail'] = $dream->detail;
-        $newdream['headimgurl'] = $dream->headimgurl;
-        $newdream['open_id'] = $dream->open_id;
         $newdream['nickname'] = $dream->nickname;
+        $newdream['headimgurl'] = $dream->headimgurl;
+        $newdream['openId'] = $dream->open_id;
+        $newdream['subOpenId'] = $dream->sub_open_id;
+        $newdream['bonus'] = $dream->bonus;
 
         return $newdream;
     }
-    protected function JSONArrayMapper($users) {
-        $newreplys = array();
-        foreach ($users as $user) {
-            array_push($newreplys, $this->JSONMapper($user));
+
+    protected function JSONArrayMapper($dreams) {
+        $newdreams = array();
+        foreach ($dreams as $dream) {
+            array_push($newdreams, $this->JSONMapper($dream));
         }
-        return $newreplys;
+        return $newdreams;
     }
 
-    /* GET: api/activity/dream 
-        获取所有梦想盒伙人的信息
-    */
+    /**
+     * 梦想集合数据
+     * GET /api/activity/dream
+     */
     public function actionRestlist() {
+        $this->checkRestAuth();
+
         $criteria = new CDbCriteria();
-        $criteria->order = 'created_time DESC';
 
-
-        $result = Dream::model()->findAll($criteria);
-
-        $json = new JsonData();
-        $json->limit = 0;
-        $json->total = Dream::model()->count($criteria);
-        $json->result = $this->JSONArrayMapper($result);
-
-        //echo CJSON::encode($result);
-        echo CJSON::encode($json);
-    }
-
-    /*  GET  api/activity/dream/paging?skip=0&take=5
-        返回梦想盒伙人的分页记录
-    */
-
-    public function actionRestlistpaging() {
         if (!isset($_GET['skip'])) {
             $skip = 0;
         } else {
@@ -61,145 +39,66 @@ class DreamController extends Controller {
         }
 
         if (!isset($_GET['take'])) {
-            $take = 10;
+            $take = 50;
         } else {
             $take = $_GET['take'];
         }
 
-        $criteria = new CDbCriteria();
+        if (isset($_GET['nickname'])) {
+            $criteria->addSearchCondition('nickname', $_GET['nickname']);
+        }
+
+        if (isset($_GET['openId'])) {
+            $criteria->compare('open_id', $_GET['openId']);
+        }
+        
         $criteria->limit = $take;
         $criteria->offset = $skip;
-        $criteria->order = 'created_time DESC';
+        $criteria->order = 'bonus DESC';
 
 
         $result = Dream::model()->findAll($criteria);
 
         $json = new JsonData();
         $json->limit = $take;
-        $json->total = Dream::model()->count($criteria);
+        $json->total = (int)Dream::model()->count($criteria);
         $json->result = $this->JSONArrayMapper($result);
 
-        //echo CJSON::encode($result);
         echo CJSON::encode($json);
     }
 
-    /* POST : api/activity/dream 
-        填写表单
-    */
-    public function actionRestcreate() {
-        //$this->checkRestAuth();
+    /* 
+     * 发起梦想
+     * GET /api/activity/dream/start?openId=xxx
+     */
+    public function actionReststart() {
+        $this->checkRestAuth();
         
         //判断是否全部填写
-        if (!isset($_POST['name']) || !isset($_POST['gender']) || !isset($_POST['school']) || 
-            !isset($_POST['mobile']) || !isset($_POST['dream']) || 
-            !isset($_POST['detail']) || !isset($_POST['openid']) || !isset($_POST['headimgurl']) || 
-            !isset($_POST['nickname'])) {
+        if (!isset($_GET['openId'])) {
             return $this->sendResponse(400, 'missed required properties');
         }
+        $openId = $_GET['openId'];
 
-        $dream = new Dream();
-        $dream->name = $_POST['name'];
-        $dream->gender = $_POST['gender'];
-        $dream->school = $_POST['school'];
-        $dream->mobile = $_POST['mobile'];
-        $dream->dream = $_POST['dream'];
-        $dream->detail = $_POST['detail'];
-        $dream->headimgurl = $_POST['headimgurl'];
-        $dream->nickname = $_POST['nickname'];
-        $dream->open_id = $_POST['openid'];
-
-
+        // 查询是否已经生成
         $criteria = new CDbCriteria();
-        $criteria->condition = 'open_id=:openid and isdel=0';
-        $criteria->params = array(':openid' => $_POST['openid']);
-        $result = Dream::model()->exists($criteria);
-        if ($result) {
-            return $this->sendResponse(400, 'exists');
-        }
+        $criteria->compare("open_id", $openId);
 
-        if (!$dream->save()) {
-            return $this->sendResponse(500, 'faild to save dream');
-        }
+        $dreams = Dream::model()->findAll($criteria);
+        $dream = null;
 
-        if (!isset($_POST['ip_address'])) {
-            $ip = '';
-        } else {
-            $ip = $_POST['ip_address'];
-        }
-        $vote = new Vote();
-        $vote->dream_id = $dream->id;
-        $vote->level = 1;
-        $vote->open_id = $_POST['openid'];
-        $vote->ip_address = $ip;
-        $vote->vote_at = time();
-        if(!$vote->save()) {
-            return $this->sendResponse(500, 'faild to save vote');
-        }
+        if (count($dreams) == 0) {
+            $dream = new Dream();
+            $dream->open_id = $openId;
+            $dream->bonus = 8800; // 使用分为计量单位,
 
-        //跳转到详情页
-         $this->sendResponse(201, $dream->id);
-
-    }
-
-
-    /* GET : api/activity/dream/{dreamId} 
-        获取盒伙人信息
-    */
-    public function actionRestget() {
-        //$this->checkRestAuth();
-
-        if (!isset($_GET['dreamId'])) {
-            return $this->sendResponse(404, 'id is not provided.');
-        }
-
-        $dream = Dream::model()->findByPk($_GET['dreamId']);
-        if($dream == null || $dream->isdel == 1) {
-            return $this->sendResponse(404, 'dream is not found.');
+            if (!$dream->save()) {
+                return $this->sendResponse(500, 'faild to save dream');
+            }
+        }  else {
+            $dream = $dreams[0];
         }
 
         echo CJSON::encode($this->JSONMapper($dream));
     }
-
-    public function actionRestgetbyopenid() {
-
-        if (!isset($_GET['openid'])) {
-            return $this->sendResponse(404, 'id is not provided.');
-        }
-
-        $criteria = new CDbCriteria();
-        $criteria->addCondition('open_id=:openid', 'and');
-        $criteria->addCondition('isdel=0');
-
-        $criteria->params = array(':openid' => $_GET['openid']);
-
-        $dreams = Dream::model()->findAll($criteria);
-        if(count($dreams) == 1) {
-            echo CJSON::encode($dreams[0]);
-        } else {
-            $this->sendResponse(404, 'not found');            
-        }
-
-        //$this->sendResponse(201, $dream);
-        //echo $dream;
-    }
-
-    public function actionResetdelete() {
-        if (!isset($_GET['dreamId'])) {
-            return $this->sendResponse(404, 'dreamid not found');
-        }
-
-        $dream = Dream::model()->findByPk($_GET['dreamId']);
-        if ($dream) {
-            $dream->isdel = 1;
-            $dream->open_id = 'del-'.$dream->id.'-'.$dream->open_id;
-            if (!$dream->update()) {
-                $this->sendResponse(500, 'fail');
-            } else {
-                $this->sendResponse(200, 'success');
-            }
-        } else {
-            $this->sendResponse(404, 'dreamId not found');
-        }
-    }
 }
-?>

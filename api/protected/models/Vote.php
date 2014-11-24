@@ -18,10 +18,10 @@ class Vote extends WexActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('dream_id, level, vote_at, open_id', 'required'),
+            array('dream_id, sub_open_id', 'required'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, dream_id, level, vote_at, open_id', 'safe', 'on'=>'search'),
+            array('id, sub_open_id', 'safe', 'on'=>'search'),
         );
     }
 
@@ -45,14 +45,13 @@ class Vote extends WexActiveRecord {
         return array(
             'id' => 'ID',
             'dream_id' => 'Dream ID',
-            'level' => '级别',
-            'open_id' => 'openid',
-            'ip_address' => 'ip',
-            'vote_at' => '投票时间',
+            'sub_open_id' => '服务号ID',
+            'bonus' => '积分',
             'created_time' => 'Created Time',
             'created_by' => 'Created By',
             'updated_time' => 'Updated Time',
-            'updated_by' => 'Updated By'
+            'updated_by' => 'Updated By',
+            'archived' => '是否存档',
         );
     }
 
@@ -75,7 +74,7 @@ class Vote extends WexActiveRecord {
         $criteria=new CDbCriteria;
 
         $criteria->compare('id',$this->id,true);
-        $criteria->compare('open_id',$this->open_id);
+        $criteria->compare('sub_open_id',$this->sub_open_id);
         $criteria->compare('dream_id',$this->dream_id);
 
         return new CActiveDataProvider($this, array(

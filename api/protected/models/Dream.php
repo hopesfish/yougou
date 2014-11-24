@@ -18,10 +18,10 @@ class Dream extends WexActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, gender, school, detail, mobile, dream, open_id', 'required'),
+            array('open_id, bonus', 'required'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, name, school, detail, mobile, dream, nickname, open_id', 'safe', 'on'=>'search'),
+            array('open_id, sub_open_id, bonus', 'safe', 'on'=>'search'),
         );
     }
 
@@ -44,20 +44,16 @@ class Dream extends WexActiveRecord {
     {
         return array(
             'id' => 'ID',
-            'name' => '姓名',
-            'gender' => '性别',
-            'school' => '学校',
-            'detail' => '梦想详情',
-            'mobile' => '联系方式',
-            'dream' => '梦想',
-            'headimgurl' => '用户头像',
             'nickname' => '用户昵称',
-            'isdel' => 'Is Delete',
-            'open_id' => '微信 openid',
+            'headimgurl' => '用户头像',
+            'open_id' => '公众号openid',
+            'sub_open_id' => '服务号openid',
+            'bonus' => '分数',
             'created_time' => 'Created Time',
             'created_by' => 'Created By',
             'updated_time' => 'Updated Time',
-            'updated_by' => 'Updated By'
+            'updated_by' => 'Updated By',
+            'archived' => '是否存档',
         );
     }
 
@@ -80,13 +76,8 @@ class Dream extends WexActiveRecord {
         $criteria=new CDbCriteria;
 
         $criteria->compare('id',$this->id,true);
-        $criteria->compare('name', $this->name);
-        $criteria->compare('school', $this->school);
-        $criteria->compare('detail', $this->detail);
-        $criteria->compare('mobile', $this->mobile);
-        $criteria->compare('dream', $this->dream);
-        $criteria->compare('nickname', $this->nickname);
         $criteria->compare('open_id', $this->open_id);
+        $criteria->compare('sub_open_id', $this->sub_open_id);
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
