@@ -3,6 +3,7 @@ var _ = require("underscore");
 var conf = require('../conf');
 var ActivityServices = require("../services/ActivityServices");
 var AutoreplyServices = require("../services/AutoreplyServices");
+var DreamServices = require("../services/DreamServices");
 
 module.exports = function(webot) {
     // 订阅欢迎词
@@ -17,6 +18,20 @@ module.exports = function(webot) {
                 } else {
                     return next("欢迎订阅本公司微信服务。");
                 }
+            }, function() {
+                return next("欢迎订阅本公司微信服务。");
+            });
+        }
+    });
+
+    // 发起梦想测试
+    webot.set('zrq', {
+        pattern: function(info) {
+            return info.text === 'testzrq';
+        },
+        handler: function(info, next) {
+            DreamServices.start(info.uid).then(function(dream) {
+                next(null, JSON.stringify(dream) + '<a href="' + conf.dream_root + '/dream/' + dream.id + '/grant' +'">微信授权</a>');
             }, function() {
                 return next("欢迎订阅本公司微信服务。");
             });

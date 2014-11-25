@@ -133,5 +133,45 @@ module.exports = function() {
                 done(err);
             });
         });
+
+        it('failed to update dream without token', function(done){
+            async.series({
+                action: function(callback){
+                    base.update("/api/activity/dream/" + dreamId, {
+                        subOpenId: 'subOpenId' + dreamId,
+                        headimgurl: 'headimgurl' + dreamId,
+                        nickname: 'nickname' + dreamId
+                    },{token: 'basic-invalid'})
+                    .then(function(result) {
+                        callback(new Error("should not updated"));
+                    }, function(err) {
+                        done();
+                    });
+                }
+            }, function(err, results) {
+                done(err);
+            });
+        });
+
+        it('success to update dream without token', function(done){
+            async.series({
+                action: function(callback){
+                    base.update("/api/activity/dream/" + dreamId, {
+                        subOpenId: 'subOpenId' + dreamId,
+                        headimgurl: 'headimgurl' + dreamId,
+                        nickname: 'nickname' + dreamId
+                    },{token: 'basic-valid'})
+                    .then(function(result) {
+                        assert.equal(result.subOpenId, 'subOpenId' + dreamId);
+                        done();
+                    }, function(err) {
+                        console.info(err);
+                        callback(new Error("should not updated"));
+                    });
+                }
+            }, function(err, results) {
+                done(err);
+            });
+        });
     });
 }

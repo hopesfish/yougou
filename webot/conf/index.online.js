@@ -7,6 +7,7 @@ module.exports = {
         val : 1000 * 60 * 10
     },
     api_root : 'http://localhost:8082',
+    dream_root : 'http://117.121.50.27:3001',
     salt : 'weexiao',
     weixin : 'yougouwx'
 };

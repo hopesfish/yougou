@@ -10,6 +10,8 @@ return array(
 		'api/activity/<activityId:[\d\w-]{36}?>/coupon/<couponId:[\d\w-]{36}?>'=>'coupon/restupdate',
 		'api/autoreply'=>'autoreply/restcreate',
 		'api/autoreply/<replyId:\d+>'=>'autoreply/restupdate',
+		'api/activity/dream/<dreamId:[\d\w-]{36}?>'=>'dream/restupdate',
+		'api/activity/dream/<dreamId:[\d\w-]{36}?>/vote'=>'vote/restcreate',
 	),
 
 	'@get'=>array(
@@ -25,6 +27,7 @@ return array(
 		'api/autoreply/migrate'=>'autoreply/restmigrate',
 		'api/autoreply/<replyId:[\d\w-]{36}?>'=>'autoreply/restget',
 		'api/activity/dream'=>'dream/restlist',
+		'api/activity/dream/<id:[\d\w-]{36}?>'=>'dream/restget',
 		'api/activity/dream/start'=>'dream/reststart',
 	),
 

@@ -180,7 +180,7 @@ module.exports.update = function(url, data, options) {
     }, function callback(error, response, body) {
         if (!error && response.statusCode == 200) {
         	var jsondata = JSON.parse(body);
-            deferred.resolve(jsondata.message);
+            deferred.resolve(jsondata);
         } else {
             deferred.reject(error || body || new Error('unkown'));
         }

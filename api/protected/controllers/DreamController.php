@@ -101,4 +101,56 @@ class DreamController extends Controller
 
         echo CJSON::encode($this->JSONMapper($dream));
     }
+
+    /* 
+     * 获得梦想
+     * GET /api/activity/dream/{id}
+     */
+    public function actionRestget() {
+        $this->checkRestAuth();
+        
+        //判断是否全部填写
+        if (!isset($_GET['id'])) {
+            return $this->sendResponse(400, 'missed required properties');
+        }
+        $id = $_GET['id'];
+
+        $dream = Dream::model()->findByPk($id);
+
+        if ($dream == null) {
+            return $this->sendResponse(404, 'faild to get');
+        }
+
+        echo CJSON::encode($this->JSONMapper($dream));
+    }
+
+    /* 
+     * 更新梦想
+     * POST /api/activity/dream/{id}
+     */
+    public function actionRestupdate() {
+        $this->checkRestAuth();
+        
+        //判断是否全部填写
+        if (!isset($_POST['subOpenId']) || !isset($_POST['headimgurl']) || !isset($_POST['nickname'])) {
+            return $this->sendResponse(400, 'missed required properties');
+        }
+
+        // 查询是否已经生成
+        $dream = Dream::model()->findByPk($_GET['dreamId']);
+
+        if ($dream == null) {
+            return $this->sendResponse(404, 'not found');
+        }
+
+        $dream->sub_open_id = $_POST['subOpenId'];
+        $dream->headimgurl = $_POST['headimgurl'];
+        $dream->nickname = $_POST['nickname'];
+
+        if (!$dream->save()) {
+            return $this->sendResponse(500, 'faild to save dream');
+        }
+
+        echo CJSON::encode($this->JSONMapper($dream));
+    }
 }
