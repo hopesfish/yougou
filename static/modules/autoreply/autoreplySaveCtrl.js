@@ -9,7 +9,7 @@ define(function (require, exports, module) {
     app.register.controller('autoreplySaveCtrl', ['$scope', '$routeParams', '$location', '$http', '$timeout', 'AutoreplyService',
         function($scope, $routeParams, $location, $http, $timeout, AutoreplyService) {
             $scope.autoreply = {};
-            $scope.autoreply.record = {name: '自动回复', code: '', type: 0, keywords: '', reply: '', replies: [{}]};
+            $scope.autoreply.record = {name: '自动回复' + (new Date()).getTime(), code: '', type: 0, keywords: '', reply: '', replies: [{}]};
 
             $scope.$watch("session.user", function() {
                 if (!$scope.session.user) {
