@@ -1,10 +1,19 @@
 extends layout
 
 block content
-    ul
-        each dream in dreams
-            li
-                a(href="/dream/#{dream.id}")
-                    img(src='#{dream.headimgurl}')
-                    span=dream.nickname
-                    span=dream.bonus
+    img(src="http://localhost:3001/images/rank_01.jpg?mobile_build_version").wall
+    img(src="http://localhost:3001/images/rank_02.jpg?mobile_build_version").wall
+    div#rank
+        img(src="http://localhost:3001/images/rank_01.png?mobile_build_version").wall
+        div.bd
+            ul
+                li.label
+                    span 排行榜单
+                    span.money 集资金额(元)
+                each dream, index in dreams
+                    li
+                        a(href="/dream/#{dream.id}")
+                            span.num=index+1
+                            img(src='#{dream.headimgurl}')
+                            span.nickname=dream.nickname.substring(0, 15)
+                            span.bonus=dream.bonus/100
