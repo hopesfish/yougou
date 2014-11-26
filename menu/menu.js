@@ -1,40 +1,13 @@
 var wechat = require('wechat');
 
+
+
 function initMenu() {
     return {
         "button": [{
-            "name": "我的优购",
-            "sub_button": [{
-                "type": "view",
-                "name": "我的账户",
-                "url": "http://m.yougou.com/touch/toLogin.sc"
-            }, {
-                "type": "view",
-                "name": "我的订单",
-                "url": "http://m.yougou.com/touch/my/myorderlist.sc"
-            }, {
-                "type": "view",
-                "name": "物流查询",
-                "url": "http://m.yougou.com/touch/my/listOrderLogistics.sc"
-            }, {
-                "type": "view",
-                "name": "下载手机客户端",
-                "url": "http://m.yougou.com/touch/agent"
-            }]
-        }, {
-            "name": "活动查询",
-            "sub_button": [{
-                "type": "view",
-                "name": "特卖专场",
-                "url": "http://m.yougou.com/touch/tehui"
-            }]
-        }, {
-            "name": "客服咨询",
-            "sub_button": [{
-                "type": "view",
-                "name": "帮助中心",
-                "url": "http://m.yougou.com/touch/help/index.sc"
-            }]
+            "type": "view",
+            "name": "微社区",
+            "url": "http://m.wsq.qq.com/263468315"
         }]
     }
 }

@@ -136,3 +136,29 @@ exports.get = function(url, options) {
 
     return deferred.promise;
 }
+
+/**
+ * update object
+ */
+exports.update = function(url, record) {
+    var deferred = Q.defer();
+
+    var options = {
+        url: conf.api_root + url,
+        method: 'POST',
+        headers: getToken(),
+        form: record
+    };
+
+    function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            deferred.resolve(JSON.parse(body));
+        } else {
+            deferred.reject(error || body || new Error('unkown'));
+        }
+    }
+
+    request(options, callback);
+
+    return deferred.promise;
+}

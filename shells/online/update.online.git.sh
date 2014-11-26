@@ -9,6 +9,7 @@ mkdir /var/www/html
 mkdir /var/www/html/yougou
 mkdir /var/www/html/yougou-static
 mkdir /var/www/html/yougou-webot
+mkdir /var/www/html/yougou-dream
 
 #code
 cd /home/yougou/yougou
@@ -18,6 +19,7 @@ git pull
 cp -frap api/* /var/www/html/yougou
 cp -frap static/* /var/www/html/yougou-static
 cp -frap webot/* /var/www/html/yougou-webot
+cp -frap dream/* /var/www/html/yougou-dream
 
 #update ngingx
 cd /home/yougou/yougou/shells/online/nginx/conf.d
@@ -42,7 +44,12 @@ mobile_build_version=`date +%Y%m%d%s`
 sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build_version /var/www/html/yougou-webot/*`
 sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build_version /var/www/html/yougou-static/*`
 
+sed -i "s#localhost:3001#117.121.50.27:3001#g" `grep -lr localhost:3001 /var/www/html/yougou-static/*`
+
 #start
 cd /var/www/html/yougou-webot
-forever start -l forever.log -a app.js
+forever start -l webot.log -a app.js
+cd /var/www/html/yougou-dream
+forever start -l dream.log -a bin/www
+
 service nginx start
