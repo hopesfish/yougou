@@ -33,6 +33,7 @@ module.exports = function(webot) {
             DreamServices.start(info.uid).then(function(dream) {
                 next(null, '<a href="' + conf.dream_root + '/dream/' + dream.id + '/grant' +'">微信授权</a>');
             }, function(err) {
+                console.info(err);
                 return next("发起活动失败");
             });
         }

@@ -52,7 +52,7 @@ sed -i "s#${localhost_url}#${online_url}#g" `grep -lr ${localhost_url} /var/www/
 cd /var/www/html/yougou-webot
 forever start -l webot.log -a app.js
 cd /var/www/html/yougou-dream
-npm update
+#npm update
 #forever start -l dream.log -a bin/www
 
 service nginx start
