@@ -50,6 +50,7 @@ sed -i "s#localhost:3001#117.121.50.27:3001#g" `grep -lr localhost:3001 /var/www
 cd /var/www/html/yougou-webot
 forever start -l webot.log -a app.js
 cd /var/www/html/yougou-dream
+npm update
 forever start -l dream.log -a bin/www
 
 service nginx start
