@@ -1,6 +1,3 @@
-var Q = require("q");
-var conf = require("../conf");
-var request = require('request');
 var BaseServices = require("./BaseServices");
 
 /*
