@@ -27,6 +27,7 @@ return array(
 		'api/autoreply/migrate'=>'autoreply/restmigrate',
 		'api/autoreply/<replyId:[\d\w-]{36}?>'=>'autoreply/restget',
 		'api/activity/dream'=>'dream/restlist',
+		'api/activity/dream/rank'=>'dream/restrank',
 		'api/activity/dream/<id:[\d\w-]{36}?>'=>'dream/restget',
 		'api/activity/dream/start'=>'dream/reststart',
 	),

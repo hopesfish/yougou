@@ -1,8 +1,8 @@
 var OAuth = require("wechat-oauth");
 var express = require('express');
 var router = express.Router();
-var DreamServices = require("../services/DreamServices");
 var conf = require("../conf");
+var DreamServices = require("../services/DreamServices");
 
 var client = new OAuth('wxdc7c7ccc033ba612', '591bea60d3724af80f103e545b03a5d6');
 
@@ -11,10 +11,19 @@ router.get('/', function(req, res) {
  	res.render('index', { title: 'Express' });
 });
 
+router.get('/dream/rank', function(req, res) {
+	DreamServices.queryRank({
+	}).then(function(paging) {
+		res.render('rank', {dreams: paging.result});
+	}, function() {
+		res.status(400).send('查询排行榜异常!');
+	});
+});
+
 router.get('/dream/:id', function(req, res) {
 	DreamServices.get(req.params.id).then(function(dream) {
 		if (dream.nickname) {
-			res.render('dream', dream);
+			res.render('dream', {dream: dream});
 		} else {
 			res.status(400).send('尚未认证!');
 		}

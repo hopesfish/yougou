@@ -1,0 +1,12 @@
+extends layout
+
+block content
+	p=dream.nickname
+	br
+	img(src='#{dream.headimgurl}')
+	br
+	span=dream.bonus
+	br
+	a(href="/dream/#{dream.id}/vote") 支持TA
+	br
+	a(href="/dream/rank") 排行榜

@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    ul
+        each dream in dreams
+            li
+                a(href="/dream/#{dream.id}")
+                    img(src='#{dream.headimgurl}')
+                    span=dream.nickname
+                    span=dream.bonus

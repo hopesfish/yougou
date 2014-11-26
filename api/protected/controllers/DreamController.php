@@ -67,6 +67,31 @@ class DreamController extends Controller
         echo CJSON::encode($json);
     }
 
+    /**
+     * 梦想排行榜 头30名
+     * GET /api/activity/dream/rank
+     */
+    public function actionRestrank() {
+        $this->checkRestAuth();
+
+        $skip = 0;
+        $take = 30;
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('sub_open_id IS NOT NULL');
+        $criteria->limit = $take;
+        $criteria->offset = $skip;
+        $criteria->order = 'bonus DESC';
+
+        $result = Dream::model()->findAll($criteria);
+
+        $json = new JsonData();
+        $json->limit = $take;
+        $json->total = (int)Dream::model()->count($criteria);
+        $json->result = $this->JSONArrayMapper($result);
+
+        echo CJSON::encode($json);
+    }
+
     /* 
      * 发起梦想
      * GET /api/activity/dream/start?openId=xxx
