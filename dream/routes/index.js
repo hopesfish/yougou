@@ -58,7 +58,7 @@ router.get('/dream/:id/fulfill', function(req, res) {
 						return;
 					}
 				 	var userInfo = result;
-				 	DreamServices.fullfill(dream.id, {
+				 	DreamServices.fulfill(dream.id, {
 				 		subOpenId: userInfo.openid,
                         headimgurl: userInfo.headimgurl,
                         nickname: userInfo.nickname
