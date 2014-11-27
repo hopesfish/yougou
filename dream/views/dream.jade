@@ -1,16 +1,26 @@
 extends layout
 
 block content
-	img(src="http://localhost:3001/images/rp_01.jpg?mobile_build_version").wall
+	a(href="http://localhost:3001")
+		img(src="http://localhost:3001/images/rp_01.jpg?mobile_build_version").wall
 	div.profile
 		img(src='#{dream.headimgurl}')
 		p 昵称：#{dream.nickname.substring(0, 20)}
-		span 已集资金额(元) #{dream.bonus/100}
+		span(data-left="#{((20000 - dream.bonus)/100).toFixed(2)}") 已集资金额(元) #{(dream.bonus/100).toFixed(2)}
 	div.wall-c
 		img(src="http://localhost:3001/images/rp_02.jpg?mobile_build_version").wall
 		div.button
 			a(href="http://localhost:3001/dream/#{dream.id}/vote") 支持TA
 	div.wall-c
 		img(src="http://localhost:3001/images/rp_02.jpg?mobile_build_version").wall
+		div.button.help
+			a(href="#") 找朋友帮忙
+	div.wall-c
+		img(src="http://localhost:3001/images/rp_02.jpg?mobile_build_version").wall
 		div.button
 			a(href="http://localhost:3001/dream/rank") 集资排行榜
+	div.mask
+		img(src="http://localhost:3001/images/guide.jpg?mobile_build_version")
+	script(src='http://localhost:3001/javascripts/zepto.min.js?mobile_build_version')
+	script(src='http://localhost:3001/javascripts/wechat.js?mobile_build_version')
+	script(src='http://localhost:3001/javascripts/share.js?mobile_build_version')

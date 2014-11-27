@@ -15,8 +15,12 @@ class VoteController extends Controller {
         }
 
         $dream = Dream::model()->findByPk($_GET['dreamId']);
-        if ($dream == null || $dream->nickname == null || $dream->sub_open_id == $_POST['subOpenId']) {
+        if ($dream == null || $dream->nickname == null) {
             $this->sendResponse(404, 'not found');
+        }
+
+        if ($dream->sub_open_id == $_POST['subOpenId']) {
+            $this->sendResponse(201, '');
         }
 
         $criteria = new CDbCriteria();
@@ -33,7 +37,7 @@ class VoteController extends Controller {
         $vote = new Vote();
         $vote->dream_id = $_GET['dreamId'];
         $vote->sub_open_id = $_POST['subOpenId'];
-        $vote->bonus = 100;
+        $vote->bonus = (int)($total * rand(0, 300));
 
         if (!$vote->save()) {
             return $this->sendResponse(500, 'faild to save vote');

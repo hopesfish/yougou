@@ -113,7 +113,7 @@ router.get('/dream/:id/vote/confirm', function(req, res) {
 			 	DreamServices.vote(dream.id, {
 			 		subOpenId: openid
 			 	}).then(function() {
-			 		res.status(200).send('投票成功,跳到公众号H5页');
+			 		res.redirect("http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=202566635&idx=2&sn=81221686bd04613f4c680833759d2638#rd");
 			 	}, function() {
 			 		res.status(400).send('投票失败');
 			 	});

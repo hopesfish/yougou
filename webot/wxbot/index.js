@@ -24,14 +24,29 @@ module.exports = function(webot) {
         }
     });
 
-    // 发起梦想测试
-    webot.set('zrq', {
+    // 发起PRP
+    webot.set('prp', {
         pattern: function(info) {
-            return info.text === 'testzrq';
+            return info.text === 'testprp';
         },
         handler: function(info, next) {
             DreamServices.start(info.uid).then(function(dream) {
-                next(null, '<a href="' + conf.dream_root + '/dream/' + dream.id + '/grant' +'">微信授权</a>');
+                if (dream.bonus >= 20000) {
+                    info.text = '2014ACODEFORPRPLQ200FROMWEIXIN';
+                    next();
+                } else {
+                    next(null, [{
+                        title: '找朋友集资换200元礼品卡',
+                        url: "http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=202566635&idx=1&sn=7a223d1e07e2f3e31ecec67e0e2152a9#rd",
+                        picUrl: 'https://mmbiz.qlogo.cn/mmbiz/T2w1owmCtYp6qWrtxkJsPBLhcgOkGnt1ZbSA52rVAtRD1v97jG87323YrvsQ79fDh5nZzFSwCslrskkgxekCkg/0',
+                        description: '找朋友集资，集满200元并成功领取礼品卡代码后可登陆优购时尚商城主页www.yougou.com进行购物',
+                    }, {
+                        title: '查看我的集资',
+                        url: conf.dream_root + '/dream/' + dream.id + '/grant',
+                        picUrl: 'https://mmbiz.qlogo.cn/mmbiz/T2w1owmCtYp6qWrtxkJsPBLhcgOkGnt1bM6IKzVicvs6RjrfoHQSZf8GBKnnb1cRG4W4xcAEyLaLp4w8FGyMuTQ/0',
+                        description: '查看我的集资',
+                    }]);
+                }
             }, function(err) {
                 console.info(err);
                 return next("发起活动失败");

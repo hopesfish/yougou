@@ -1,8 +1,9 @@
 extends layout
 
 block content
-    img(src="http://localhost:3001/images/rank_01.jpg?mobile_build_version").wall
-    img(src="http://localhost:3001/images/rank_02.jpg?mobile_build_version").wall
+    a(href="http://localhost:3001")
+        img(src="http://localhost:3001/images/rank_01.jpg?mobile_build_version").wall
+        img(src="http://localhost:3001/images/rank_02.jpg?mobile_build_version").wall
     div#rank
         img(src="http://localhost:3001/images/rank_01.png?mobile_build_version").wall
         div.bd
@@ -16,4 +17,4 @@ block content
                             span.num=index+1
                             img(src='#{dream.headimgurl}')
                             span.nickname=dream.nickname.substring(0, 15)
-                            span.bonus=dream.bonus/100
+                            span.bonus=(dream.bonus/100).toFixed(2)

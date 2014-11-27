@@ -115,7 +115,7 @@ class DreamController extends Controller
         if (count($dreams) == 0) {
             $dream = new Dream();
             $dream->open_id = $openId;
-            $dream->bonus = 8800; // 使用分为计量单位,
+            $dream->bonus = 0; // 使用分为计量单位,从零开始
 
             if (!$dream->save()) {
                 return $this->sendResponse(500, 'faild to save dream');

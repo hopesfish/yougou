@@ -32,5 +32,5 @@ exports.fulfill = function(dreamId, data) {
  */
 exports.vote = function(dreamId, data) {
     var url = '/api/activity/dream/' + dreamId + '/vote';
-    return BaseServices.update(url, data);
+    return BaseServices.create(url, data);
 };
