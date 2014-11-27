@@ -6,7 +6,7 @@ block content
 	div.profile
 		img(src='#{dream.headimgurl}')
 		p 昵称：#{dream.nickname.substring(0, 20)}
-		span(data-left="#{((20000 - dream.bonus)/100).toFixed(2)}") 已集资金额(元) #{(dream.bonus/100).toFixed(2)}
+		span(data-left="#{((20000 - dream.bonus)/100).toFixed(2)}") 已集资金额 #{(dream.bonus/100).toFixed(2)} 元
 	div.wall-c
 		img(src="http://localhost:3001/images/rp_02.jpg?mobile_build_version").wall
 		div.button
