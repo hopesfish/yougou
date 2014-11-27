@@ -8,9 +8,10 @@ block content
 		p 昵称：#{dream.nickname.substring(0, 20)}
 		span(data-left="#{((20000 - dream.bonus)/100).toFixed(2)}") 已集资金额 #{(dream.bonus/100).toFixed(2)} 元
 	div.wall-c
-		a(href="http://localhost:3001/dream/#{dream.id}/vote") 支持TA
+		a(href="http://localhost:3001/dream/#{dream.id}/vote")
 			img(src="http://localhost:3001/images/rp_02.jpg?mobile_build_version").wall
 			div.button
+				支持TA
 	div.wall-c
 		img(src="http://localhost:3001/images/rp_02.jpg?mobile_build_version").wall
 		div.button.help
