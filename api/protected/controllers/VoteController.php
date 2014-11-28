@@ -37,7 +37,7 @@ class VoteController extends Controller {
         $vote = new Vote();
         $vote->dream_id = $_GET['dreamId'];
         $vote->sub_open_id = $_POST['subOpenId'];
-        $vote->bonus = (int)rand(0, 300);
+        $vote->bonus = (int)rand(500, 800); // 5 - 8元之间随机
 
         if (!$vote->save()) {
             return $this->sendResponse(500, 'faild to save vote');
