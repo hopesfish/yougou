@@ -30,6 +30,7 @@ return array(
 		'api/activity/dream/rank'=>'dream/restrank',
 		'api/activity/dream/<id:[\d\w-]{36}?>'=>'dream/restget',
 		'api/activity/dream/start'=>'dream/reststart',
+		'api/activity/dream/<dreamId:[\d\w-]{36}?>/vote'=>'vote/restlist',
 	),
 
 

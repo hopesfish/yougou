@@ -34,3 +34,11 @@ exports.vote = function(dreamId, data) {
     var url = '/api/activity/dream/' + dreamId + '/vote';
     return BaseServices.create(url, data);
 };
+
+/**
+ * 投票历史
+ */
+exports.getVotes = function(dreamId, data) {
+    var url = '/api/activity/dream/' + dreamId + '/vote';
+    return BaseServices.queryPaging(url, data);
+};

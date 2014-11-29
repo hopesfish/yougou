@@ -102,18 +102,33 @@ module.exports = function() {
             });
         });
 
-        it('success to vote dream within token again', function(done){
+        it('failed to vote dream within token again', function(done){
             async.series({
                 action: function(callback){
                     base.create("/api/activity/dream/" + dreamId + "/vote", {
                         subOpenId: subOpenId,
                     },{token: 'basic-valid'})
                     .then(function(id) {
-                        assert.equal(id, voteId);
+                        console.info(err);
+                        callback(new Error("should not voted"));
+                    }, function(err) {
+                        done();
+                    });
+                }
+            }, function(err, results) {
+                done(err);
+            });
+        });
+
+        it('success to get vote list', function(done){
+            async.series({
+                action: function(callback){
+                    base.queryPaging("/api/activity/dream/" + dreamId + "/vote", {token: 'basic-valid'})
+                    .then(function(paging) {
                         done();
                     }, function(err) {
                         console.info(err);
-                        callback(new Error("should voted"));
+                        callback(new Error("should get the list"));
                     });
                 }
             }, function(err, results) {

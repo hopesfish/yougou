@@ -3,7 +3,7 @@ extends layout
 block content
 	a(href="http://localhost:3001")
 		img(src="http://localhost:3001/images/rp_01.jpg?mobile_build_version").wall
-	div.profile
+	a(href="http://localhost:3001/dream/#{dream.id}/votes").profile
 		img(src='#{dream.headimgurl}')
 		p 昵称：#{dream.nickname.substring(0, 20)}
 		span(data-left="#{((20000 - dream.bonus)/100).toFixed(2)}") 已集资金额 #{(dream.bonus/100).toFixed(2)} 元

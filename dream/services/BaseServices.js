@@ -81,6 +81,33 @@ exports.queryAll = function(url) {
     return deferred.promise;
 }
 
+exports.queryPaging = function(url) {
+    var deferred = Q.defer();
+
+    var options = {
+        url: conf.api_root + url,
+        method: 'GET',
+        headers: getToken()
+    };
+
+    function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var jsondata = JSON.parse(body);
+            if (jsondata) {
+                deferred.resolve(jsondata);
+            } else {
+                deferred.resolve([]);
+            }
+        } else {
+            deferred.reject(error || body || new Error("unknown"));
+        }
+    }
+
+    request(options, callback);
+
+    return deferred.promise;
+}
+
 /**
  * create object
  */

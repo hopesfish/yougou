@@ -44,7 +44,7 @@ mobile_build_version=`date +%Y%m%d%s`
 sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build_version /var/www/html/yougou-webot/*`
 sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build_version /var/www/html/yougou-static/*`
 
-sed -i "s#localhost:3001#117.121.50.27:3001#g" `grep -lr localhost:3001 /var/www/html/yougou-dream/*`
+sed -i "s#localhost:3001#117.121.50.27:8083#g" `grep -lr localhost:3001 /var/www/html/yougou-dream/*`
 
 #start
 cd /var/www/html/yougou-webot

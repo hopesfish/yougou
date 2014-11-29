@@ -115,7 +115,7 @@ router.get('/dream/:id/vote/confirm', function(req, res) {
 			 	}).then(function() {
 			 		res.redirect("http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=202566635&idx=2&sn=81221686bd04613f4c680833759d2638#rd");
 			 	}, function() {
-			 		res.status(400).send('投票失败');
+			 		res.redirect("http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=202566635&idx=3&sn=ec2da8c5db131f5ad4932b80a1834b76#rd");
 			 	});
 			});
 		} else {
@@ -123,6 +123,16 @@ router.get('/dream/:id/vote/confirm', function(req, res) {
 		}
 	}, function() {
 		res.status(404).send('尚未发起!');
+	});
+});
+
+router.get('/dream/:id/votes', function(req, res) {
+	DreamServices.getVotes(req.params.id).then(function(paging) {
+		console.info(paging);
+		res.render('votes', {votes: paging.result});
+	}, function(err) {
+		console.info(err);
+		res.status(400).send('获取投票历史失败!');
 	});
 });
 
