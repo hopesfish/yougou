@@ -17,7 +17,7 @@ block content
                             span.num=index+1
                             img(src='#{dream.headimgurl}')
                             - if (dream.nickname.length >= 12)
-                                span.nickname=dream.nickname.substring(0, 12) + '...'
+                                span.nickname=dream.nickname.substring(0, 9) + '...'
                             - else
                                 span.nickname=dream.nickname
                             span.bonus=(dream.bonus/100).toFixed(2)
