@@ -12,7 +12,8 @@ module.exports = function(webot) {
             return info.is('event') && info.param.event === 'subscribe';
         },
         handler: function(info, next) {
-            AutoreplyServices.queryAllByKeyword('WELCOME').then(function(greetings) {
+            AutoreplyServices.queryAllByKeyword('WELCOME').then(function(paging) {
+                var greetings = paging.result;
                 if (greetings.length > 0) {
                     return next(greetings[0].reply);
                 } else {
