@@ -26,9 +26,9 @@ module.exports = function(webot) {
     });
 
     // 发起PRP
-    webot.set('prp', {
+    webot.set('gouwuka', {
         pattern: function(info) {
-            return info.text === 'testprp' || info.text === '我要集资';
+            return info.text === 'testprp' || info.text === '我要购物卡';
         },
         handler: function(info, next) {
             DreamServices.start(info.uid).then(function(dream) {
@@ -40,7 +40,7 @@ module.exports = function(webot) {
                     var dreamUrl = conf.dream_root + '/dream/' + dream.id + '/grant'
 
                     next(null, [
-                        "亲~速度参加优购众筹活动，集资200元立即领取200元礼品卡哦！500张先到先得，抓紧吧！",
+                        "亲~速度参加本次活动赢取200元礼品卡哦！500张先到先得，抓紧吧！",
                         '<a href="' + dreamUrl+ '">点击这里</a>即可参与本次活动！',
                         '欲知活动详情<a href="' + ruleUrl+ '">点击这里</a>'
                     ].join("\n\n"));

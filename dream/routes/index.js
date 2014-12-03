@@ -23,7 +23,8 @@ router.get('/dream/rank', function(req, res) {
 router.get('/dream/:id', function(req, res) {
 	DreamServices.get(req.params.id).then(function(dream) {
 		if (dream.nickname) {
-			res.render('dream', {dream: dream});
+			var voteable = req.cookies.dreamId != req.params.id;
+			res.render('dream', {dream: dream, voteable: voteable});
 		} else {
 			res.status(400).send('尚未认证!');
 		}
@@ -34,6 +35,7 @@ router.get('/dream/:id', function(req, res) {
 
 router.get('/dream/:id/grant', function(req, res) {
 	DreamServices.get(req.params.id).then(function(dream) {
+		res.cookie('dreamId', req.params.id, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
 		if (dream.nickname) {
 			res.redirect('/dream/' + dream.id);
 		} else {

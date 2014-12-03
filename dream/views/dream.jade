@@ -8,13 +8,14 @@ block content
 			img(src='#{dream.headimgurl}')
 			p 昵称：#{dream.nickname.substring(0, 20)}
 			span(data-left="#{((20000 - dream.bonus)/100).toFixed(2)}") 已集资金额 #{(dream.bonus/100).toFixed(2)} 元
-	div.wall-c
-		a(href="http://localhost:3001/dream/#{dream.id}/vote")
-			img(src="http://localhost:3001/images/rp_02.jpg?mobile_build_version").wall
-			div.button 帮TA助资
+	- if (voteable)
+		div.wall-c
+			a(href="http://localhost:3001/dream/#{dream.id}/vote")
+				img(src="http://localhost:3001/images/rp_02.jpg?mobile_build_version").wall
+				div.button 帮TA助资
 	div.wall-c
 		img(src="http://localhost:3001/images/rp_02.jpg?mobile_build_version").wall
-		div.button.help 找朋友帮忙
+		div.button.help 我要成为集资人
 	div.wall-c
 		a(href="http://localhost:3001/dream/rank")
 			img(src="http://localhost:3001/images/rp_02.jpg?mobile_build_version").wall
