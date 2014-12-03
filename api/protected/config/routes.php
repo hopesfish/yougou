@@ -9,7 +9,7 @@ return array(
 		'api/activity/<activityId:[\d\w-]{36}?>/coupon'=>'coupon/restcreate',
 		'api/activity/<activityId:[\d\w-]{36}?>/coupon/<couponId:[\d\w-]{36}?>'=>'coupon/restupdate',
 		'api/autoreply'=>'autoreply/restcreate',
-		'api/autoreply/<replyId:\d+>'=>'autoreply/restupdate',
+		'api/autoreply/<replyId:[\d\w-]{36}>'=>'autoreply/restupdate',
 		'api/activity/dream/<dreamId:[\d\w-]{36}?>'=>'dream/restupdate',
 		'api/activity/dream/<dreamId:[\d\w-]{36}?>/vote'=>'vote/restcreate',
 	),
