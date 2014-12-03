@@ -39,12 +39,10 @@ module.exports = function(webot) {
                     var dreamUrl = conf.dream_root + '/dream/' + dream.id + '/grant'
 
                     next(null, [
-                        "亲，您已经成功参加优购集资换200元礼品卡活动！您现在的集资金额是：\n",
-                        (dream.bonus/100).toFixed(2) + ' 元',
-                        "\n还差" + (200 - dream.bonus/100).toFixed(2) + '元就能领礼品卡了！赶快<a href="' + dreamUrl+ '">点击这里</a>，将募集页面发到朋友圈或者朋友！',
-                        '\n200张礼品卡，先到先得哦~~~\n',
-                        '了解更多活动规则请<a href="' + ruleUrl+ '">点击这里</a>'
-                    ].join("\n"));
+                        "亲~速度参加优购众筹活动，集资200元立即领取200元礼品卡哦！500张先到先得，抓紧吧！",
+                        '<a href="' + dreamUrl+ '">点击这里</a>即可参与本次活动！',
+                        '欲知活动详情<a href="' + ruleUrl+ '">点击这里</a>'
+                    ].join("\n\n"));
                 }
             }, function(err) {
                 console.info(err);
