@@ -8,9 +8,9 @@ data = {
   	'title': '优购时尚商城'
 };
 
-wechat('showOptionMenu', function() {});  
 wechat('timeline', data, function() {});
 wechat('friend', data, function() {});
+wechat('showOptionMenu', function() {});  
 
 $().ready(function() {
 	$(".help").click(function() {
