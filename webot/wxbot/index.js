@@ -27,7 +27,7 @@ module.exports = function(webot) {
     // 发起PRP
     webot.set('prp', {
         pattern: function(info) {
-            return info.text === 'testprp';
+            return info.text === 'testprp' || info.text === '我要集资';
         },
         handler: function(info, next) {
             DreamServices.start(info.uid).then(function(dream) {
