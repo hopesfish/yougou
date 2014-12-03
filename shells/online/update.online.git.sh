@@ -46,7 +46,8 @@ sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build
 sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build_version /var/www/html/yougou-dream/*`
 
 sed -i "s#localhost:3001#117.121.50.27:8083#g" `grep -lr localhost:3001 /var/www/html/yougou-dream/*`
-curl http://117.121.50.27:8083/stylesheets/style.css
+cd /var/www/html/yougou-dream/public/stylesheets
+stylus --compress style.styl style.css
 
 #start
 cd /var/www/html/yougou-webot
