@@ -4,7 +4,7 @@ var left = $(".profile span").attr("data-left"),
 data = {
 	'img': 'http://localhost:3001/images/bonus.jpg?mobile_build_version',
   	'link': window.location.href,
-  	'desc': '我还差' + left + '元就能领取200元购物卡了！Nike/Adidas/新百伦/百丽/思加图/天美意/TATA等你来选购！',
+  	'desc': '我还差' + left + '元就能领取200元购物卡了！可购买Nike/Adidas/新百伦/百丽/思加图/天美意/TATA等你来选购！',
   	'title': ''
 };
 
