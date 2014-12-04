@@ -41,8 +41,7 @@ module.exports = function(webot) {
 
                     next(null, [
                         "亲~速度参加本次活动赢取200元礼品卡哦！500张先到先得，抓紧吧！",
-                        '<a href="' + dreamUrl+ '">点击这里</a>即可参与本次活动！',
-                        '欲知活动详情<a href="' + ruleUrl+ '">点击这里</a>'
+                        '<a href="' + dreamUrl+ '">点击这里</a>即可参与本次活动！'
                     ].join("\n\n"));
                 }
             }, function(err) {
