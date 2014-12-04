@@ -1,33 +1,37 @@
 extends layout
 
 block content
-	a(href="http://localhost:3001")
-		img(src="http://localhost:3001/images/rp_01.jpg?mobile_build_version").wall
-	div.profile
-		a(href="http://localhost:3001/dream/#{dream.id}/votes")
-			img(src='#{dream.headimgurl}')
-			p 昵称：#{dream.nickname.substring(0, 20)}
-			span(data-left="#{((20000 - dream.bonus)/100).toFixed(2)}") 已集资金额 #{(dream.bonus/100).toFixed(2)} 元
-	- if (voteable)
-		div.wall-c
-			a(href="http://localhost:3001/dream/#{dream.id}/vote")
-				img(src="http://localhost:3001/images/rp_02.jpg?mobile_build_version").wall
-				div.button 帮TA个忙
-	- else
-		div.wall-c
-			a(href="javascript:void(0)")
-				img(src="http://localhost:3001/images/rp_02.jpg?mobile_build_version").wall
-				div.button.help 找朋友帮个忙
-	div.wall-c
-		a(href="http://localhost:3001/dream/rank")
-			img(src="http://localhost:3001/images/rp_04.jpg?mobile_build_version").wall
-			div.button.button-sub 人品排行榜
-	div.wall-c
-		a(href="http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=202566635&idx=1&sn=7a223d1e07e2f3e31ecec67e0e2152a9#rd")
-			img(src="http://localhost:3001/images/rp_04.jpg?mobile_build_version").wall
-			div.button.button-sub 活动规则
-	div.mask
-		img(src="http://localhost:3001/images/guide.png?mobile_build_version")
-	script(src='http://localhost:3001/javascripts/zepto.min.js?mobile_build_version')
-	script(src='http://localhost:3001/javascripts/wechat.js?mobile_build_version')
-	script(src='http://localhost:3001/javascripts/share.js?mobile_build_version')
+    a(href="http://localhost:3001")
+        img(src="http://localhost:3001/images/rp_01.jpg?mobile_build_version").wall
+    div.profile
+        a(href="http://localhost:3001/dream/#{dream.id}/votes")
+            img(src='#{dream.headimgurl}')
+            p 昵称：#{dream.nickname.substring(0, 20)}
+            span(data-left="#{((20000 - dream.bonus)/100).toFixed(2)}") 已集资金额 #{(dream.bonus/100).toFixed(2)} 元
+    - if (voteable)
+        div.wall-c
+            a(href="http://localhost:3001/dream/#{dream.id}/vote")
+                img(src="http://localhost:3001/images/rp_02.jpg?mobile_build_version").wall
+                div.button 帮TA个忙
+        div.wall-c
+            a(href="http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=202678459&idx=1&sn=9c9ba53544674b9ad27ffaef575dd76f#rd")
+                img(src="http://localhost:3001/images/rp_02.jpg?mobile_build_version").wall
+                div.button 我也要赢<strong style="color:red">200元</strong>购物卡
+    - else
+        div.wall-c
+            a(href="javascript:void(0)")
+                img(src="http://localhost:3001/images/rp_02.jpg?mobile_build_version").wall
+                div.button.help 找朋友帮个忙
+    div.wall-c
+        a(href="http://localhost:3001/dream/rank")
+            img(src="http://localhost:3001/images/rp_04.jpg?mobile_build_version").wall
+            div.button.button-sub 人品排行榜
+    div.wall-c
+        a(href="http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=202566635&idx=1&sn=7a223d1e07e2f3e31ecec67e0e2152a9#rd")
+            img(src="http://localhost:3001/images/rp_04.jpg?mobile_build_version").wall
+            div.button.button-sub 活动规则
+    div.mask
+        img(src="http://localhost:3001/images/guide.png?mobile_build_version")
+    script(src='http://localhost:3001/javascripts/zepto.min.js?mobile_build_version')
+    script(src='http://localhost:3001/javascripts/wechat.js?mobile_build_version')
+    script(src='http://localhost:3001/javascripts/share.js?mobile_build_version')
