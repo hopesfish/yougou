@@ -88,6 +88,8 @@ module.exports = function() {
                 action: function(callback){
                     base.create("/api/activity/dream/" + dreamId + "/vote", {
                         subOpenId: subOpenId,
+                        headimgurl: 'voheadimgurl' + dreamId,
+                        nickname: 'vonickname' + dreamId
                     },{token: 'basic-valid'})
                     .then(function(id) {
                         voteId = id;
@@ -107,6 +109,8 @@ module.exports = function() {
                 action: function(callback){
                     base.create("/api/activity/dream/" + dreamId + "/vote", {
                         subOpenId: subOpenId,
+                        headimgurl: 'voheadimgurl' + dreamId,
+                        nickname: 'vonickname' + dreamId
                     },{token: 'basic-valid'})
                     .then(function(id) {
                         console.info(err);
