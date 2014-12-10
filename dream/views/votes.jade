@@ -17,5 +17,6 @@ block content
                                 span.nickname=vote.nickname.substring(0, 9) + '...'
                             - else
                                 span.nickname=vote.nickname
+                        - else
+                            span.created-time=vote.createdTime
                         span.bonus=(vote.bonus/100).toFixed(2)
-                        p.created-time=vote.createdTime
