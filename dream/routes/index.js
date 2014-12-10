@@ -61,7 +61,6 @@ router.get('/dream/:id/fulfill', function(req, res) {
 					res.status(400).send('无法获得授权码');
 					return;
 				}
-			  	var accessToken = result.data.access_token;
 			  	var openid = result.data.openid;
 			  	client.getUser(openid, function (err, result) {
 			  		if (err) {
@@ -93,7 +92,7 @@ router.get('/dream/:id/vote', function(req, res) {
 		var url = client.getAuthorizeURL(
 			conf.server_root + '/dream/' + dream.id + '/vote/confirm',
 			'',
-			'snsapi_base'
+			'snsapi_userinfo'
 		);
 		res.redirect(url);
 	}, function() {
@@ -111,14 +110,23 @@ router.get('/dream/:id/vote/confirm', function(req, res) {
 					res.status(400).send('无法获得授权');
 					return;
 				}
-			  	var openid = result.data.openid;
-			 	DreamServices.vote(dream.id, {
-			 		subOpenId: openid
-			 	}).then(function() {
-			 		res.redirect("http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=202566635&idx=2&sn=81221686bd04613f4c680833759d2638#rd");
-			 	}, function() {
-			 		res.redirect("http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=202566635&idx=3&sn=ec2da8c5db131f5ad4932b80a1834b76#rd");
-			 	});
+			 	var openid = result.data.openid;
+			  	client.getUser(openid, function (err, result) {
+			  		if (err) {
+						res.status(400).send('无法获得用户信息');
+						return;
+					}
+					var userInfo = result;
+					DreamServices.vote(dream.id, {
+				 		subOpenId: userInfo.openid,
+				 		headimgurl: userInfo.headimgurl,
+                        nickname: userInfo.nickname
+				 	}).then(function() {
+				 		res.redirect("http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=202566635&idx=2&sn=81221686bd04613f4c680833759d2638#rd");
+				 	}, function() {
+				 		res.redirect("http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=202566635&idx=3&sn=ec2da8c5db131f5ad4932b80a1834b76#rd");
+				 	});
+				});
 			});
 		} else {
 			res.status(400).send('未完成授权');

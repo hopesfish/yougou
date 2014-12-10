@@ -47,6 +47,8 @@ class Vote extends WexActiveRecord {
             'dream_id' => 'Dream ID',
             'sub_open_id' => '服务号ID',
             'bonus' => '积分',
+            'nickname' => '用户昵称',
+            'headimgurl' => '用户头像',
             'created_time' => 'Created Time',
             'created_by' => 'Created By',
             'updated_time' => 'Updated Time',

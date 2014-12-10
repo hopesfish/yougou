@@ -32,7 +32,7 @@ module.exports = function(webot) {
         },
         handler: function(info, next) {
             DreamServices.start(info.uid).then(function(dream) {
-                if (dream.bonus >= 20000) {
+                if (dream.bonus >= 20000 || info.uid === 'client') {
                     info.text = '2014ACODEFORPRPLQ200FROMWEIXIN';
                     next();
                 } else {

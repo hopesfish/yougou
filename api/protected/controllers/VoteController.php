@@ -9,6 +9,8 @@ class VoteController extends Controller {
         $newitem['id'] = $item->id;
         $newitem['bonus'] = $item->bonus;
         $newitem['createdTime'] = $item->created_time;
+        $newitem['headimgurl'] = $item->headimgurl;
+        $newitem['nickname'] = $item->nickname;
 
         return $newitem;
     }
@@ -28,7 +30,7 @@ class VoteController extends Controller {
     public function actionRestcreate() {
         $this->checkRestAuth();
 
-        if (!isset($_GET['dreamId']) || !isset($_POST['subOpenId'])) {
+        if (!isset($_GET['dreamId']) ||!isset($_POST['subOpenId'])) {
             return $this->sendResponse(400, 'missed required properties');
         }
 
@@ -55,6 +57,8 @@ class VoteController extends Controller {
         $vote = new Vote();
         $vote->dream_id = $_GET['dreamId'];
         $vote->sub_open_id = $_POST['subOpenId'];
+        $vote->nickname = $POST['nickname'];
+        $vote->headimgurl = $_POST['headimgurl'];
         $vote->bonus = (int)rand(500, 800); // 5 - 8元之间随机
 
         if (!$vote->save()) {
