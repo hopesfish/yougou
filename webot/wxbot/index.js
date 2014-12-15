@@ -31,8 +31,6 @@ module.exports = function(webot) {
             return info.text === 'testprp' || info.text === '我要购物卡';
         },
         handler: function(info, next) {
-            return next("亲，内测已结束！正式上线时间请关注本公众号！");
-            /*
             DreamServices.start(info.uid).then(function(dream) {
                 if (dream.bonus >= 20000 || info.uid === 'client') {
                     info.text = '2014ACODEFORPRPLQ200FROMWEIXIN';
@@ -49,7 +47,7 @@ module.exports = function(webot) {
             }, function(err) {
                 console.info(err);
                 return next("发起活动失败");
-            });*/
+            });
         }
     });
 
