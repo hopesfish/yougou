@@ -59,7 +59,7 @@ class VoteController extends Controller {
         $vote->sub_open_id = $_POST['subOpenId'];
         $vote->nickname = $_POST['nickname'];
         $vote->headimgurl = $_POST['headimgurl'];
-        $vote->bonus = (int)rand(500, 800); // 5 - 8元之间随机
+        $vote->bonus = (int)rand(300, 500); // 3 - 5元之间随机
 
         if (!$vote->save()) {
             return $this->sendResponse(500, 'faild to save vote');
