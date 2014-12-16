@@ -59,7 +59,7 @@ class VoteController extends Controller {
         $vote->sub_open_id = $_POST['subOpenId'];
         $vote->nickname = $_POST['nickname'];
         $vote->headimgurl = $_POST['headimgurl'];
-        $vote->bonus = (int)rand(300, 500); // 3 - 5元之间随机
+        $vote->bonus = (int)rand(100, 500); // 3 - 5元之间随机
 
         if (!$vote->save()) {
             return $this->sendResponse(500, 'faild to save vote');
@@ -86,7 +86,7 @@ class VoteController extends Controller {
         }
 
         $criteria = new CDbCriteria();
-        $take = 40;
+        $take = 100;
         $criteria->compare('dream_id', $dream->id);
         
         $criteria->limit = $take;
