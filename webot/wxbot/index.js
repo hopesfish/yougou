@@ -31,6 +31,8 @@ module.exports = function(webot) {
             return info.text === 'testprp' || info.text === '我要购物卡';
         },
         handler: function(info, next) {
+            return next("亲~由于腾讯系统升级，导致微信公众平台部分功能无法使用。所以本次活动暂停。为您带来不便优购深表歉意！");
+            /*
             DreamServices.start(info.uid).then(function(dream) {
                 if (dream.bonus >= 20000 || info.uid === 'client') {
                     info.text = '2014ACODEFORPRPLQ200FROMWEIXIN';
@@ -47,7 +49,7 @@ module.exports = function(webot) {
             }, function(err) {
                 console.info(err);
                 return next("发起活动失败");
-            });
+            });*/
         }
     });
 
