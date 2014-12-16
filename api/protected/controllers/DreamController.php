@@ -75,7 +75,7 @@ class DreamController extends Controller
         $this->checkRestAuth();
 
         $skip = 0;
-        $take = 30;
+        $take = 100;
         $criteria = new CDbCriteria();
         $criteria->addCondition('sub_open_id IS NOT NULL');
         $criteria->limit = $take;
