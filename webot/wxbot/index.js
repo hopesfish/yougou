@@ -40,7 +40,7 @@ module.exports = function(webot) {
                     var dreamUrl = conf.dream_root + '/dream/' + dream.id + '/grant'
 
                     next(null, [
-                        "亲~速度参加本次活动赢取200元礼品卡哦！100张先到先得，抓紧吧！",
+                        "亲~欢迎来到国内最大的时尚鞋服电商——优购时尚商城！速度参加本次活动赢取200元礼品卡哦！100张先到先得，抓紧噜！",
                         '<a href="' + dreamUrl+ '">点击这里</a>即可参与本次活动！'
                     ].join("\n\n"));
                 }
