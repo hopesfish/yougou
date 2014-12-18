@@ -36,13 +36,12 @@ module.exports = function(webot) {
                     info.text = '2014ACODEFORPRPLQ200FROMWEIXIN';
                     next();
                 } else {
-                    var ruleUrl = "http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=202566635&idx=1&sn=7a223d1e07e2f3e31ecec67e0e2152a9#rd";
-                    var dreamUrl = conf.dream_root + '/dream/' + dream.id + '/grant'
+                    var dreamUrl = 'http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=202995312&idx=1&sn=6527ac46c11b0869af262666dbab16de#rd';
 
                     next(null, [
-                        "亲~欢迎来到国内最大的时尚鞋服电商——优购时尚商城！速度参加本次活动赢取200元购物卡哦！100张先到先得，抓紧噜！",
-                        '<a href="' + dreamUrl+ '">点击这里</a>即可参与本次活动！'
-                    ].join("\n\n"));
+                        '亲~本次游戏已结束，很遗憾地告知您迟到了一步。但优购就是有钱，任性！此类活动我们会再次发布哦，就在近期！',
+                        '想要第一时间参与的话，请持续关注优购时尚商城微信公众号。我们将会不间断地奉上各种好玩的游戏+折扣给力的优惠信息给您哟，速度关注我们吧！了解更多请<a href="' + dreamUrl + '">点击这里</a>'
+                    ].join(""));
                 }
             }, function(err) {
                 console.info(err);
