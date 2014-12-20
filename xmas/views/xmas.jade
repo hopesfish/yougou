@@ -46,11 +46,6 @@ block content
             img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.green-5
             img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.green-6
             img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.green-7
-    - if (voteable)
-        div 朋友
-    - else
-        img(src='#{xmas.headimgurl}')
-        p 昵称：#{xmas.nickname.substring(0, 20)}
     audio(autoplay="autoplay" loop="loop")
         source(src="http://localhost:3001/song.mp3", type="audio/mp3")
     script(src='http://localhost:3001/javascripts/zepto.min.js?mobile_build_version')
