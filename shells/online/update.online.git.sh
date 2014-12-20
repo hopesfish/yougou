@@ -10,6 +10,7 @@ mkdir /var/www/html/yougou
 mkdir /var/www/html/yougou-static
 mkdir /var/www/html/yougou-webot
 mkdir /var/www/html/yougou-dream
+mkdir /var/www/html/yougou-xmas
 
 #code
 cd /home/yougou/yougou
@@ -20,6 +21,7 @@ cp -frap api/* /var/www/html/yougou
 cp -frap static/* /var/www/html/yougou-static
 cp -frap webot/* /var/www/html/yougou-webot
 cp -frap dream/* /var/www/html/yougou-dream
+cp -frap xmas/* /var/www/html/yougou-xmas
 
 #update ngingx
 cd /home/yougou/yougou/shells/online/nginx/conf.d
@@ -61,6 +63,7 @@ cd /var/www/html/yougou-dream
 #npm update
 forever start -l dream.log -a bin/www
 cd /var/www/html/yougou-xmas
+npm install
 #npm update
 forever start -l xmas.log -a bin/www
 
