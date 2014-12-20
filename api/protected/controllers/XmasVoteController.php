@@ -59,7 +59,7 @@ class XmasVoteController extends Controller {
         $vote->sub_open_id = $_POST['subOpenId'];
         $vote->nickname = $_POST['nickname'];
         $vote->headimgurl = $_POST['headimgurl'];
-        $vote->bonus = (int)rand(100, 500); // 3 - 5元之间随机
+        $vote->bonus = 1;
 
         if (!$vote->save()) {
             return $this->sendResponse(500, 'faild to save vote');

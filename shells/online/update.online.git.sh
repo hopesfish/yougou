@@ -63,7 +63,7 @@ cd /var/www/html/yougou-dream
 #npm update
 #forever start -l dream.log -a bin/www
 cd /var/www/html/yougou-xmas
-npm install
+#npm install
 #npm update
 forever start -l xmas.log -a bin/www
 

@@ -64,7 +64,7 @@ module.exports = function(webot) {
                     var url = conf.xmas_root + "/xmas/" + xmas.id + "/grant";
 
                     next(null, [
-                        "要圣诞礼物，<a href=" + url + ">点击这里</a>"
+                        '要圣诞礼物，<a href=\"' + url + '">点击这里</a>'
                     ].join(""));
                 }
             }, function(err) {
