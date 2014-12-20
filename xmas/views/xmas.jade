@@ -1,0 +1,59 @@
+extends layout
+
+block css
+    link(rel='stylesheet', href='http://localhost:3001/stylesheets/custom.css?mobile_build_version')
+
+block content
+    div.gifts-c
+        div.star-c
+            img(src="http://localhost:3001/images/star.png?mobile_build_version").star
+        img(src="http://localhost:3001/images/tree.jpg?mobile_build_version").tree
+        div.gifts
+            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-1
+            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-2
+            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-3
+            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-4
+            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-5
+            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-6
+            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-7
+            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-8
+            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-9
+
+            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.blue-1
+            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.blue-2
+            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.blue-3
+            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.blue-4
+            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.blue-5
+            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.blue-6
+            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.blue-7
+            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.blue-8
+
+            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.red-1
+            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.red-2
+            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.red-3
+            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.red-4
+            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.red-5
+            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.red-6
+            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.red-7
+            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.red-8
+            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.red-9
+            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.red-10
+
+            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.green-1
+            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.green-2
+            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.green-3
+            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.green-4
+            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.green-5
+            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.green-6
+            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.green-7
+    - if (voteable)
+        div 朋友
+    - else
+        img(src='#{xmas.headimgurl}')
+        p 昵称：#{xmas.nickname.substring(0, 20)}
+    audio(autoplay="autoplay" loop="loop")
+        source(src="http://localhost:3001/song.mp3", type="audio/mp3")
+    script(src='http://localhost:3001/javascripts/zepto.min.js?mobile_build_version')
+    script(src='http://localhost:3001/javascripts/effect.js?mobile_build_version')
+    script(src='http://localhost:3001/javascripts/wechat.js?mobile_build_version')
+    script(src='http://localhost:3001/javascripts/share.js?mobile_build_version')

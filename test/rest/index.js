@@ -1,5 +1,6 @@
 var base = require("./base");
 module.exports = function() {
+    /*
 	require("./testUser")();
 	require("./testAutoreply")();
 	require("./testActivity")();
@@ -7,5 +8,7 @@ module.exports = function() {
 	require("./testCouponEnabled")();
 	require("./testCouponRestrict")();
 	require("./testDream")();
-	require("./testDreamVote")();
+	require("./testDreamVote")();*/
+    require("./testXmas")();
+    require("./testXmasVote")();
 }

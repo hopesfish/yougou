@@ -4,6 +4,7 @@ var conf = require('../conf');
 var ActivityServices = require("../services/ActivityServices");
 var AutoreplyServices = require("../services/AutoreplyServices");
 var DreamServices = require("../services/DreamServices");
+var XmasServices = require("../services/XmasServices");
 
 module.exports = function(webot) {
     // 订阅欢迎词
@@ -40,6 +41,30 @@ module.exports = function(webot) {
 
                     next(null, [
                         '亲~本次游戏已结束，很遗憾地告知您迟到了一步。但优购就是有钱，任性！此类活动我们会再次发布哦，就在近期！想要第一时间参与的话，请持续关注优购微信公众号。我们将会不间断地奉上各种好玩的游戏+折扣给力的优惠信息给您哟，速度关注我们吧！了解更多请<a href="' + dreamUrl + '">点击这里</a>'
+                    ].join(""));
+                }
+            }, function(err) {
+                console.info(err);
+                return next("发起活动失败");
+            });
+        }
+    });
+
+    // 发起XMAS
+    webot.set('shendanjie', {
+        pattern: function(info) {
+            return info.text === 'xmas';
+        },
+        handler: function(info, next) {
+            XmasServices.start(info.uid).then(function(xmas) {
+                if (xmas.bonus >= 40) {
+                    info.text = '2014ACODEFORXMASFROMWEIXIN';
+                    next();
+                } else {
+                    var url = conf.xmas_root + "/xmas/" + xmas.id + "/grant";
+
+                    next(null, [
+                        "要圣诞礼物，<a href=" + url + ">点击这里</a>"
                     ].join(""));
                 }
             }, function(err) {

@@ -44,10 +44,15 @@ mobile_build_version=`date +%Y%m%d%s`
 sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build_version /var/www/html/yougou-webot/*`
 sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build_version /var/www/html/yougou-static/*`
 sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build_version /var/www/html/yougou-dream/*`
+sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build_version /var/www/html/yougou-xmas/*`
 
 sed -i "s#localhost:3001#117.121.50.27:8083#g" `grep -lr localhost:3001 /var/www/html/yougou-dream/*`
+sed -i "s#localhost:3001#117.121.50.27:8084#g" `grep -lr localhost:3001 /var/www/html/yougou-xmas/*`
 cd /var/www/html/yougou-dream/public/stylesheets
-stylus --compress style.styl style.css
+stylus --compress style.styl
+cd /var/www/html/yougou-xmas/public/stylesheets
+stylus --compress style.styl
+stylus --compress custom.styl
 
 #start
 cd /var/www/html/yougou-webot
@@ -55,6 +60,9 @@ forever start -l webot.log -a app.js
 cd /var/www/html/yougou-dream
 #npm update
 forever start -l dream.log -a bin/www
+cd /var/www/html/yougou-xmas
+#npm update
+forever start -l xmas.log -a bin/www
 
 service nginx start
 

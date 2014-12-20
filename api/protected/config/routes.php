@@ -12,6 +12,8 @@ return array(
 		'api/autoreply/<replyId:[\d\w-]{36}>'=>'autoreply/restupdate',
 		'api/activity/dream/<dreamId:[\d\w-]{36}?>'=>'dream/restupdate',
 		'api/activity/dream/<dreamId:[\d\w-]{36}?>/vote'=>'vote/restcreate',
+		'api/activity/xmas/<xmasId:[\d\w-]{36}?>'=>'xmas/restupdate',
+		'api/activity/xmas/<xmasId:[\d\w-]{36}?>/vote'=>'xmasVote/restcreate',
 	),
 
 	'@get'=>array(
@@ -31,6 +33,12 @@ return array(
 		'api/activity/dream/<id:[\d\w-]{36}?>'=>'dream/restget',
 		'api/activity/dream/start'=>'dream/reststart',
 		'api/activity/dream/<dreamId:[\d\w-]{36}?>/vote'=>'vote/restlist',
+
+		'api/activity/xmas'=>'xmas/restlist',
+		'api/activity/xmas/rank'=>'xmas/restrank',
+		'api/activity/xmas/<id:[\d\w-]{36}?>'=>'xmas/restget',
+		'api/activity/xmas/start'=>'xmas/reststart',
+		'api/activity/xmas/<xmasId:[\d\w-]{36}?>/vote'=>'xmasVote/restlist',
 	),
 
 

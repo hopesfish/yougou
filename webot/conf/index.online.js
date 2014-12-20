@@ -8,6 +8,7 @@ module.exports = {
     },
     api_root : 'http://localhost:8082',
     dream_root : 'http://117.121.50.27:8083',
+    xmas_root : 'http://117.121.50.27:8084',
     salt : 'weexiao',
     weixin : 'yougouwx'
 };
