@@ -61,7 +61,7 @@ cd /var/www/html/yougou-webot
 forever start -l webot.log -a app.js
 cd /var/www/html/yougou-dream
 #npm update
-forever start -l dream.log -a bin/www
+#forever start -l dream.log -a bin/www
 cd /var/www/html/yougou-xmas
 npm install
 #npm update
