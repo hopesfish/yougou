@@ -3,7 +3,7 @@ var data, url = $(".gifts").attr("data-url");
 data = {
 	'img': 'http://localhost:3001/images/bonus.jpg?mobile_build_version',
   	'link': url,
-  	'desc': '快来帮我点亮优购圣诞礼物树！',
+  	'desc': '亲~快来帮我点亮圣诞树！我要赢优购200元礼品卡和耐克/阿迪达斯/大嘴猴的奖品啦！',
   	'title': ''
 };
 
