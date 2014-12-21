@@ -135,9 +135,9 @@ router.get('/xmas/:id/vote/confirm', function(req, res) {
 				 		headimgurl: userInfo.headimgurl,
                         nickname: userInfo.nickname
 				 	}).then(function() {
-				 		res.redirect("http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=202566635&idx=2&sn=81221686bd04613f4c680833759d2638#rd");
+				 		res.redirect("http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=203104383&idx=2&sn=aedf568def1f8efa0408379303eb3286#rd");
 				 	}, function() {
-				 		res.redirect("http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=202566635&idx=3&sn=ec2da8c5db131f5ad4932b80a1834b76#rd");
+				 		res.redirect("http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=203104383&idx=3&sn=3cda170414cffbc7ac9a18838a8c1c58#rd");
 				 	});
 				});
 			});

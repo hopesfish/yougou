@@ -5,12 +5,9 @@ block content
     div.bd
         img(src="http://localhost:3001/images/footer_02.png?mobile_build_version").full.overlay
         div.buttons
-            p 【点亮圣诞树】活动规则
-            ul
-                li 点击下方按钮进入【我的圣诞树】界面
-                li 将圣诞树界面发送至朋友圈或者朋友，邀请40名好友来完成【点亮圣诞树】任务
-                li 完成【点亮圣诞树】任务后，再次在微信对话框中发送【xmas】，即可领取神秘圣诞礼物一份，先到先得!
-                li <a href="#">点击这里</a>了解更多活动详情
             a(href="http://localhost:3001/xmas/#{xmas.id}/tree").button 我的圣诞树
             a(href="#").button 看看大家都领了什么
-    audio(src="http://localhost:3001/song.mp3", preload="preload", autoplay, loop)
+            a(href="http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=203104383&idx=1&sn=39f1dc0c45b3c7d8c00b2959ef0069ad#rd").button.button-sub 活动规则
+    audio#audio(src="http://localhost:3001/song.mp3", preload="preload", loop)
+    script(src='http://localhost:3001/javascripts/zepto.min.js?mobile_build_version')
+    script(src='http://localhost:3001/javascripts/effect.js?mobile_build_version')

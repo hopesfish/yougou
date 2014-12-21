@@ -1,14 +1,26 @@
 $().ready(function() {
-    var count = parseInt($(".gifts").attr("data-count")), map = {};
+    $("#audio")[0].play();
+
+    if ($(".gifts").size() == 0) { return; }
+
+    var count = parseInt($(".gifts").attr("data-count")),
+        nums = [],
+        map = {};
+
+    for (var i=0; i<40; i++) {
+        nums.push(i);
+    }
+
+    nums.sort(function(a, b) {
+        return Math.random() > 0.5 ? -1 : 1;  
+    });
 
     if (count > 40) { count = 40; }
 
     while(count > 0) {
-        var idx = parseInt(40 * Math.random());
-        if (!map[idx]) {
-            map[idx] = 'twinking';
-            count--;
-        }
+        var idx = nums.pop();
+        map[idx] = 'twinking';
+        count--;
     }
 
     $(".gift").each(function(i, element) {
