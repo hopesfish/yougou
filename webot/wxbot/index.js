@@ -61,14 +61,25 @@ module.exports = function(webot) {
                     info.text = '2014ACODEFORXMASFROMWEIXIN';
                     next();
                 } else {
-                    var url = conf.xmas_root + "/xmas/" + xmas.id + "/grant";
+                    var over = false, url;
 
-                    next(null, [
-                        '要圣诞礼物，<a href=\"' + url + '">点击这里</a>'
-                    ].join(""));
+                    if (over) {
+                        url = 'http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=202995312&idx=1&sn=6527ac46c11b0869af262666dbab16de#rd';
+                        return next(null, [
+                            '亲~很遗憾您来晚了一步，圣诞节的活动已经结束啦！元旦我们还会为您奉上更加精彩好玩的游戏哦！',
+                            '<a href="' + url + '">点击这里</a>了解优购，要关注我们哦！'
+                        ].join(""));
+                    } else {
+                        url = conf.xmas_root + "/xmas/" + xmas.id + "/grant";
+
+                        return next(null, [
+                            '亲~祝你圣诞快乐！小编准备了丰富的圣诞礼物迫不及待地想要送给你啦！速度抱走一棵圣诞树，召集小伙伴一起将你的圣诞树点亮，就有机会抢到惊喜大礼哦！',
+                            '\n<a href="' + url + '">点击这里</a>参与游戏，快块抱走你的圣诞树！'
+                        ].join("\n"));
+                    }
                 }
             }, function(err) {
-                console.info(err);
+                console.error(err);
                 return next("发起活动失败");
             });
         }

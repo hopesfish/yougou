@@ -68,28 +68,53 @@ class XmasController extends Controller
     }
 
     /**
-     * 梦想排行榜 头30名
-     * GET /api/activity/xmas/rank
+     * 获奖人
+     * GET /api/activity/xmas/winner
      */
-    public function actionRestrank() {
+    public function actionRestwinner() {
         $this->checkRestAuth();
 
-        $skip = 0;
-        $take = 100;
+        // 活动
         $criteria = new CDbCriteria();
-        $criteria->addCondition('sub_open_id IS NOT NULL');
-        $criteria->limit = $take;
-        $criteria->offset = $skip;
-        $criteria->order = 'bonus DESC';
+        $criteria->compare('code', '2014ACODEFORXMASFROMWEIXIN');
+        $criteria->compare('archived', 1);
 
+        $activities = Activity::model()->findAll($criteria);
+
+        if (count($activities) == 0) {
+            return $this->sendResponse(400, "no code");
+        }
+
+        // 已领的奖品
+        $criteria = new CDbCriteria();
+        $criteria->compare('activity_id', $activities[0]->id);
+        $criteria->compare('archived', 1);
+        $criteria->addCondition('open_id IS NOT NULL');
+        $criteria->order = 'achieved_time desc';
+        $prizes = Coupon::model()->findAll($criteria);
+
+        $openIds = array();
+        foreach ($prizes as $prize) {
+            array_push($openIds, $prize->open_id);
+        }
+
+        // 获奖人
+        $criteria = new CDbCriteria();
+        $criteria->addInCondition('open_id', $openIds);
         $result = Xmas::model()->findAll($criteria);
+        $winners = $this->JSONArrayMapper($result);
 
-        $json = new JsonData();
-        $json->limit = $take;
-        $json->total = (int)Xmas::model()->count($criteria);
-        $json->result = $this->JSONArrayMapper($result);
+        $idx = 0;
+        foreach ($winners as $winner) {
+            foreach ($prizes as $prize) {
+                if ($winner['openId'] == $prize->open_id) {
+                    $winners[$idx]['prize'] = $prize->code;
+                }
+            }
+            $idx++;
+        }
 
-        echo CJSON::encode($json);
+        echo CJSON::encode($winners);
     }
 
     /* 

@@ -173,5 +173,56 @@ module.exports = function() {
                 done(err);
             });
         });
+
+        it('success to create coupon data with basic token', function(done){
+            // an example using an object instead of an array
+            async.series({
+                action: function(callback){
+                    base.create("/api/activity/c53edcbc-d7cf-b74f-db51-6253426676ac/coupon",
+                        {batch: 'batch1', code: 'COUP' + xmasId}, {token: 'basic-valid'})
+                    .then(function(id) {
+                        done();
+                    }, function(err) {
+                        console.info(err);
+                        callback(err);
+                    });
+                }
+            }, function(err, results) {
+                done(err);
+            });
+        });
+
+        it('success to achieve a coupon data with right code', function(done){
+            // an example using an object instead of an array
+            async.series({
+                action: function(callback){
+                    base.queryAll("/api/coupon/achieve?code=2014ACODEFORXMASFROMWEIXIN&openId=" + openId, {token: 'basic-valid'})
+                    .then(function(result) {
+                        done();
+                    }, function(err) {
+                        console.info(err);
+                        callback(err);
+                    });
+                }
+            }, function(err, results) {
+                done(err);
+            });
+        });
+
+        it('success to get xmas winner', function(done){
+            async.series({
+                action: function(callback){
+                    base.queryAll("/api/activity/xmas/winner", {token: 'basic-valid'})
+                    .then(function(result) {
+                        done();
+                    }, function(err) {
+                        console.info(err);
+                        callback(new Error("should get winner"));
+                    });
+                }
+            }, function(err, results) {
+                done(err);
+            });
+        });
     });
 }

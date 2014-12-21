@@ -38,6 +38,7 @@ return array(
 		'api/activity/xmas/rank'=>'xmas/restrank',
 		'api/activity/xmas/<id:[\d\w-]{36}?>'=>'xmas/restget',
 		'api/activity/xmas/start'=>'xmas/reststart',
+		'api/activity/xmas/winner'=>'xmas/restwinner',
 		'api/activity/xmas/<xmasId:[\d\w-]{36}?>/vote'=>'xmasVote/restlist',
 	),
 
