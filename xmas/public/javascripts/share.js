@@ -1,10 +1,9 @@
-var left = $(".profile span").attr("data-left"),
-	data;
+var data;
 
 data = {
 	'img': 'http://localhost:3001/images/bonus.jpg?mobile_build_version',
   	'link': window.location.href,
-  	'desc': '快来帮我装扮优购圣诞礼物树！',
+  	'desc': '快来帮我点亮优购圣诞礼物树！',
   	'title': ''
 };
 
