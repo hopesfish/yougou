@@ -76,8 +76,9 @@ block content
     div.votes
         ul
             each vote in votes
-                img(src='#{vote.headimgurl}')
-                span.nickname=vote.nickname.substring(0, 20) + '点了一盏灯'
+                li
+                    img(src='#{vote.headimgurl}')
+                    span.nickname=vote.nickname.substring(0, 20) + '点了一盏灯'
     audio#audio(src="http://localhost:3001/song.mp3", preload="preload", loop)
     script(src='http://localhost:3001/javascripts/zepto.min.js?mobile_build_version')
     script(src='http://localhost:3001/javascripts/effect.js?mobile_build_version')
