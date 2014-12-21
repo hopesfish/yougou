@@ -42,3 +42,11 @@ exports.getVotes = function(xmasId, data) {
     var url = '/api/activity/xmas/' + xmasId + '/vote';
     return BaseServices.queryPaging(url, data);
 };
+
+/**
+ * 获奖者
+ */ 
+exports.getWinners = function(xmasId, data) {
+    var url = '/api/activity/xmas/winner';
+    return BaseServices.queryAll(url, data);
+};

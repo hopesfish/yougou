@@ -1,8 +1,8 @@
-var data;
+var data, url = $(".gifts").attr("data-url");
 
 data = {
 	'img': 'http://localhost:3001/images/bonus.jpg?mobile_build_version',
-  	'link': window.location.href,
+  	'link': url,
   	'desc': '快来帮我点亮优购圣诞礼物树！',
   	'title': ''
 };

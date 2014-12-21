@@ -1,0 +1,15 @@
+extends layout
+
+block content
+    a(href="javascript:window.history.go(-1)")
+        img(src="http://localhost:3001/images/winner_hd.jpg?mobile_build_version").full
+    div.winners
+        div.hd
+            img(src="http://localhost:3001/images/rank_01.png?mobile_build_version").full
+        div.bd
+            ul
+                each winner, index in winners
+                    li
+                        - if (winner.headimgurl)
+                            img(src='#{winner.headimgurl}')
+                            span.nickname=winner.nickname.substring(0, 10) + '领了' + winner.prize

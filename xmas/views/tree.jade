@@ -8,7 +8,7 @@ block content
         div.profile
             img(src='#{xmas.headimgurl}')
             - if (xmas.bonus > 0 && xmas.bonus < 40)
-                span #{xmas.nickname.substring(0, 15)}的圣诞树已经亮了#{xmas.bonus}盏灯
+                span #{xmas.nickname.substring(0, 10)}的圣诞树已经亮了#{xmas.bonus}盏灯
             - else if (xmas.bonus >= 40)
                 span 都点满了，赶快去领礼物罗！
             - else
@@ -24,7 +24,7 @@ block content
                 img(src="http://localhost:3001/images/tree.jpg?mobile_build_version").tree
         - else
             img(src="http://localhost:3001/images/tree.jpg?mobile_build_version").tree.prompt
-        div.gifts(data-count="#{xmas.bonus}")
+        div.gifts(data-count="#{xmas.bonus}", data-url="http://localhost:3001/xmas/#{xmas.id}")
             img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-1
             img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-2
             img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-3
@@ -62,8 +62,22 @@ block content
             img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.green-5
             img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.green-6
             img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.green-7
+
+            img(src="http://localhost:3001/images/socks.png?mobile_build_version").gift.socks-1
+            img(src="http://localhost:3001/images/socks_l.png?mobile_build_version").gift.socks-2
+
+            img(src="http://localhost:3001/images/stick.png?mobile_build_version").gift.stick-1
+            img(src="http://localhost:3001/images/stick_l.png?mobile_build_version").gift.stick-2
+
+            img(src="http://localhost:3001/images/bear.png?mobile_build_version").gift.bear-1
+            img(src="http://localhost:3001/images/bear_l.png?mobile_build_version").gift.bear-2
     div.prompt-overlay
         img(src="http://localhost:3001/images/guide.png?mobile_build_version")
+    div.votes
+        ul
+            each vote in votes
+                img(src='#{vote.headimgurl}')
+                span.nickname=vote.nickname.substring(0, 20) + '点了一盏灯'
     audio#audio(src="http://localhost:3001/song.mp3", preload="preload", loop)
     script(src='http://localhost:3001/javascripts/zepto.min.js?mobile_build_version')
     script(src='http://localhost:3001/javascripts/effect.js?mobile_build_version')

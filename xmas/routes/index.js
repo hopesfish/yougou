@@ -1,3 +1,4 @@
+var Q = require("q");
 var OAuth = require("wechat-oauth");
 var express = require('express');
 var router = express.Router();
@@ -11,12 +12,19 @@ router.get('/', function(req, res) {
  	res.render('index', { title: 'Express' });
 });
 
-router.get('/xmas/rank', function(req, res) {
-	XmasServices.queryRank({
-	}).then(function(paging) {
-		res.render('rank', {xmass: paging.result});
-	}, function() {
-		res.status(400).send('查询排行榜异常!');
+router.get('/xmas/winner', function(req, res) {
+	XmasServices.getWinners().then(function(winners) {
+		var len = winners.length;
+		for (var i=0; i<len; i++) {
+			var winner = winners[i];
+			if (/[A-Z0-9]*/.test(winner.prize)) {
+				winner.prize = '一张购物卡';
+			}
+		}
+		res.render('winner', {winners: winners});
+	}, function(err) {
+		console.info(err);
+		res.status(400).send('获取投票历史失败!');
 	});
 });
 
@@ -34,14 +42,18 @@ router.get('/xmas/:id', function(req, res) {
 });
 
 router.get('/xmas/:id/tree', function(req, res) {
-	XmasServices.get(req.params.id).then(function(xmas) {
+	Q.all([XmasServices.get(req.params.id), XmasServices.getVotes(req.params.id)]).then(function(result) {
+		var xmas = result[0], votes = result[1].result;
+
 		if (xmas.nickname) {
 			var voteable = req.cookies.xmasId != req.params.id;
-			res.render('tree', {xmas: xmas, voteable: voteable});
+			res.render('tree', {xmas: xmas, voteable: voteable, votes: votes});
 		} else {
 			res.status(400).send('尚未认证!');
 		}
+
 	}, function(err) {
+		console.error(err);
 		res.status(404).send('尚未发起!');
 	});
 });
@@ -146,16 +158,6 @@ router.get('/xmas/:id/vote/confirm', function(req, res) {
 		}
 	}, function() {
 		res.status(404).send('尚未发起!');
-	});
-});
-
-router.get('/xmas/:id/votes', function(req, res) {
-	XmasServices.getVotes(req.params.id).then(function(paging) {
-		console.info(paging);
-		res.render('votes', {votes: paging.result});
-	}, function(err) {
-		console.info(err);
-		res.status(400).send('获取投票历史失败!');
 	});
 });
 
