@@ -7,7 +7,7 @@ block content
     div.profile-c
         div.profile
             img(src='#{xmas.headimgurl}')
-            - if (xmas.bonus > 0 && xmas < 40)
+            - if (xmas.bonus > 0 && xmas.bonus < 40)
                 span #{xmas.nickname.substring(0, 15)}点亮了#{xmas.bonus}盏灯
             - else if (xmas.bonus >= 40)
                 span 都点满了，赶快去领礼物罗！
