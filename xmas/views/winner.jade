@@ -7,6 +7,8 @@ block content
         div.hd
             img(src="http://localhost:3001/images/rank_01.png?mobile_build_version").full
         div.bd
+            - if (winners.length)
+                div 还没人领礼物呢，赶快叫朋友点亮你的圣诞树吧！
             ul
                 each winner, index in winners
                     li
