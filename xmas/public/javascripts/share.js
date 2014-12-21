@@ -13,11 +13,19 @@ wechat('friend', data, function() {});
 wechat('showOptionMenu', function() {});  
 
 $().ready(function() {
-	$(".help").click(function() {
-		$(".mask").show();
+    var jump = false;
+    if ($(".prompt").size() == 0) { jump = true; }
+
+	$("body").click(function() {
+        if (jump) {
+            window.location.href = $(".link").attr("href");
+        } else {
+            $(".prompt-overlay").show();
+        }
 	});
 
-	$(".mask").click(function() {
+	$(".prompt-overlay").click(function(e) {
 		$(this).hide();
+        e.stopPropagation();
 	});
 });

@@ -24,7 +24,20 @@ router.get('/xmas/:id', function(req, res) {
 	XmasServices.get(req.params.id).then(function(xmas) {
 		if (xmas.nickname) {
 			var voteable = req.cookies.xmasId != req.params.id;
-			res.render('xmas', {xmas: xmas, voteable: voteable});
+			res.render('detail', {xmas: xmas, voteable: voteable});
+		} else {
+			res.status(400).send('尚未认证!');
+		}
+	}, function(err) {
+		res.status(404).send('尚未发起!');
+	});
+});
+
+router.get('/xmas/:id/tree', function(req, res) {
+	XmasServices.get(req.params.id).then(function(xmas) {
+		if (xmas.nickname) {
+			var voteable = req.cookies.xmasId != req.params.id;
+			res.render('tree', {xmas: xmas, voteable: voteable});
 		} else {
 			res.status(400).send('尚未认证!');
 		}

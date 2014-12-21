@@ -10,6 +10,12 @@ body
         opacity 1
     100%
         opacity 0.7
+@-webkit-keyframes right-fade
+    0%
+        opacity 0.8
+    100%
+        -webkit-transform translate3d(8px,0px,0)
+        opacity 1
 #xmas
     position relative
     margin auto
@@ -30,31 +36,105 @@ body
         .buttons
             position absolute
             left 0
-            top 0
+            top -15px
             width 100%
             z-index 20
-        .button
-            margin 18px 0
+            p
+                text-align center
+                color #ffe900
+                font-size 18px
+                line-height 24px
+            ul
+                width 80%
+                margin-left 10%
+            li
+                color #ffe900
+                font-size 14px
+                line-height 26px
+                list-style decimal
+            a
+                color #ffe900
+                text-decoration underline
+            .button
+                display block
+                margin 10px
+                line-height 40px
+                height 40px
+                text-decoration none
+                background #ffe600
+                color #f04032
+                text-align center
+                border-radius 10px
+                font-size 20px
+                font-weight bold
+    .link
+        display block
+        z-index 300
+    .profile-c
+        position relative
+        width 96%
+        height 50px
+        margin 10px 2%
+        margin-bottom 0
+        .mask
+            position absolute
+            background #000
+            opacity 0.4
+            z-index 1
+            width 100%;
+            height 50px
+            border-radius 10px
+        .profile
+            position absolute
+            z-index 100
+            padding 10px
+            img
+                display inline-block
+                height 30px
+                width 30px
+                border-radius 30px
+                margin 0
+            span
+                position relative
+                top -10px
+                margin-left 10px
+                display inline-block
+                height 30px
+                color #fff
+                font-size 14px
+    .actions
+        a
+            position absolute
+            top 10%
+            left 0
             display block
-            border-radius 15px
-            width 96%
-            margin-left 2%
-            height 48px
-            line-height 48px
+            float left
+            line-height 50px
+            border-radius 50px
+            color #fff
             text-align center
-            background-color #ffe900
-            color #eb262d
-            font-size 18px
-            font-weight bold
-    .avartar
-        display inline-block
-        height 48px
-        width 48px
+            padding 10px
+            opacity 0.8
+            -webkit-animation right-fade 1s infinite ease
+    .prompt-overlay
+        position fixed
+        width 100%
+        height 100%
+        top 0px
+        left 0px
+        background #000
+        opacity 0.8
+        z-index 100
+        display none
+        img
+            width 100%
     .gifts-c
         position relative
+        top -10px
         .tree
             display block
             margin auto
+            max-width 320px
             max-height 480px
         .star-c
             position absolute
