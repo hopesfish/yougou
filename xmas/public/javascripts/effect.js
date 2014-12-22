@@ -1,5 +1,5 @@
 $().ready(function() {
-    //$("#audio")[0].play();
+    $("#audio")[0].play();
 
     if ($(".gifts").size() == 0) { return; }
 
