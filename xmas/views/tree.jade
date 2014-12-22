@@ -4,19 +4,24 @@ block css
     link(rel='stylesheet', href='http://localhost:3001/stylesheets/custom.css?mobile_build_version')
 
 block content
+    - if (xmas.bonus >= 42)
+        div.finish
+            img(src="http://localhost:3001/images/finish.jpg?mobile_build_version")
     div.profile-c
         div.profile
             img(src='#{xmas.headimgurl}')
-            - if (xmas.bonus > 0 && xmas.bonus < 40)
+            - if (xmas.bonus > 0 && xmas.bonus < 42)
                 span #{xmas.nickname.substring(0, 10)}的圣诞树已经亮了#{xmas.bonus}盏灯
-            - else if (xmas.bonus >= 40)
-                span 都点满了，赶快去领礼物罗！
+            - else if (xmas.bonus >= 42)
+                span 赶紧返回对话框领取吧！
             - else
                 span 还没亮灯哦~赶快找人来点亮吧！
         div.mask
     div.gifts-c
-        div.actions
-            a(href="#") 请点击圣诞树->
+        - if (xmas.bonus < 42)
+            div.actions
+                a(href="#")
+                    img(src="http://localhost:3001/images/click.png?mobile_build_version")
         div.star-c
             img(src="http://localhost:3001/images/star.png?mobile_build_version").star
         - if (voteable)
@@ -25,52 +30,52 @@ block content
         - else
             img(src="http://localhost:3001/images/tree.jpg?mobile_build_version").tree.prompt
         div.gifts(data-count="#{xmas.bonus}", data-url="http://localhost:3001/xmas/#{xmas.id}")
-            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-1
-            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-2
-            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-3
-            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-4
-            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-5
-            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-6
-            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-7
-            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-8
-            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.yellow-9
+            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.gift-gray.yellow-1
+            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.gift-gray.yellow-2
+            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.gift-gray.yellow-3
+            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.gift-gray.yellow-4
+            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.gift-gray.yellow-5
+            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.gift-gray.yellow-6
+            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.gift-gray.yellow-7
+            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.gift-gray.yellow-8
+            img(src="http://localhost:3001/images/yellow.png?mobile_build_version").gift.gift-gray.yellow-9
 
-            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.blue-1
-            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.blue-2
-            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.blue-3
-            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.blue-4
-            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.blue-5
-            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.blue-6
-            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.blue-7
-            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.blue-8
+            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.gift-gray.blue-1
+            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.gift-gray.blue-2
+            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.gift-gray.blue-3
+            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.gift-gray.blue-4
+            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.gift-gray.blue-5
+            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.gift-gray.blue-6
+            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.gift-gray.blue-7
+            img(src="http://localhost:3001/images/blue.png?mobile_build_version").gift.gift-gray.blue-8
 
-            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.red-1
-            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.red-2
-            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.red-3
-            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.red-4
-            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.red-5
-            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.red-6
-            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.red-7
-            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.red-8
-            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.red-9
-            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.red-10
+            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.gift-gray.red-1
+            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.gift-gray.red-2
+            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.gift-gray.red-3
+            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.gift-gray.red-4
+            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.gift-gray.red-5
+            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.gift-gray.red-6
+            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.gift-gray.red-7
+            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.gift-gray.red-8
+            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.gift-gray.red-9
+            img(src="http://localhost:3001/images/red.png?mobile_build_version").gift.gift-gray.red-10
 
-            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.green-1
-            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.green-2
-            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.green-3
-            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.green-4
-            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.green-5
-            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.green-6
-            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.green-7
+            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.gift-gray.green-1
+            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.gift-gray.green-2
+            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.gift-gray.green-3
+            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.gift-gray.green-4
+            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.gift-gray.green-5
+            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.gift-gray.green-6
+            img(src="http://localhost:3001/images/green.png?mobile_build_version").gift.gift-gray.green-7
 
-            img(src="http://localhost:3001/images/socks.png?mobile_build_version").gift.socks-1
-            img(src="http://localhost:3001/images/socks_l.png?mobile_build_version").gift.socks-2
+            img(src="http://localhost:3001/images/socks.png?mobile_build_version").gift.gift-gray.socks-1
+            img(src="http://localhost:3001/images/socks_l.png?mobile_build_version").gift.gift-gray.socks-2
 
-            img(src="http://localhost:3001/images/stick.png?mobile_build_version").gift.stick-1
-            img(src="http://localhost:3001/images/stick_l.png?mobile_build_version").gift.stick-2
+            img(src="http://localhost:3001/images/stick.png?mobile_build_version").gift.gift-gray.stick-1
+            img(src="http://localhost:3001/images/stick_l.png?mobile_build_version").gift.gift-gray.stick-2
 
-            img(src="http://localhost:3001/images/bear.png?mobile_build_version").gift.bear-1
-            img(src="http://localhost:3001/images/bear_l.png?mobile_build_version").gift.bear-2
+            img(src="http://localhost:3001/images/bear.png?mobile_build_version").gift.gift-gray.bear-1
+            img(src="http://localhost:3001/images/bear_l.png?mobile_build_version").gift.gift-gray.bear-2
     div.prompt-overlay
         img(src="http://localhost:3001/images/guide.png?mobile_build_version")
     div.votes

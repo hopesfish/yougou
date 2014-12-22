@@ -7,7 +7,7 @@ $().ready(function() {
         nums = [],
         map = {};
 
-    for (var i=0; i<40; i++) {
+    for (var i=0; i<42; i++) {
         nums.push(i);
     }
 
@@ -15,7 +15,7 @@ $().ready(function() {
         return Math.random() > 0.5 ? -1 : 1;  
     });
 
-    if (count > 40) { count = 40; }
+    if (count > 42) { count = 42; }
 
     while(count > 0) {
         var idx = nums.pop();
@@ -26,7 +26,7 @@ $().ready(function() {
     $(".gift").each(function(i, element) {
         var count = 100 * Math.random();
         if (map[i]) {
-            $(element).addClass("twinking-" + (parseInt(count)%5));
+            $(element).removeClass("gift-gray");
         }
     });
 });

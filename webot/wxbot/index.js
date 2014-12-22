@@ -57,7 +57,7 @@ module.exports = function(webot) {
         },
         handler: function(info, next) {
             XmasServices.start(info.uid).then(function(xmas) {
-                if (xmas.bonus >= 40) {
+                if (xmas.bonus >= 42) {
                     info.text = '2014ACODEFORXMASFROMWEIXIN';
                     next();
                 } else {
@@ -73,7 +73,7 @@ module.exports = function(webot) {
                         url = conf.xmas_root + "/xmas/" + xmas.id + "/grant";
 
                         return next(null, [
-                            '亲~祝你圣诞快乐！速度抱走一棵圣诞树，召集小伙伴一起将你的圣诞树点亮，就有机会抢到优购200元礼品卡和NIKE/ADIDAS/大嘴的惊喜礼品哦！',
+                            '亲~祝你圣诞快乐！速度抱走圣诞树，召集小伙伴一起将树上的装饰灯点亮，就有机会赢取优购（←国内最大的时尚鞋服电商）200元礼品卡和LEE/大嘴猴/Moussy的惊喜礼品哦！',
                             '\n<a href="' + url + '">点击这里</a>参与游戏，快来赢取圣诞豪礼啦！'
                         ].join("\n"));
                     }

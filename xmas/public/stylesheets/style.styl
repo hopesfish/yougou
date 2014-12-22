@@ -36,16 +36,22 @@ body
             top -2px
             margin 0
             background #fff
+            padding 10px 0
             li
                 display block
-                height 48px
-                line-height 48px
-                padding 5px 10px
+                height 36px
+                line-height 36px
+                padding 10px 10px
+                margin 0 10px
+                border-bottom 1px solid #b2b2b2
                 img
                     float left
                     display inline-block
                     width 36px
                     height 36px
+                .icon
+                    width 24px
+                    height 24px
                 span
                     float left
                     display inline-block
@@ -100,6 +106,14 @@ body
     .link
         display block
         z-index 300
+    .finish
+        position absolute
+        left 10%
+        top 140px
+        width 80%
+        z-index 200
+        img
+            width 100%;
     .profile-c
         position relative
         width 96%
@@ -146,6 +160,8 @@ body
             padding 10px
             opacity 0.8
             -webkit-animation right-fade 1s infinite ease
+            img
+                width 100px
     .votes
         margin 10px
         width 80%
@@ -194,16 +210,6 @@ body
             width 36px
             height 36px
             margin auto
-        .twinking-0
-            -webkit-animation twinkling 1s infinite ease-in-out
-        .twinking-1
-            -webkit-animation twinkling 1s infinite ease-in-out
-        .twinking-2
-            -webkit-animation twinkling 1.2s infinite ease-in-out
-        .twinking-3
-            -webkit-animation twinkling 1.4s infinite ease-in-out
-        .twinking-4
-            -webkit-animation twinkling 1.6s infinite ease-in-out
     .gifts
         position absolute
         width 100%
@@ -215,6 +221,9 @@ body
             border 0
             border-width 0
             position absolute
+        .gift-gray
+            -webkit-filter grayscale(100%)
+            opacity 0.6
         .yellow-1
             width 24px
             height 24px
