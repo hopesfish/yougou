@@ -57,7 +57,7 @@ module.exports = function(webot) {
         },
         handler: function(info, next) {
             XmasServices.start(info.uid).then(function(xmas) {
-                if (xmas.bonus >= 42) {
+                if (xmas.bonus >= 5) {
                     info.text = '2014ACODEFORXMASFROMWEIXIN';
                     next();
                 } else {
