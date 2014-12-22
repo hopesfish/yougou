@@ -1,5 +1,5 @@
 $().ready(function() {
-    $("#audio")[0].play();
+    //$("#audio")[0].play();
 
     if ($(".gifts").size() == 0) { return; }
 
@@ -26,7 +26,7 @@ $().ready(function() {
     $(".gift").each(function(i, element) {
         var count = 100 * Math.random();
         if (map[i]) {
-            $(element).removeClass("gift-gray");
+            $(element).attr("src", $(element).attr("data-src")).removeClass("gift-gray");
         }
     });
 });
