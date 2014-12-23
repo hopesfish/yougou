@@ -53,7 +53,7 @@ module.exports = function(webot) {
     // 发起XMAS
     webot.set('shendanjie', {
         pattern: function(info) {
-            return info.text === 'xmas';
+            return info.text === 'xmas' || info.text === '圣诞礼物';
         },
         handler: function(info, next) {
             XmasServices.start(info.uid).then(function(xmas) {
