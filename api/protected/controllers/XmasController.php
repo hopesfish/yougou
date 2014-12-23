@@ -91,6 +91,7 @@ class XmasController extends Controller
         $criteria->compare('archived', 1);
         $criteria->addCondition('open_id IS NOT NULL');
         $criteria->order = 'achieved_time desc';
+        $criteria->limit = 100;
         $prizes = Coupon::model()->findAll($criteria);
 
         $openIds = array();
