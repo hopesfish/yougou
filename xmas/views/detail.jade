@@ -7,9 +7,9 @@ block content
         div.buttons
             - if (voteable)
                 a(href="http://localhost:3001/xmas/#{xmas.id}/tree").button 帮TA点亮圣诞树
-                a(href="http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=203181818&idx=1&sn=7af734020b31f3c1ef70a055c0a1237b#rd").button 我也要一颗属于自己的圣诞树
+                a(href="http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=203181818&idx=1&sn=7af734020b31f3c1ef70a055c0a1237b#rd").button 我也想要圣诞礼物
             - else
-                a(href="http://localhost:3001/xmas/#{xmas.id}/tree").button 我的圣诞树
+                a(href="http://localhost:3001/xmas/#{xmas.id}/tree").button 我要圣诞礼物
             a(href="http://localhost:3001/xmas/winner").button.button-sub 看看大家都领了什么
             a(href="http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=203104383&idx=1&sn=39f1dc0c45b3c7d8c00b2959ef0069ad#rd").button.button-sub 活动规则
     audio#audio(src="http://localhost:3001/song.mp3", preload="preload", loop)

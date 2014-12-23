@@ -4,21 +4,21 @@ block css
     link(rel='stylesheet', href='http://localhost:3001/stylesheets/custom.css?mobile_build_version')
 
 block content
-    - if (xmas.bonus >= 5)
+    - if (xmas.bonus >= 42)
         div.finish
             img(src="http://localhost:3001/images/finish.jpg?mobile_build_version")
     div.profile-c
         div.profile
             img(src='#{xmas.headimgurl}')
-            - if (xmas.bonus > 0 && xmas.bonus < 5)
+            - if (xmas.bonus > 0 && xmas.bonus < 42)
                 span #{xmas.nickname.substring(0, 10)}的圣诞树已经亮了#{xmas.bonus}盏灯
-            - else if (xmas.bonus >= 5)
+            - else if (xmas.bonus >= 42)
                 span 赶紧返回对话框领取吧！
             - else
                 span 还没亮灯哦~赶快找人来点亮吧！
         div.mask
     div.gifts-c
-        - if (xmas.bonus < 5)
+        - if (xmas.bonus < 42)
             div.actions
                 a(href="#")
                     img(src="http://localhost:3001/images/click.png?mobile_build_version")
@@ -84,6 +84,9 @@ block content
                 li
                     img(src='#{vote.headimgurl}')
                     span.nickname=vote.nickname.substring(0, 20) + '点了一盏灯'
+    div.progress
+        img(src="http://localhost:3001/images/loading.gif?mobile_build_version")
+        div 点亮中...
     audio#audio(src="http://localhost:3001/song.mp3", preload="preload", loop)
     script(src='http://localhost:3001/javascripts/zepto.min.js?mobile_build_version')
     script(src='http://localhost:3001/javascripts/effect.js?mobile_build_version')

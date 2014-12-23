@@ -325,6 +325,14 @@ class CouponController extends Controller
 
         // 写入领取记录
         $coupon = $coupons[$offset];
+
+        // 再次判断记录是否被领
+        $checkCoupon = Coupon::model()->findByPk($coupon->id);
+        if ($checkCoupon->open_id != null || $coupon->achieved_time != null) {
+            echo CJSON::encode($result);
+            return;
+        }
+
         $coupon->open_id = $openId;
         $coupon->achieved_time = new CDbExpression('NOW()');
         if ($coupon->save()) {
