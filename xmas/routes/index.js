@@ -19,6 +19,8 @@ router.get('/xmas/winner', function(req, res) {
 			var winner = winners[i];
 			if (winner.prize && winner.prize.indexOf('礼品卡') >= 0) {
 				winner.prize = '一张礼品卡';
+			} else {
+				winner.prize = '实物奖品';
 			}
 		}
 		res.render('winner', {winners: winners});
