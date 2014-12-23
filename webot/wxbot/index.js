@@ -51,7 +51,7 @@ module.exports = function(webot) {
     });
 
     // 发起XMAS
-    webot.set('shendanjie', {t
+    webot.set('shendanjie', {
         pattern: function(info) {
             return info.text === 'xmas';
         },
