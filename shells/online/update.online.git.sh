@@ -11,6 +11,7 @@ mkdir /var/www/html/yougou-static
 mkdir /var/www/html/yougou-webot
 mkdir /var/www/html/yougou-dream
 mkdir /var/www/html/yougou-xmas
+mkdir /var/www/html/yougou-luckybag
 
 #code
 cd /home/yougou/yougou
@@ -20,8 +21,9 @@ git pull
 cp -frap api/* /var/www/html/yougou
 cp -frap static/* /var/www/html/yougou-static
 cp -frap webot/* /var/www/html/yougou-webot
-cp -frap dream/* /var/www/html/yougou-dream
-cp -frap xmas/* /var/www/html/yougou-xmas
+cp -frap activity/dream/* /var/www/html/yougou-dream
+cp -frap activity/xmas/* /var/www/html/yougou-xmas
+cp -frap activity/luckybag/* /var/www/html/yougou-luckybag
 
 #update ngingx
 cd /home/yougou/yougou/shells/online/nginx/conf.d
@@ -48,13 +50,10 @@ sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build
 sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build_version /var/www/html/yougou-dream/*`
 sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build_version /var/www/html/yougou-xmas/*`
 
-sed -i "s#localhost:3001#117.121.50.27:8083#g" `grep -lr localhost:3001 /var/www/html/yougou-dream/*`
-sed -i "s#localhost:3001#117.121.50.27:8084#g" `grep -lr localhost:3001 /var/www/html/yougou-xmas/*`
-cd /var/www/html/yougou-dream/public/stylesheets
+sed -i "s#localhost:3001#117.121.50.27:8084#g" `grep -lr localhost:3001 /var/www/html/yougou-luckybag/*`
+
+cd /var/www/html/yougou-luckybag/public/stylesheets
 stylus --compress style.styl
-cd /var/www/html/yougou-xmas/public/stylesheets
-stylus --compress style.styl
-stylus --compress custom.styl
 
 #start
 cd /var/www/html/yougou-webot
@@ -62,10 +61,10 @@ forever start -l webot.log -a app.js
 cd /var/www/html/yougou-dream
 #npm update
 #forever start -l dream.log -a bin/www
-cd /var/www/html/yougou-xmas
-#npm install
+cd /var/www/html/yougou-luckybag
+npm install
 #npm update
-forever start -l xmas.log -a bin/www
+forever start -l luckybag.log -a bin/www
 
 service nginx start
 

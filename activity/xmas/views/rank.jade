@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    a(href="http://localhost:3001")
+        img(src="http://localhost:3001/images/rank_01.jpg?mobile_build_version").wall
+        img(src="http://localhost:3001/images/rank_02.jpg?mobile_build_version").wall
+    div#rank
+        img(src="http://localhost:3001/images/rank_01.png?mobile_build_version").wall
+        div.bd
+            ul
+                li.label
+                    span 排行榜单
+                    span.money 集资金额(元)
+                each dream, index in dreams
+                    li
+                        a(href="/dream/#{dream.id}")
+                            span.num=index+1
+                            img(src='#{dream.headimgurl}')
+                            - if (dream.nickname.length >= 12)
+                                span.nickname=dream.nickname.substring(0, 9) + '...'
+                            - else
+                                span.nickname=dream.nickname
+                            span.bonus=(dream.bonus/100).toFixed(2)
+    script(src='http://localhost:3001/javascripts/wechat.js?mobile_build_version')
+    script(src='http://localhost:3001/javascripts/rank.js?mobile_build_version')
