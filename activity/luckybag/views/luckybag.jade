@@ -3,13 +3,13 @@ extends layout
 block content
     img(src="http://localhost:3001/images/rp_01.jpg?mobile_build_version").wall
     div.profile
-        a(href="http://localhost:3001/dream/#{dream.id}/votes")
-            img(src='#{dream.headimgurl}')
-            p 昵称：#{dream.nickname.substring(0, 20)}
-            span(data-left="#{((20000 - dream.bonus)/100).toFixed(2)}") 已集资金额 #{(dream.bonus/100).toFixed(2)} 元
+        a(href="http://localhost:3001/luckybag/#{luckybag.id}/votes")
+            img(src='#{luckybag.headimgurl}')
+            p 昵称：#{luckybag.nickname.substring(0, 20)}
+            span(data-left="#{((20000 - luckybag.bonus)/100).toFixed(2)}") 已集资金额 #{(luckybag.bonus/100).toFixed(2)} 元
     - if (voteable)
         div.wall-c
-            a(href="http://localhost:3001/dream/#{dream.id}/vote")
+            a(href="http://localhost:3001/luckybag/#{luckybag.id}/vote")
                 img(src="http://localhost:3001/images/rp_02.jpg?mobile_build_version").wall
                 div.button 帮TA个忙
         div.wall-c
@@ -22,7 +22,7 @@ block content
                 img(src="http://localhost:3001/images/rp_02.jpg?mobile_build_version").wall
                 div.button.help 找朋友帮个忙
     div.wall-c
-        a(href="http://localhost:3001/dream/rank")
+        a(href="http://localhost:3001/luckybag/rank")
             img(src="http://localhost:3001/images/rp_04.jpg?mobile_build_version").wall
             div.button.button-sub 人品排行榜
     div.wall-c

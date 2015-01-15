@@ -11,15 +11,15 @@ block content
                 li.label
                     span 排行榜单
                     span.money 集资金额(元)
-                each dream, index in dreams
+                each luckybag, index in luckybags
                     li
-                        a(href="/dream/#{dream.id}")
+                        a(href="/luckybag/#{luckybag.id}")
                             span.num=index+1
-                            img(src='#{dream.headimgurl}')
-                            - if (dream.nickname.length >= 12)
-                                span.nickname=dream.nickname.substring(0, 9) + '...'
+                            img(src='#{luckybag.headimgurl}')
+                            - if (luckybag.nickname.length >= 12)
+                                span.nickname=luckybag.nickname.substring(0, 9) + '...'
                             - else
-                                span.nickname=dream.nickname
-                            span.bonus=(dream.bonus/100).toFixed(2)
+                                span.nickname=luckybag.nickname
+                            span.bonus=(luckybag.bonus/100).toFixed(2)
     script(src='http://localhost:3001/javascripts/wechat.js?mobile_build_version')
     script(src='http://localhost:3001/javascripts/rank.js?mobile_build_version')

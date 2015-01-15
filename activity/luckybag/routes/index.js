@@ -1,11 +1,9 @@
 var OAuth = require("wechat-oauth");
 var express = require('express');
-var redis = require('node-redis');
 var router = express.Router();
 var conf = require("../conf");
 var LuckyServices = require("../services/LuckyServices");
 
-var rdsClient = redis.createClient(6379, 'localhost');
 var client = new OAuth('wxdc7c7ccc033ba612', '591bea60d3724af80f103e545b03a5d6');
 
 /* GET home page. */
@@ -24,8 +22,8 @@ router.get('/luckybag/rank', function(req, res) {
 });
 
 router.get('/luckybag/:id', function(req, res) {
-	// TODO 从redis里面读出来
 	LuckyServices.get(req.params.id).then(function(luckybag) {
+		console.info(luckybag);
 		if (luckybag.nickname) {
 			var voteable = req.cookies.luckybagId != req.params.id;
 			res.render('luckybag', {luckybag: luckybag, voteable: voteable});
