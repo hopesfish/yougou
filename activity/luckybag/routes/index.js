@@ -23,7 +23,6 @@ router.get('/luckybag/rank', function(req, res) {
 
 router.get('/luckybag/:id', function(req, res) {
 	LuckyServices.get(req.params.id).then(function(luckybag) {
-		console.info(luckybag);
 		if (luckybag.nickname) {
 			var voteable = req.cookies.luckybagId != req.params.id;
 			res.render('luckybag', {luckybag: luckybag, voteable: voteable});
@@ -89,6 +88,20 @@ router.get('/luckybag/:id/fulfill', function(req, res) {
 	});
 });
 
+router.get('/luckybag/:id/fulfill.test', function(req, res) {
+	return false;
+	var suffix = (new Date()).getTime();
+ 	LuckyServices.fulfill(req.params.id, {
+ 		subOpenId: 'testopenid' + suffix,
+        headimgurl: 'headimgurl' + suffix,
+        nickname: 'nickname' + suffix
+ 	}).then(function() {
+ 		res.redirect('/luckybag/' + req.params.id);
+ 	}, function() {
+ 		res.status(400).send('保存用户信息失败');
+ 	});
+});
+
 router.get('/luckybag/:id/vote', function(req, res) {
 	LuckyServices.get(req.params.id).then(function(luckybag) {
 		var url = client.getAuthorizeURL(
@@ -124,10 +137,10 @@ router.get('/luckybag/:id/vote/confirm', function(req, res) {
 				 		headimgurl: userInfo.headimgurl,
                         nickname: userInfo.nickname
 				 	}).then(function() {
-				 		// TODO 写入redis
-				 		res.redirect("http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=202566635&idx=2&sn=81221686bd04613f4c680833759d2638#rd");
-				 	}, function() {
-				 		res.redirect("http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=202566635&idx=3&sn=ec2da8c5db131f5ad4932b80a1834b76#rd");
+				 		res.status(200).send('OK');
+				 	}, function(err) {
+				 		console.error(err);
+				 		res.status(200).send('Failed');
 				 	});
 				});
 			});
@@ -139,11 +152,27 @@ router.get('/luckybag/:id/vote/confirm', function(req, res) {
 	});
 });
 
+router.get('/luckybag/:id/vote/confirm.test', function(req, res) {
+	var suffix = (new Date()).getTime();
+ 	LuckyServices.vote(req.params.id, {
+ 		subOpenId: 'voteopenid' + suffix,
+        headimgurl: 'voteimgurl' + suffix,
+        nickname: 'votename' + suffix
+ 	}).then(function() {
+ 		res.status(200).send('voted');
+ 		//res.redirect('/luckybag/' + req.params.id);
+ 	}, function(err) {
+ 		console.info(err);
+ 		res.status(400).send('提交用户投票信息失败');
+ 	});
+});
+
 router.get('/luckybag/:id/votes', function(req, res) {
 	// 从redis里面读出数据
 	LuckyServices.getVotes(req.params.id).then(function(paging) {
-		console.info(paging);
-		res.render('votes', {votes: paging.result});
+		console.info(paging.length);
+		res.status(200).send('votes');
+		//res.render('votes', {votes: paging.result});
 	}, function(err) {
 		console.info(err);
 		res.status(400).send('获取投票历史失败!');
