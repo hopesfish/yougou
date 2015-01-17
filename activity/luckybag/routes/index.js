@@ -8,7 +8,15 @@ var client = new OAuth('wxdc7c7ccc033ba612', '591bea60d3724af80f103e545b03a5d6')
 
 /* GET home page. */
 router.get('/', function(req, res) {
- 	res.render('index', { title: 'Express' });
+ 	res.render('index', {});
+});
+
+router.get('/start', function(req, res) {
+	res.status(200).send("我也要祝福");
+});
+
+router.get('/howto', function(req, res) {
+ 	res.render('howto', {});
 });
 
 router.get('/luckybag/rank', function(req, res) {
@@ -25,7 +33,15 @@ router.get('/luckybag/:id', function(req, res) {
 	LuckyServices.get(req.params.id).then(function(luckybag) {
 		if (luckybag.nickname) {
 			var voteable = req.cookies.luckybagId != req.params.id;
-			res.render('luckybag', {luckybag: luckybag, voteable: voteable});
+			var voted = 'unvoted';
+			if (req.query.voted === 'true') {
+				voted = 'success';
+			}
+			if (req.query.voted === 'false') {
+				voted = 'failed';
+			}
+			console.info(voted);
+			res.render('luckybag', {luckybag: luckybag, voteable: voteable, voted: voted});
 		} else {
 			res.status(400).send('尚未认证!');
 		}
@@ -36,7 +52,6 @@ router.get('/luckybag/:id', function(req, res) {
 
 router.get('/luckybag/:id/grant', function(req, res) {
 	LuckyServices.get(req.params.id).then(function(luckybag) {
-		res.cookie('luckybagId', req.params.id, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
 		if (luckybag.nickname) {
 			res.redirect('/luckybag/' + luckybag.id);
 		} else {
@@ -74,6 +89,7 @@ router.get('/luckybag/:id/fulfill', function(req, res) {
                         headimgurl: userInfo.headimgurl,
                         nickname: userInfo.nickname
 				 	}).then(function() {
+				 		res.cookie('luckybagId', req.params.id, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
 				 		res.redirect('/luckybag/' + luckybag.id);
 				 	}, function() {
 				 		res.status(400).send('保存用户信息失败');
@@ -89,13 +105,13 @@ router.get('/luckybag/:id/fulfill', function(req, res) {
 });
 
 router.get('/luckybag/:id/fulfill.test', function(req, res) {
-	return false;
 	var suffix = (new Date()).getTime();
  	LuckyServices.fulfill(req.params.id, {
  		subOpenId: 'testopenid' + suffix,
         headimgurl: 'headimgurl' + suffix,
         nickname: 'nickname' + suffix
  	}).then(function() {
+ 		res.cookie('luckybagId', req.params.id, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
  		res.redirect('/luckybag/' + req.params.id);
  	}, function() {
  		res.status(400).send('保存用户信息失败');
@@ -137,10 +153,10 @@ router.get('/luckybag/:id/vote/confirm', function(req, res) {
 				 		headimgurl: userInfo.headimgurl,
                         nickname: userInfo.nickname
 				 	}).then(function() {
-				 		res.status(200).send('OK');
+				 		res.redirect('/luckybag/' + req.params.id + '?voted=true');
 				 	}, function(err) {
 				 		console.error(err);
-				 		res.status(200).send('Failed');
+				 		res.redirect('/luckybag/' + req.params.id + '?voted=false');
 				 	});
 				});
 			});
@@ -159,11 +175,10 @@ router.get('/luckybag/:id/vote/confirm.test', function(req, res) {
         headimgurl: 'voteimgurl' + suffix,
         nickname: 'votename' + suffix
  	}).then(function() {
- 		res.status(200).send('voted');
- 		//res.redirect('/luckybag/' + req.params.id);
+ 		res.redirect('/luckybag/' + req.params.id + '?voted=true');
  	}, function(err) {
- 		console.info(err);
- 		res.status(400).send('提交用户投票信息失败');
+ 		console.error(err);
+ 		res.redirect('/luckybag/' + req.params.id + '?voted=false');
  	});
 });
 
