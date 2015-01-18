@@ -61,6 +61,7 @@ router.get('/luckybag/:id', function(req, res) {
 
 router.get('/luckybag/:id/grant', function(req, res) {
 	LuckyServices.get(req.params.id).then(function(luckybag) {
+		res.cookie('luckybagId', req.params.id, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
 		if (luckybag.nickname) {
 			res.redirect('/luckybag/' + luckybag.id);
 		} else {
