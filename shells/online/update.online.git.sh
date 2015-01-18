@@ -62,7 +62,7 @@ cd /var/www/html/yougou-dream
 #npm update
 #forever start -l dream.log -a bin/www
 cd /var/www/html/yougou-luckybag
-npm install
+#npm install
 #npm update
 forever start -l luckybag.log -a bin/www
 
