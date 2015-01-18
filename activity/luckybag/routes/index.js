@@ -83,12 +83,14 @@ router.get('/luckybag/:id/fulfill', function(req, res) {
 		} else if (req.query.code) {
 			client.getAccessToken(req.query.code, function (err, result) {
 				if (err) {
+					console.error(err);
 					res.status(400).send('无法获得授权码');
 					return;
 				}
 			  	var openid = result.data.openid;
 			  	client.getUser(openid, function (err, result) {
 			  		if (err) {
+			  			console.error(err);
 						res.status(400).send('无法获得用户信息');
 						return;
 					}
@@ -100,7 +102,8 @@ router.get('/luckybag/:id/fulfill', function(req, res) {
 				 	}).then(function() {
 				 		res.cookie('luckybagId', req.params.id, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
 				 		res.redirect('/luckybag/' + luckybag.id);
-				 	}, function() {
+				 	}, function(err) {
+				 		console.error(err);
 				 		res.status(400).send('保存用户信息失败');
 				 	});
 				});
@@ -122,7 +125,8 @@ router.get('/luckybag/:id/fulfill.test', function(req, res) {
  	}).then(function() {
  		res.cookie('luckybagId', req.params.id, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
  		res.redirect('/luckybag/' + req.params.id);
- 	}, function() {
+ 	}, function(err) {
+ 		console.error(err);
  		res.status(400).send('保存用户信息失败');
  	});
 });
@@ -135,7 +139,8 @@ router.get('/luckybag/:id/vote', function(req, res) {
 			'snsapi_userinfo'
 		);
 		res.redirect(url);
-	}, function() {
+	}, function(err) {
+		console.error(err);
 		res.status(400).send('尚未发起!');
 	});
 });
@@ -147,12 +152,14 @@ router.get('/luckybag/:id/vote/confirm', function(req, res) {
 		} else if (req.query.code) {
 			client.getAccessToken(req.query.code, function (err, result) {
 				if (err) {
+					console.error(err);
 					res.status(400).send('无法获得授权');
 					return;
 				}
 			 	var openid = result.data.openid;
 			  	client.getUser(openid, function (err, result) {
 			  		if (err) {
+			  			console.error(err);
 						res.status(400).send('无法获得用户信息');
 						return;
 					}
