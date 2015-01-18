@@ -13,7 +13,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/start', function(req, res) {
-	res.status(200).send("我也要祝福");
+	res.redirect("http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=204032066&idx=1&sn=c2fae68468acec7811c80fd596c3ae05#rd");
 });
 
 router.get('/howto', function(req, res) {
