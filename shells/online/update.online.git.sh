@@ -49,6 +49,7 @@ sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build
 sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build_version /var/www/html/yougou-static/*`
 sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build_version /var/www/html/yougou-dream/*`
 sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build_version /var/www/html/yougou-xmas/*`
+sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build_version /var/www/html/yougou-luckybag/*`
 
 sed -i "s#localhost:3001#117.121.50.27:8083#g" `grep -lr localhost:3001 /var/www/html/yougou-luckybag/*`
 
@@ -58,7 +59,6 @@ stylus --compress style.styl
 #start
 cd /var/www/html/yougou-webot
 forever start -l webot.log -a app.js
-cd /var/www/html/yougou-dream
 #npm update
 #forever start -l dream.log -a bin/www
 cd /var/www/html/yougou-luckybag
