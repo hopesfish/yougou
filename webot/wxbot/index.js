@@ -5,6 +5,7 @@ var ActivityServices = require("../services/ActivityServices");
 var AutoreplyServices = require("../services/AutoreplyServices");
 var DreamServices = require("../services/DreamServices");
 var XmasServices = require("../services/XmasServices");
+var LuckybagServices = require("../services/LuckybagServices");
 
 module.exports = function(webot) {
     // 订阅欢迎词
@@ -98,6 +99,32 @@ module.exports = function(webot) {
                 }
             }, function(err) {
                 console.error(err);
+                return next("发起活动失败");
+            });
+        }
+    });
+
+    // 发起祝福
+    webot.set('greeting2015', {
+        pattern: function(info) {
+            return info.text === 'zhufu' || info.text === '我要求祝福';
+        },
+        handler: function(info, next) {
+            console.info(111);
+            LuckybagServices.start(info.uid).then(function(luckybag) {
+                if (luckybag.bonus >= 40) {
+                    info.text = '2015ACODEFORGREETINGFROMWEIXIN';
+                    next();
+                } else {
+                    var url = conf.luckybag_root + "/luckybag/" + luckybag.id + "/grant";
+
+                    return next(null, [
+                        '亲~祝您新春快乐！速度召集小伙伴来祝福您，您就有机会赢取优购（←国内最大的时尚鞋服电商）200元礼品卡和LEE/大嘴猴/Moussy的惊喜礼品哦！',
+                        '\n<a href="' + url + '">点击这里</a>参与游戏，快来赢取新春豪礼啦！'
+                    ].join("\n"));
+                }
+            }, function(err) {
+                console.info(err);
                 return next("发起活动失败");
             });
         }

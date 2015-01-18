@@ -1,3 +1,4 @@
+var Q = require("q");
 var OAuth = require("wechat-oauth");
 var express = require('express');
 var router = express.Router();
@@ -30,7 +31,13 @@ router.get('/luckybag/rank', function(req, res) {
 });
 
 router.get('/luckybag/:id', function(req, res) {
-	LuckyServices.get(req.params.id).then(function(luckybag) {
+	Q.all([LuckyServices.get(req.params.id),
+		   LuckyServices.getVotes(req.params.id),
+		   LuckyServices.queryRank()]).then(function(result) {
+		var luckybag = result[0],
+			votes = result[1] || [],
+			rank = result[2];
+
 		if (luckybag.nickname) {
 			var voteable = req.cookies.luckybagId != req.params.id;
 			var voted = 'unvoted';
@@ -40,13 +47,15 @@ router.get('/luckybag/:id', function(req, res) {
 			if (req.query.voted === 'false') {
 				voted = 'failed';
 			}
-			console.info(voted);
-			res.render('luckybag', {luckybag: luckybag, voteable: voteable, voted: voted});
+			res.render('luckybag', {luckybag: luckybag, rank: rank, votes: votes, voteable: voteable, voted: voted});
 		} else {
+			console.error("not started");
 			res.status(400).send('尚未认证!');
 		}
-	}, function() {
-		res.status(404).send('尚未发起!');
+
+	}, function(err) {
+		console.error(err)
+		res.status(404).send('读取相关数据异常!');
 	});
 });
 

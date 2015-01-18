@@ -6,12 +6,44 @@ var BaseServices = require("./BaseServices");
 var redis = require('node-redis');
 var rdsClient = redis.createClient(6379, 'localhost');
 
+var lastrank = 0;
 /*
  * 排行榜
  */
 exports.queryRank = function(opts) {
-    var url = '/api/activity/luckybag/rank';
-    return BaseServices.queryAll(url, {});
+    var deferred = Q.defer();
+
+    rdsClient.hget('luckbag', 'rank', function(err, txt) {
+        if (err) {
+            console.error('failed to read luckybag rank');
+            console.error(err);
+            return deferred.reject(err);
+        }
+
+        var now = (new Date()).getTime();
+        if (txt && (now - lastrank) < 1000 * 60 * 5) {
+            var record = JSON.parse(txt.toString());
+            return deferred.resolve(record);
+        } else {
+            lastrank = now;
+            var url = '/api/activity/luckybag/rank';
+            BaseServices.queryAll(url, {}).then(function(paging) {
+                rdsClient.hset('luckbag', 'rank', JSON.stringify(paging.result), function(err) {
+                    if (err) {
+                        console.error('failed to refresh luckybag rank');
+                        console.error(err);
+                        return deferred.reject(err);
+                    }
+                    deferred.resolve(paging.result);
+                });
+            }, function(err) {
+                console.error(err);
+                deferred.reject(err);
+            });
+        }
+    });
+
+    return deferred.promise;
 };
 
 /*
@@ -20,7 +52,7 @@ exports.queryRank = function(opts) {
 exports.get = function(luckybagId) {
     var deferred = Q.defer();
 
-    rdsClient.hget('redbag', luckybagId, function(err, txt) {
+    rdsClient.hget('luckbag', luckybagId, function(err, txt) {
         if (err) {
             console.error('failed to read luckybag record');
             console.error(err);
@@ -33,7 +65,7 @@ exports.get = function(luckybagId) {
         } else {
             var url = '/api/activity/luckybag/' + luckybagId;
             BaseServices.get(url, {}).then(function(record) {
-                rdsClient.hset('redbag', luckybagId, JSON.stringify(record), function(err) {
+                rdsClient.hset('luckbag', luckybagId, JSON.stringify(record), function(err) {
                     if (err) {
                         console.error('failed to refresh luckybag record');
                         console.error(err);
@@ -59,7 +91,7 @@ exports.fulfill = function(luckybagId, data) {
         url = '/api/activity/luckybag/' + luckybagId;
 
     BaseServices.update(url, data).then(function(record) {
-        rdsClient.hset('redbag', luckybagId, JSON.stringify(record), function(err) {
+        rdsClient.hset('luckbag', luckybagId, JSON.stringify(record), function(err) {
             if (err) {
                 console.error('failed to update luckybag record');
                 console.error(err);
@@ -83,14 +115,14 @@ exports.vote = function(luckybagId, data) {
 
     BaseServices.create(url, data).then(function() {
         // TODO 奇怪的祝福语?
-        rdsClient.rpush('redbag:votes:' + luckybagId, JSON.stringify(data), function(err) {
+        rdsClient.rpush('luckbag:votes:' + luckybagId, JSON.stringify(data), function(err) {
             if (err) {
                 console.error('failed to update luckybag vote record');
                 console.error(err);
                 return deferred.reject(err);
             }
             // 删除SET值 导致下一个请求来自DB
-            rdsClient.hdel('redbag', luckybagId, function(err) {
+            rdsClient.hdel('luckbag', luckybagId, function(err) {
                 if (err) {
                     console.error('failed to remove luckybag record');
                     console.error(err);
@@ -106,44 +138,57 @@ exports.vote = function(luckybagId, data) {
     return deferred.promise;
 };
 
+var lastvotes = {};
 /**
  * 投票历史
  */
 exports.getVotes = function(luckybagId, data) {
     var deferred = Q.defer();
 
-    rdsClient.lrange('redbag:votes:' + luckybagId, 0, -1, function(err, votes) {
+    rdsClient.lrange('luckbag:votes:' + luckybagId, 0, -1, function(err, votes) {
         if (err) {
             console.error('failed to read luckybag votes record');
             console.error(err);
             return deferred.reject(err);
         }
 
-        if (votes) {
+        if (!lastvotes[luckybagId]) {
+            lastvotes[luckybagId] = 0;
+        }
+        var now = (new Date()).getTime();
+
+        if (votes && (now - lastvotes[luckybagId]) < 1000 * 60 * 60) {
             var items = [];
             for (var i=0; i<votes.length; i++) {
                 items.push(JSON.parse(votes[i]));
             }
             deferred.resolve(items);
         } else {
-            var url = '/api/activity/luckybag/' + luckybagId + '/vote';
-            BaseServices.queryPaging(url, data).then(function(paging) {
-                var records = paging.result;
-                for (var i=0; i<records.length; i++) {
-                    rdsClient.rpush('redbag:votes:' + luckybagId, JSON.stringify(records[i]), function(err) {
-                        if (err) {
-                            console.error('failed to update luckybag vote record');
-                            console.error(err);
-                            return deferred.reject(err);
-                        }
-                        
-                    });
+            lastvotes[luckybagId] = now;
+            rdsClient.del('luckbag:votes:' + luckybagId, function(err) {
+                if (err) {
+                    console.error(err);
+                    console.error('failed to clear votes');
                 }
-                deferred.resolve(records);
-            }, function(err) {
-                console.error(err);
-                deferred.reject(err);
-            });
+                var url = '/api/activity/luckybag/' + luckybagId + '/vote';
+                BaseServices.queryPaging(url, data).then(function(paging) {
+                    var records = paging.result;
+                    for (var i=0; i<records.length; i++) {
+                        rdsClient.rpush('luckbag:votes:' + luckybagId, JSON.stringify(records[i]), function(err) {
+                            if (err) {
+                                console.error('failed to update luckybag vote record');
+                                console.error(err);
+                                return deferred.reject(err);
+                            }
+                            
+                        });
+                    }
+                    deferred.resolve(records);
+                }, function(err) {
+                    console.error(err);
+                    deferred.reject(err);
+                });
+            })
         }
     });
 

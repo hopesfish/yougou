@@ -17,6 +17,27 @@ block content
                 img(src="http://localhost:3001/images/need.png?mobile_build_version")
         a.button.sub-button(href="http://localhost:3001/howto")
             img(src="http://localhost:3001/images/howto.png?mobile_build_version")
+        - if (rank.length > 0)
+            .rank
+                span.tit 中奖名单：
+                span.winners
+                    - for winner, index in rank
+                        - if (index == 0)
+                            p.current #{winner.nickname}已领取
+                        - else
+                            p #{winner.nickname}已领取
+        - if (votes.length > 0)
+            .votes
+                .tit 祝福榜单
+                ul
+                    - for vote in votes
+                        li
+                            //img(src="#{vote.headimgurl}")
+                            div.voter
+                                p #{vote.nickname}
+                                p 为您献上了10点祝福
+
+
     - if (voted === 'unvoted')
         .mask.mask-collect
             img(src="http://localhost:3001/images/guide.png?mobile_build_version")
@@ -28,4 +49,6 @@ block content
             img(src="http://localhost:3001/images/failed.png?mobile_build_version")
 
     script(src='http://localhost:3001/javascripts/zepto.min.js?mobile_build_version')
+    script(src='http://localhost:3001/javascripts/fx.js?mobile_build_version')
+    script(src='http://localhost:3001/javascripts/fx_methods.js?mobile_build_version')
     script(src='http://localhost:3001/javascripts/init.js?mobile_build_version')
