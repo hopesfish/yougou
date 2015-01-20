@@ -31,10 +31,11 @@ stylus --compress style.styl
 #npm update
 #forever start -l dream.log -a bin/www
 cd /var/www/html/yougou-luckybag
-rm conf/index.js
-mv conf/index.online.js conf/index.js
+rm -f conf/index.js
+mv -f conf/index.online.js conf/index.js
 #npm install
 #npm update
-pm2 bin/www
+pm2 delete luckybag
+pm2 start process.json
 
 service nginx start

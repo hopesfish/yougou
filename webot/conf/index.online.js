@@ -9,7 +9,7 @@ module.exports = {
     api_root : 'http://localhost:8082',
     dream_root : 'http://117.121.50.27:8083',
     xmas_root : 'http://117.121.50.27:8084',
-    luckybag_root : 'http://117.121.50.27:8083',
+    luckybag_root : 'http://121.42.153.68:8083',
     salt : 'weexiao',
     weixin : 'yougouwx'
 };
