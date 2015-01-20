@@ -1,0 +1,16 @@
+{
+  "apps" : [{
+    "name"       : "luckybag",
+    "script"     : "./bin/www",
+    "instances"  : "1",
+    "log_date_format"  : "YYYY-MM-DD HH:mm",
+    "error_file" : "/var/log/yougou/luckybag-error.log",
+    "out_file"   : "/var/log/yougou/luckybag-out.log",
+    "pid_file"   : "/var/log/yougou/luckybag.pid",
+    "exec_mode"  : "cluster_mode",
+    "port"       : 41201,
+    "env": {
+      "NODE_ENV": "online"
+    }
+  }]
+}
