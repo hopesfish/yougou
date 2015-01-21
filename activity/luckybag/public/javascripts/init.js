@@ -10,6 +10,11 @@ $().ready(function() {
         $('.mask-collect').show();
     });
 
+    $(".vote-btn").click(function() {
+        $(".gift-c img").removeClass("moving");
+        $('.mask-wait').show();
+    });
+
     setTimeout(function() {
         if ($(".mask-visible").size() > 0) { return; }
         $(".gift-c img").addClass("moving");

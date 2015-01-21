@@ -119,8 +119,8 @@ module.exports = function(webot) {
                     var url = conf.luckybag_root + "/luckybag/" + luckybag.id + "/grant";
 
                     return next(null, [
-                        '亲~祝您新春快乐！速度召集小伙伴来祝福您，您就有机会赢取优购（←国内最大的时尚鞋服电商）200元礼品卡和LEE/大嘴猴/Moussy的惊喜礼品哦！',
-                        '\n<a href="' + url + '">点击这里</a>参与游戏，快来赢取新春豪礼啦！'
+                        '亲~速度召集小伙伴来送祝福，你就有机会赢取优购（←国内最大的时尚鞋服电商）500元礼品卡和大嘴猴/Mossy的惊喜豪礼哦！',
+                        '\n<a href="' + url + '">点击这里</a>参与游戏，速度玩起来吧！'
                     ].join("\n"));
                 }
             }, function(err) {

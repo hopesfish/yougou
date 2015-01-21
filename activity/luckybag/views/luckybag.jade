@@ -11,7 +11,7 @@ block content
                 img(src="http://localhost:3001/images/collect.png?mobile_build_version")
         - else
             - if (voted === 'unvoted')
-                a.button(href="http://localhost:3001/luckybag/#{luckybag.id}/vote")
+                a.button.vote-btn(href="http://localhost:3001/luckybag/#{luckybag.id}/vote")
                     img(src="http://localhost:3001/images/wish.png?mobile_build_version")
             a.button(href="http://localhost:3001/start")
                 img(src="http://localhost:3001/images/need.png?mobile_build_version")
@@ -30,17 +30,33 @@ block content
             .votes
                 .tit 祝福榜单
                 ul
-                    - for vote in votes
+                    - for vote, index in votes
                         li
                             img(src="#{vote.headimgurl}")
                             div.voter
-                                p #{vote.nickname}
-                                p 为您献上了10点祝福
-
-
+                                - if (index % 9 == 0)
+                                    p 亲~#{vote.nickname}祝你2015继续有钱，任性！
+                                - if (index % 9 == 1)
+                                    p 亲~#{vote.nickname}祝你2015嫁（qu）个高（bai）富（fu）帅（mei）！
+                                - if (index % 9 == 2)
+                                    p 亲~#{vote.nickname}祝你2015享受美食不！发！胖！
+                                - if (index % 9 == 3)
+                                    p 亲~#{vote.nickname}祝你2015彩票中个500万！
+                                - if (index % 9 == 4)
+                                    p 亲~#{vote.nickname}祝你2015升职加薪职场稳赢！
+                                - if (index % 9 == 5)
+                                    p 亲~#{vote.nickname}祝你2015成功出轨携手基友把家还！
+                                - if (index % 9 == 6)
+                                    p 亲~#{vote.nickname}祝你2015有目标有方向，生活水平biubiu升高！
+                                - if (index % 9 == 7)
+                                    p 亲~#{vote.nickname}祝你2015事事圆满合家欢！
+                                - if (index % 9 == 8)
+                                    p 亲~#{vote.nickname}祝你2015身体健康不！生！病！
     - if (voted === 'unvoted')
         .mask.mask-collect
             img(src="http://localhost:3001/images/guide.png?mobile_build_version")
+        .mask.mask-wait
+            img(src="http://localhost:3001/images/loading.gif?mobile_build_version")
     - if (voted === 'success')
         .mask.mask-visible
             img(src="http://localhost:3001/images/success.png?mobile_build_version")
