@@ -5,7 +5,17 @@ var router = express.Router();
 var conf = require("../conf");
 var LuckyServices = require("../services/LuckyServices");
 
-var client = new OAuth('wxdc7c7ccc033ba612', '591bea60d3724af80f103e545b03a5d6');
+var redis = require('node-redis');
+var rdsClient = redis.createClient(6379, 'localhost');
+
+var client = new OAuth('wxdc7c7ccc033ba612', '591bea60d3724af80f103e545b03a5d6', function (openid, callback) {
+    rdsClient.hget('weixin:' + openid, 'token', function(err, txt) {
+        if (err) {return callback(err);}
+        callback(null, JSON.parse(txt));
+    });
+}, function (openid, token, callback) {
+    rdsClient.hset('weixin:' + openid, 'token', JSON.stringify(token), callback);
+});
 
 /* GET home page. */
 router.get('/', function(req, res) {
