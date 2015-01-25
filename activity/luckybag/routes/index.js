@@ -83,12 +83,6 @@ router.get('/luckybag/:id', function(req, res) {
 			if (req.query.voted === 'false') {
 				voted = 'failed';
 			}
-			console.info({
-				appId: 'wxdc7c7ccc033ba612',
-				timestamp: req.cookies.timestamp,
-				nonceStr: req.cookies.nonceStr,
-				signature: req.cookies.signature
-			});
 			res.render('luckybag', {
 				luckybag: luckybag, 
 				rank: rank, 
@@ -121,6 +115,7 @@ router.get('/luckybag/:id/grant', function(req, res) {
 		 	jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'],
 		 	url: conf.server_root + '/luckybag/' + luckybag.id
 		};
+		console.info(param);
 		wechatApi.getJsConfig(param, function(err, result) {
 			if (err) {
 				return res.status(400).send('JS SDK授权异常!');
