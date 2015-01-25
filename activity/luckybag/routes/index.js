@@ -20,7 +20,7 @@ var oauthClient = new OAuth('wxdc7c7ccc033ba612', '591bea60d3724af80f103e545b03a
 });
 
 // 初始化微信api
-var wechatApi = new API('wxdc7c7ccc033ba612', '591bea60d3724af80f103e545b03a5d6', function(callback) {
+var wechatApi = new API('wx0f186d92b18bc5b0', 'a1e509c1ee4b0fcd9ab4d29cb6ea35e6', function(callback) {
 	rdsClient.hget('weixin-api-token', 'token', function(err, txt) {
         if (err) {return callback(err);}
         callback(null, JSON.parse(txt));
@@ -90,7 +90,7 @@ router.get('/luckybag/:id', function(req, res) {
 				voteable: voteable, 
 				voted: voted,
 				jsApi: {
-					appId: 'wxdc7c7ccc033ba612',
+					appId: 'wx0f186d92b18bc5b0',
 					timestamp: req.cookies.timestamp,
 					nonceStr: req.cookies.nonceStr,
 					signature: req.cookies.signature
