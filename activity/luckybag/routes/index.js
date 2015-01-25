@@ -83,6 +83,12 @@ router.get('/luckybag/:id', function(req, res) {
 			if (req.query.voted === 'false') {
 				voted = 'failed';
 			}
+			console.info({
+				appId: 'wxdc7c7ccc033ba612',
+				timestamp: req.cookies.timestamp,
+				nonceStr: req.cookies.nonceStr,
+				signature: req.cookies.signature
+			});
 			res.render('luckybag', {
 				luckybag: luckybag, 
 				rank: rank, 
