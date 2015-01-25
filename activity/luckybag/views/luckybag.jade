@@ -81,6 +81,7 @@ block content
     script(src='http://localhost:3001/javascripts/init.js?mobile_build_version')
     script(src='//res.wx.qq.com/open/js/jweixin-1.0.0.js')
     script.
+        alert(1);
         wx.config({
             debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
             appId: #{jsApi.appId}, // 必填，公众号的唯一标识
@@ -103,6 +104,6 @@ block content
             });
         });
         wx.error(function(res){
-            //alert(res || '签名过期！');
+            alert(res || '签名过期！');
         });
 
