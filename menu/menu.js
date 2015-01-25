@@ -1,13 +1,22 @@
 var wechat = require('wechat');
 
-
-
 function initMenu() {
     return {
         "button": [{
-            "type": "view",
-            "name": "微社区",
-            "url": "http://m.wsq.qq.com/263468315"
+            "name": "给力活动",
+            "sub_button": [{
+                "type": "view",
+                "name": "每日特惠",
+                "url": "http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=203907370&idx=2&sn=a6afb393796bcc870aa0c36e24e4b0b6#rd"
+            }, {
+                "type": "view",
+                "name": "昨日推送",
+                "url": "http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=203907370&idx=2&sn=a6afb393796bcc870aa0c36e24e4b0b6#rd"
+            }, {
+                "type": "view",
+                "name": "本周活动",
+                "url": "http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=203526871&idx=1&sn=04c1e11eba8fbcb8f657c60342fec8f9#rd"
+            }]
         }]
     }
 }

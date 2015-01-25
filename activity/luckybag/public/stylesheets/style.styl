@@ -53,6 +53,29 @@ body
         img
             height 16px
             margin-top 4%
+    .collect-btn
+        margin-top 40px
+        position relative
+        div
+            position absolute
+            display inline-block
+            right 0
+            top -36px
+            border-radius 5px
+            padding 0px 10px
+            background-color red
+            color #fff
+            height 24px
+            line-height 24px
+            &::after
+                margin auto
+                display block
+                content ''
+                width: 0;
+                height: 0;
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-top: 8px solid red;
     .sub-button
         background-color #af2e1a
         border-bottom 4px solid #7c2012
@@ -169,3 +192,11 @@ body
         width 100%
 .mask-visible
     display block
+    p
+        position fixed
+        width 100%
+        left 0
+        top 52%
+        z-index 100
+        text-align center
+        color #fff

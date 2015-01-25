@@ -9,6 +9,12 @@ block content
         - if (!voteable)
             a.button.collect-btn(href="#")
                 img(src="http://localhost:3001/images/collect.png?mobile_build_version")
+                - if (votes.length == 0)
+                    div 您还差15个祝福才可以领取
+                - else if (votes.length > 0 && votes.length < 15)
+                    div 您还差#{15-votes.length}个祝福才可以领取
+                - else if (votes.length >= 15)
+                    div 赶快回订阅号领取奖励吧！
         - else
             - if (voted === 'unvoted')
                 a.button.vote-btn(href="http://localhost:3001/luckybag/#{luckybag.id}/vote")
@@ -28,7 +34,7 @@ block content
                             p #{winner.nickname}已领取
         - if (votes.length > 0)
             .votes
-                .tit 祝福榜单
+                .tit 祝福榜单 (#{votes.length}人已祝福)
                 ul
                     - for vote, index in votes
                         li
@@ -60,9 +66,11 @@ block content
     - if (voted === 'success')
         .mask.mask-visible
             img(src="http://localhost:3001/images/success.png?mobile_build_version")
+            p 5秒后自动关闭...
     - if (voted === 'failed')
         .mask.mask-visible
             img(src="http://localhost:3001/images/failed.png?mobile_build_version")
+            p 5秒后自动关闭...
 
     script(src='http://localhost:3001/javascripts/zepto.min.js?mobile_build_version')
     script(src='http://localhost:3001/javascripts/fx.js?mobile_build_version')

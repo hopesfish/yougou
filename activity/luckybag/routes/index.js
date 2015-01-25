@@ -1,5 +1,6 @@
 var Q = require("q");
 var OAuth = require("wechat-oauth");
+var API = require('wechat-api');
 var express = require('express');
 var router = express.Router();
 var conf = require("../conf");
@@ -8,13 +9,37 @@ var LuckyServices = require("../services/LuckyServices");
 var redis = require('node-redis');
 var rdsClient = redis.createClient(6379, 'localhost');
 
-var client = new OAuth('wxdc7c7ccc033ba612', '591bea60d3724af80f103e545b03a5d6', function (openid, callback) {
+// oauth oauthClient
+var oauthClient = new OAuth('wxdc7c7ccc033ba612', '591bea60d3724af80f103e545b03a5d6', function (openid, callback) {
     rdsClient.hget('weixin:' + openid, 'token', function(err, txt) {
         if (err) {return callback(err);}
         callback(null, JSON.parse(txt));
     });
 }, function (openid, token, callback) {
     rdsClient.hset('weixin:' + openid, 'token', JSON.stringify(token), callback);
+});
+
+// 初始化微信api
+var wechatApi = new API('wxdc7c7ccc033ba612', '591bea60d3724af80f103e545b03a5d6', function(callback) {
+	rdsClient.hget('weixin-api-token', 'token', function(err, txt) {
+        if (err) {return callback(err);}
+        callback(null, JSON.parse(txt));
+    });
+}, function(token, callback) {
+	rdsClient.hset('weixin-api-token', 'token', JSON.stringify(token), callback);
+});
+
+// 超时时间
+wechatApi.setOpts({timeout: 15000});
+
+// 初始化ticket
+wechatApi.registerTicketHandle(function(callback) {
+	rdsClient.hget('weixin-ticket-token', 'token', function(err, txt) {
+        if (err) {return callback(err);}
+        callback(null, txt);
+    });
+}, function(ticketToken, callback) {
+	rdsClient.hset('weixin-ticket-token', 'token', ticketToken, callback);
 });
 
 /* GET home page. */
@@ -72,19 +97,36 @@ router.get('/luckybag/:id', function(req, res) {
 router.get('/luckybag/:id/grant', function(req, res) {
 	LuckyServices.get(req.params.id).then(function(luckybag) {
 		res.cookie('luckybagId', req.params.id, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
-		if (luckybag.nickname) {
-			res.redirect('/luckybag/' + luckybag.id);
-		} else {
-			var url = client.getAuthorizeURL(
-				conf.server_root + '/luckybag/' + luckybag.id + '/fulfill',
-				'',
-				'snsapi_userinfo'
-			);
-			res.redirect(url);
-		}
+		var param = {
+			debug:false,
+		 	jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'],
+		 	url: conf.server_root + '/luckybag/' + luckybag.id
+		};
+		wechatApi.getJsConfig(param, function(err, result) {
+			if (err) {
+				return res.status(400).send('JS SDK授权异常!');
+			}
+			res.cookie('weixinticket', result.ticket, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
+
+			if (luckybag.nickname) {
+				res.redirect('/luckybag/' + luckybag.id);
+			} else {
+				var url = oauthClient.getAuthorizeURL(
+					conf.server_root + '/luckybag/' + luckybag.id + '/fulfill',
+					'',
+					'snsapi_userinfo'
+				);
+				res.redirect(url);
+			}
+		});
 	}, function() {
 		res.status(404).send('尚未发起!');
 	});
+});
+
+router.get('/luckybag/:id/grant.test', function(req, res) {
+	res.cookie('luckybagId', req.params.id, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
+	res.redirect('/luckybag/' + req.params.id);
 });
 
 router.get('/luckybag/:id/fulfill', function(req, res) {
@@ -92,14 +134,14 @@ router.get('/luckybag/:id/fulfill', function(req, res) {
 		if (luckybag.nickname) {
 			res.redirect('/luckybag/' + luckybag.id);
 		} else if (req.query.code) {
-			client.getAccessToken(req.query.code, function (err, result) {
+			oauthClient.getAccessToken(req.query.code, function (err, result) {
 				if (err) {
 					console.error(err);
 					res.status(400).send('无法获得授权码');
 					return;
 				}
 			  	var openid = result.data.openid;
-			  	client.getUser(openid, function (err, result) {
+			  	oauthClient.getUser(openid, function (err, result) {
 			  		if (err) {
 			  			console.error(err);
 						res.status(400).send('无法获得用户信息');
@@ -144,7 +186,7 @@ router.get('/luckybag/:id/fulfill.test', function(req, res) {
 
 router.get('/luckybag/:id/vote', function(req, res) {
 	LuckyServices.get(req.params.id).then(function(luckybag) {
-		var url = client.getAuthorizeURL(
+		var url = oauthClient.getAuthorizeURL(
 			conf.server_root + '/luckybag/' + luckybag.id + '/vote/confirm',
 			'',
 			'snsapi_userinfo'
@@ -161,14 +203,14 @@ router.get('/luckybag/:id/vote/confirm', function(req, res) {
 		if (!luckybag.nickname) {
 			res.status(400).send('资料不全');
 		} else if (req.query.code) {
-			client.getAccessToken(req.query.code, function (err, result) {
+			oauthClient.getAccessToken(req.query.code, function (err, result) {
 				if (err) {
 					console.error(err);
 					res.status(400).send('无法获得授权');
 					return;
 				}
 			 	var openid = result.data.openid;
-			  	client.getUser(openid, function (err, result) {
+			  	oauthClient.getUser(openid, function (err, result) {
 			  		if (err) {
 			  			console.error(err);
 						res.status(400).send('无法获得用户信息');

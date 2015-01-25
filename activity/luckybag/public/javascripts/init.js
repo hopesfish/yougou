@@ -29,4 +29,11 @@ $().ready(function() {
         $(".winners p:nth-child(" + (idx+1) + ")").addClass("current").fadeIn('slow');
         idx++;
     }, 3000);
+
+    if ($(".mask-visible").size() > 0) {
+        setTimeout(function() {
+            $(".mask-visible").hide();
+            $(".gift-c img").addClass("moving");
+        }, 5000);
+    }
 });

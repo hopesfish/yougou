@@ -18,6 +18,7 @@
     "request": "*",
     "wechat": "*",
     "wechat-oauth": "*",
+    "wechat-api": "*",
     "q": "*",
     "node-redis": "*"
   }
