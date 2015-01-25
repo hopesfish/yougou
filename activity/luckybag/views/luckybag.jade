@@ -72,11 +72,9 @@ block content
             img(src="http://localhost:3001/images/failed.png?mobile_build_version")
             p 5秒后自动关闭...
 
-    div
-        #{jsApi.appId}
-        #{jsApi.timestamp}
-        #{jsApi.nonceStr}
-        #{jsApi.signature}
+    div #{jsApi.appId} - #{jsApi.timestamp} - #{jsApi.nonceStr} - #{jsApi.signature}
+    br
+    br
     script(src='http://localhost:3001/javascripts/zepto.min.js?mobile_build_version')
     script(src='http://localhost:3001/javascripts/fx.js?mobile_build_version')
     script(src='http://localhost:3001/javascripts/fx_methods.js?mobile_build_version')
