@@ -115,13 +115,11 @@ router.get('/luckybag/:id/grant', function(req, res) {
 		 	jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'],
 		 	url: conf.server_root + '/luckybag/' + luckybag.id
 		};
-		console.info(param);
 		wechatApi.getJsConfig(param, function(err, result) {
 			if (err) {
 				return res.status(400).send('JS SDK授权异常!');
 			}
 
-			console.info(result);
 			res.cookie('timestamp', result.timestamp, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
 			res.cookie('nonceStr', result.nonceStr, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
 			res.cookie('signature', result.signature, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
