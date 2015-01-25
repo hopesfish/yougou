@@ -36,10 +36,10 @@ wechatApi.setOpts({timeout: 15000});
 wechatApi.registerTicketHandle(function(callback) {
 	rdsClient.hget('weixin-ticket-token', 'token', function(err, txt) {
         if (err) {return callback(err);}
-        callback(null, txt);
+        callback(null, JSON.parse(txt));
     });
-}, function(ticketToken, callback) {
-	rdsClient.hset('weixin-ticket-token', 'token', ticketToken, callback);
+}, function(token, callback) {
+	rdsClient.hset('weixin-ticket-token', 'token', JSON.stringify(token), callback);
 });
 
 /* GET home page. */
@@ -66,6 +66,7 @@ router.get('/luckybag/rank', function(req, res) {
 });
 
 router.get('/luckybag/:id', function(req, res) {
+
 	Q.all([LuckyServices.get(req.params.id),
 		   LuckyServices.getVotes(req.params.id),
 		   LuckyServices.queryRank()]).then(function(result) {
@@ -82,7 +83,19 @@ router.get('/luckybag/:id', function(req, res) {
 			if (req.query.voted === 'false') {
 				voted = 'failed';
 			}
-			res.render('luckybag', {luckybag: luckybag, rank: rank, votes: votes, voteable: voteable, voted: voted});
+			res.render('luckybag', {
+				luckybag: luckybag, 
+				rank: rank, 
+				votes: votes, 
+				voteable: voteable, 
+				voted: voted,
+				jsApi: {
+					appId: 'wxdc7c7ccc033ba612',
+					timestamp: req.cookies.timestamp,
+					nonceStr: req.cookies.nonceStr,
+					signature: req.cookies.signature
+				}
+			});
 		} else {
 			console.error("not started");
 			res.status(400).send('尚未认证!');
@@ -106,7 +119,9 @@ router.get('/luckybag/:id/grant', function(req, res) {
 			if (err) {
 				return res.status(400).send('JS SDK授权异常!');
 			}
-			res.cookie('weixinticket', result.ticket, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
+			res.cookie('timestamp', result.timestamp, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
+			res.cookie('nonceStr', result.nonceStr, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
+			res.cookie('signature', result.signature, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
 
 			if (luckybag.nickname) {
 				res.redirect('/luckybag/' + luckybag.id);
