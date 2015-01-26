@@ -24,8 +24,10 @@ chown nginx:nginx -R /var/www/html/*
 
 #sed
 mobile_build_version=`date +%Y%m%d%s`
-sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build_version /var/www/html/yougou-static/activity/*`
+sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build_version /var/www/html/yougou-luckybag/*`
 sed -i "s#localhost:3001#weixin.yougou.com/activity/luckybag#g" `grep -lr localhost:3001 /var/www/html/yougou-static/activity/luckybag/*`
+sed -i "s#localhost:3001#weixin.yougou.com/activity/luckybag#g" `grep -lr localhost:3001 /var/www/html/yougou-luckybag/*`
+
 
 cd /var/www/html/yougou-static/activity/luckybag/stylesheets
 stylus --compress style.styl
