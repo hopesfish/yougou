@@ -28,7 +28,7 @@ sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build
 
 sed -i "s#localhost:3001#weixin.yougou.com/activity/luckybag#g" `grep -lr localhost:3001 /var/www/html/yougou-luckybag/*`
 
-cd /var/www/html/yougou-luckybag/public/stylesheets
+cd /var/www/html/yougou-static/activity/luckybag/stylesheets
 stylus --compress style.styl
 
 #npm update
