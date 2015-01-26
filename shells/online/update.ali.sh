@@ -4,6 +4,8 @@
 mkdir /var/www
 mkdir /var/www/html
 mkdir /var/www/html/yougou-luckybag
+mkdir /var/www/html/yougou-static/activity
+mkdir /var/www/html/yougou-static/activity/luckybag
 
 #code
 cd /home/yougou/yougou
@@ -11,10 +13,11 @@ git reset --hard
 git pull
 
 cp -frap activity/luckybag/* /var/www/html/yougou-luckybag
+cp -frap activity/luckybag/public/* /var/www/html/yougou-static/activity/luckybag
 
 #update ngingx
 cd /home/yougou/yougou/shells/online/nginx/conf.d
-cp -f luckybag_ali.conf /etc/nginx/conf.d
+cp -f yougou.conf /etc/nginx/conf.d
 
 #777
 chown nginx:nginx -R /var/www/html/*
@@ -23,7 +26,7 @@ chown nginx:nginx -R /var/www/html/*
 mobile_build_version=`date +%Y%m%d%s`
 sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build_version /var/www/html/yougou-luckybag/*`
 
-sed -i "s#localhost:3001#121.42.153.68:8083#g" `grep -lr localhost:3001 /var/www/html/yougou-luckybag/*`
+sed -i "s#localhost:3001#weixin.yougou.com/activity/luckybag#g" `grep -lr localhost:3001 /var/www/html/yougou-luckybag/*`
 
 cd /var/www/html/yougou-luckybag/public/stylesheets
 stylus --compress style.styl
