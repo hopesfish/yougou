@@ -125,7 +125,7 @@ router.get('/luckybag/:id/grant', function(req, res) {
 			res.cookie('signature', result.signature, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
 
 			if (luckybag.nickname) {
-				res.redirect('/luckybag/' + luckybag.id);
+				res.redirect(conf.server_root + '/luckybag/' + luckybag.id);
 			} else {
 				var url = oauthClient.getAuthorizeURL(
 					conf.server_root + '/luckybag/' + luckybag.id + '/fulfill',
@@ -142,13 +142,13 @@ router.get('/luckybag/:id/grant', function(req, res) {
 
 router.get('/luckybag/:id/grant.test', function(req, res) {
 	res.cookie('luckybagId', req.params.id, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
-	res.redirect('/luckybag/' + req.params.id);
+	res.redirect(conf.server_root + '/luckybag/' + req.params.id);
 });
 
 router.get('/luckybag/:id/fulfill', function(req, res) {
 	LuckyServices.get(req.params.id).then(function(luckybag) {
 		if (luckybag.nickname) {
-			res.redirect('/luckybag/' + luckybag.id);
+			res.redirect(conf.server_root + '/luckybag/' + luckybag.id);
 		} else if (req.query.code) {
 			oauthClient.getAccessToken(req.query.code, function (err, result) {
 				if (err) {
@@ -170,7 +170,7 @@ router.get('/luckybag/:id/fulfill', function(req, res) {
                         nickname: userInfo.nickname
 				 	}).then(function() {
 				 		res.cookie('luckybagId', req.params.id, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
-				 		res.redirect('/luckybag/' + luckybag.id);
+				 		res.redirect(conf.server_root + '/luckybag/' + luckybag.id);
 				 	}, function(err) {
 				 		console.error(err);
 				 		res.status(400).send('保存用户信息失败');
@@ -193,7 +193,7 @@ router.get('/luckybag/:id/fulfill.test', function(req, res) {
         nickname: 'nickname' + suffix
  	}).then(function() {
  		res.cookie('luckybagId', req.params.id, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
- 		res.redirect('/luckybag/' + req.params.id);
+ 		res.redirect(conf.server_root + '/luckybag/' + req.params.id);
  	}, function(err) {
  		console.error(err);
  		res.status(400).send('保存用户信息失败');
@@ -238,10 +238,10 @@ router.get('/luckybag/:id/vote/confirm', function(req, res) {
 				 		headimgurl: userInfo.headimgurl,
                         nickname: userInfo.nickname
 				 	}).then(function() {
-				 		res.redirect('/luckybag/' + req.params.id + '?voted=true');
+				 		res.redirect(conf.server_root + '/luckybag/' + req.params.id + '?voted=true');
 				 	}, function(err) {
 				 		console.error(err);
-				 		res.redirect('/luckybag/' + req.params.id + '?voted=false');
+				 		res.redirect(conf.server_root + '/luckybag/' + req.params.id + '?voted=false');
 				 	});
 				});
 			});
@@ -260,10 +260,10 @@ router.get('/luckybag/:id/vote/confirm.test', function(req, res) {
         headimgurl: 'voteimgurl' + suffix,
         nickname: 'votename' + suffix
  	}).then(function() {
- 		res.redirect('/luckybag/' + req.params.id + '?voted=true');
+ 		res.redirect(conf.server_root + '/luckybag/' + req.params.id + '?voted=true');
  	}, function(err) {
  		console.error(err);
- 		res.redirect('/luckybag/' + req.params.id + '?voted=false');
+ 		res.redirect(conf.server_root + '/luckybag/' + req.params.id + '?voted=false');
  	});
 });
 
