@@ -8,6 +8,8 @@ var XmasServices = require("../services/XmasServices");
 var LuckybagServices = require("../services/LuckybagServices");
 
 module.exports = function(webot) {
+    webot.loads("user");
+
     // 订阅欢迎词
     webot.set('subscribe', {
         pattern: function(info) {
@@ -19,11 +21,21 @@ module.exports = function(webot) {
                 if (greetings.length > 0) {
                     return next(greetings[0].reply);
                 } else {
-                    return next("欢迎订阅本公司微信服务。");
+                    return next(null, "欢迎订阅本公司微信服务。");
                 }
             }, function() {
-                return next("欢迎订阅本公司微信服务。");
+                return next(null, "欢迎订阅本公司微信服务。");
             });
+        }
+    });
+
+    // 在线客服讨论
+    webot.set('subscribe', {
+        pattern: function(info) {
+            return info.is('event') && info.param.eventKey === 'ACROSSYEAR';
+        },
+        handler: function(info, next) {
+            return next(null, "请点击左下角键盘，直接提交您的问题，我们的客服会尽快回复您的问题。如需其他帮助，请致电客服电话：400-163-8888");
         }
     });
 

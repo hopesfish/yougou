@@ -3,8 +3,25 @@ var wechat = require('wechat');
 function initMenu() {
     return {
         "button": [{
-            "name": "给力活动",
+            "name": "我的优购",
             "sub_button": [{
+                "type": "click",
+                "name": "我的账户",
+                "key": "ACCOUNT"
+            }, {
+                "type": "click",
+                "name": "物流查询",
+                "key": "DELIVER"
+            }, {
+                "type": "view",
+                "name": "下载APP",
+                "url": "http://m.yougou.com/touch/agent"
+            }, {
+                "type": "view",
+                "name": "意见反馈",
+                "url": "http://m.yougou.com/touch/gotoFeedback.sc"
+            }]
+        }, {
                 "type": "view",
                 "name": "每日特惠",
                 "url": "http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=203907370&idx=2&sn=a6afb393796bcc870aa0c36e24e4b0b6#rd"
@@ -16,6 +33,17 @@ function initMenu() {
                 "type": "view",
                 "name": "本周活动",
                 "url": "http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=203526871&idx=1&sn=04c1e11eba8fbcb8f657c60342fec8f9#rd"
+            }]
+        }, {
+            "name": "在线客服",
+            "sub_button": [{
+                "type": "click",
+                "name": "在线客服",
+                "key": "CUSTOMSERVICE"
+            }, {
+                "type": "view",
+                "name": "常见疑问",
+                "url": "http://m.yougou.com/touch/help/index.sc"
             }]
         }]
     }
