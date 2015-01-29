@@ -51,7 +51,7 @@ sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build
 sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build_version /var/www/html/yougou-xmas/*`
 sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build_version /var/www/html/yougou-luckybag/*`
 
-sed -i "s#localhost:3001#117.121.50.27:8083#g" `grep -lr localhost:3001 /var/www/html/yougou-luckybag/*`
+sed -i "s#localhost:3001#117.121.50.28:8083#g" `grep -lr localhost:3001 /var/www/html/yougou-luckybag/*`
 
 cd /var/www/html/yougou-luckybag/public/stylesheets
 stylus --compress style.styl
