@@ -47,7 +47,7 @@ sed -i "s#localhost:3001#weixin.yougou.com#g" `grep -lr localhost:3001 /var/www/
 cd /var/www/html/yougou-webot/conf
 mv -f index.online.js index.js
 cd /var/www/html/yougou-webot
-pm2 delete luckybag
+pm2 delete wechat
 pm2 start process.json
 
 
