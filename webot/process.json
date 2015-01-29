@@ -1,0 +1,16 @@
+{
+  "apps" : [{
+    "name"       : "wechat",
+    "script"     : "app.js",
+    "instances"  : "1",
+    "log_date_format"  : "YYYY-MM-DD HH:mm",
+    "error_file" : "/var/log/yougou/wechat-error.log",
+    "out_file"   : "/var/log/yougou/wechat-out.log",
+    "pid_file"   : "/var/log/yougou/wechat.pid",
+    "exec_mode"  : "cluster_mode",
+    "port"       : 3000,
+    "env": {
+      "NODE_ENV": "online"
+    }
+  }]
+}
