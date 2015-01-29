@@ -9,7 +9,7 @@ module.exports = {
     api_root : 'http://localhost:8082',
     dream_root : 'http://117.121.50.28:8083',
     xmas_root : 'http://117.121.50.28:8084',
-    luckybag_root : 'http://weixi.yougou.com/activity/luckybag',
+    luckybag_root : 'http://weixin.yougou.com/activity/luckybag',
     //luckybag_root : 'http://117.121.50.28:8083',
     salt : 'weexiao',
     weixin : 'yougouwx'
