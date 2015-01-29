@@ -22,6 +22,8 @@ function initMenu() {
                 "url": "http://m.yougou.com/touch/gotoFeedback.sc"
             }]
         }, {
+            "name": "给力活动",
+            "sub_button": [{
                 "type": "view",
                 "name": "每日特惠",
                 "url": "http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=203907370&idx=2&sn=a6afb393796bcc870aa0c36e24e4b0b6#rd"
@@ -35,7 +37,7 @@ function initMenu() {
                 "url": "http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=203526871&idx=1&sn=04c1e11eba8fbcb8f657c60342fec8f9#rd"
             }]
         }, {
-            "name": "在线客服",
+            "name": "客服",
             "sub_button": [{
                 "type": "click",
                 "name": "在线客服",
