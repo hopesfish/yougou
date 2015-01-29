@@ -61,6 +61,8 @@ cd /var/www/html/yougou-webot
 forever start -l webot.log -a app.js
 #npm update
 #forever start -l dream.log -a bin/www
+cd /var/www/html/yougou-luckybag/conf
+mv -f index.online.js index.js
 cd /var/www/html/yougou-luckybag
 #npm install
 #npm update
