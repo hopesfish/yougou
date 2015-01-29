@@ -48,7 +48,7 @@ cd /var/www/html/yougou-webot/conf
 mv -f index.online.js index.js
 cd /var/www/html/yougou-webot
 pm2 delete luckybag
-pm2 restart process.json
+pm2 start process.json
 
 
 #luckybag
@@ -59,5 +59,5 @@ cd /var/www/html/yougou-luckybag/conf
 mv -f index.online.js index.js
 cd /var/www/html/yougou-luckybag
 pm2 delete luckybag
-pm2 restart process.json
+pm2 start process.json
 
