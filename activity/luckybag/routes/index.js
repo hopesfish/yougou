@@ -55,6 +55,10 @@ router.get('/howto', function(req, res) {
     res.render('howto', {});
 });
 
+router.get('/timeout', function(req, res) {
+    res.render('timeout', {});
+});
+
 router.get('/luckybag/rank', function(req, res) {
     // TODO 从redis里面读出来
     LuckyServices.queryRank({
@@ -154,7 +158,8 @@ router.get('/luckybag/:id/fulfill', function(req, res) {
             oauthClient.getAccessToken(req.query.code, function (err, result) {
                 if (err) {
                     console.error(err);
-                    res.status(400).send('无法获得授权码');
+                    //res.status(400).send('无法获得授权码');
+                    res.render('timeout', {});
                     return;
                 }
                 var openid = result.data.openid;
@@ -191,7 +196,8 @@ router.get('/luckybag/:id/fulfill', function(req, res) {
                 });*/
             });
         } else {
-            res.status(400).send('未完成授权');
+            res.render('timeout', {});
+            //res.status(400).send('未完成授权');
         }
     }, function() {
         res.status(404).send('尚未发起!');
@@ -235,7 +241,8 @@ router.get('/luckybag/:id/vote/confirm', function(req, res) {
             oauthClient.getAccessToken(req.query.code, function (err, result) {
                 if (err) {
                     console.error(err);
-                    res.status(400).send('无法获得授权');
+                    res.render('timeout', {});
+                    //res.status(400).send('无法获得授权');
                     return;
                 }
                 var openid = result.data.openid;
@@ -259,7 +266,8 @@ router.get('/luckybag/:id/vote/confirm', function(req, res) {
                 });
             });
         } else {
-            res.status(400).send('未完成授权');
+            res.render('timeout', {});
+            //res.status(400).send('未完成授权');
         }
     }, function() {
         res.status(404).send('尚未发起!');
