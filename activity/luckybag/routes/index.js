@@ -51,6 +51,10 @@ router.get('/start', function(req, res) {
     res.redirect("http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=204032066&idx=1&sn=c2fae68468acec7811c80fd596c3ae05#rd");
 });
 
+router.get('/rule', function(req, res) {
+    res.redirect("http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=204375237&idx=1&sn=46cabf29be091b7e3e047f53c8820cbd#rd");
+});
+
 router.get('/howto', function(req, res) {
     res.render('howto', {});
 });
