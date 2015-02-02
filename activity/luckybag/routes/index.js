@@ -249,7 +249,8 @@ router.get('/luckybag/:id/vote/confirm', function(req, res) {
                 oauthClient.getUser(openid, function (err, result) {
                     if (err) {
                         console.error(err);
-                        res.status(400).send('无法获得用户信息');
+                        res.render('timeout', {});
+                        //res.status(400).send('无法获得用户信息');
                         return;
                     }
                     var userInfo = result;
@@ -291,7 +292,7 @@ router.get('/luckybag/:id/vote/confirm.test', function(req, res) {
 router.get('/luckybag/:id/votes', function(req, res) {
     // 从redis里面读出数据
     LuckyServices.getVotes(req.params.id).then(function(paging) {
-        console.info(paging.length);
+        //console.info(paging.length);
         res.status(200).send('votes');
         //res.render('votes', {votes: paging.result});
     }, function(err) {
