@@ -37,5 +37,5 @@ wx.ready(function(){
     });
 });
 wx.error(function(res){
-    //alert(res.message || '签名过期！');
+    alert(res.message || '签名过期！');
 });
