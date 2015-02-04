@@ -12,5 +12,5 @@ module.exports = function() {
     require("./testXmas")();
     require("./testXmasVote")();*/
     require("./testLuckybag")();
-	require("./testLuckybagVote")();
+	//require("./testLuckybagVote")();
 }

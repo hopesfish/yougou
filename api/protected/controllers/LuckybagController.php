@@ -75,23 +75,49 @@ class LuckybagController extends Controller
     public function actionRestrank() {
         $this->checkRestAuth();
 
-        $skip = 0;
-        $take = 1000;
+        // 活动
         $criteria = new CDbCriteria();
-        $criteria->compare('exchange', 1);
-        $criteria->addCondition('sub_open_id IS NOT NULL');
-        $criteria->limit = $take;
-        $criteria->offset = $skip;
-        $criteria->order = 'updated_time DESC';
+        $criteria->compare('code', '2015ACODEFORGREETINGFROMWEIXIN');
+        $criteria->compare('archived', 1);
 
+        $activities = Activity::model()->findAll($criteria);
+
+        if (count($activities) == 0) {
+            return $this->sendResponse(400, "no code");
+        }
+
+        // 已领的奖品
+        $criteria = new CDbCriteria();
+        $criteria->compare('activity_id', $activities[0]->id);
+        $criteria->compare('archived', 1);
+        $criteria->addCondition('open_id IS NOT NULL');
+        $criteria->order = 'achieved_time desc';
+        $criteria->limit = 100;
+        $prizes = Coupon::model()->findAll($criteria);
+
+        $openIds = array();
+        foreach ($prizes as $prize) {
+            array_push($openIds, $prize->open_id);
+        }
+
+        // 获奖人
+        $criteria = new CDbCriteria();
+        $criteria->addInCondition('open_id', $openIds);
         $result = Luckybag::model()->findAll($criteria);
+        $winners = $this->JSONArrayMapper($result);
 
-        $json = new JsonData();
-        $json->limit = $take;
-        $json->total = (int)Luckybag::model()->count($criteria);
-        $json->result = $this->JSONArrayMapper($result);
+        /*
+        $idx = 0;
+        foreach ($winners as $winner) {
+            foreach ($prizes as $prize) {
+                if ($winner['openId'] == $prize->open_id) {
+                    $winners[$idx]['prize'] = $prize->code;
+                }
+            }
+            $idx++;
+        }*/
 
-        echo CJSON::encode($json);
+        echo CJSON::encode($winners);
     }
 
     /* 

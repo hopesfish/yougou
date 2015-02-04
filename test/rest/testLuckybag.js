@@ -224,5 +224,21 @@ module.exports = function() {
                 done(err);
             });
         });
+
+        it('success to get luckybag winner', function(done){
+            async.series({
+                action: function(callback){
+                    base.queryAll("/api/activity/luckybag/rank", {token: 'basic-valid'})
+                    .then(function(result) {
+                        done();
+                    }, function(err) {
+                        console.info(err);
+                        callback(new Error("should get winner"));
+                    });
+                }
+            }, function(err, results) {
+                done(err);
+            });
+        });
     });
 }
