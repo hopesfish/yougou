@@ -125,7 +125,9 @@ router.get('/luckybag/:id/grant', function(req, res) {
         };
         wechatApi.getJsConfig(param, function(err, result) {
             if (err) {
-                return res.status(400).send('JS SDK授权异常!');
+                console.error('JS SDK授权异常!');
+                //return res.status(400).send('JS SDK授权异常!');
+                return res.render('timeout', {});
             }
 
             res.cookie('timestamp', result.timestamp, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });

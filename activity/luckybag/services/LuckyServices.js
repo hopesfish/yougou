@@ -27,14 +27,14 @@ exports.queryRank = function(opts) {
         } else {
             lastrank = now;
             var url = '/api/activity/luckybag/rank';
-            BaseServices.queryAll(url, {}).then(function(paging) {
-                rdsClient.hset('luckbag', 'rank', JSON.stringify(paging.result), function(err) {
+            BaseServices.queryAll(url, {}).then(function(winners) {
+                rdsClient.hset('luckbag', 'rank', JSON.stringify(winners), function(err) {
                     if (err) {
                         console.error('failed to refresh luckybag rank');
                         console.error(err);
                         return deferred.reject(err);
                     }
-                    deferred.resolve(paging.result);
+                    deferred.resolve(winners);
                 });
             }, function(err) {
                 console.error(err);
