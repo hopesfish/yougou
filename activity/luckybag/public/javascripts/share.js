@@ -12,7 +12,7 @@ wx.ready(function(){
     $('.mask-wait').hide();
 
     wx.onMenuShareTimeline({
-        title: '小伙伴们~我正在优购时尚商城收集祝福赢取购物卡和品牌豪礼，速度支持我！', // 分享标题
+        title: '小伙伴们~我正在优购时尚商城收集祝福赢取购物卡和大嘴猴/moussy精美礼物，速度支持我！', // 分享标题
         link: window.location.href, // 分享链接
         imgUrl: 'http://localhost:3001/images/share.jpg', // 分享图标
         success: function () { 
@@ -25,7 +25,7 @@ wx.ready(function(){
 
     wx.onMenuShareAppMessage({
         title: '优购送出百万新年大礼包啦！', // 分享标题 优购给您发新年红包啦！
-        desc: '小伙伴们~我正在优购时尚商城收集祝福赢取购物卡和品牌豪礼，速度支持我！', // 分享描述
+        desc: '小伙伴们~我正在优购时尚商城收集祝福赢取购物卡和大嘴猴/moussy精美礼物，速度支持我！', // 分享描述
         link: window.location.href, // 分享链接
         imgUrl: 'http://localhost:3001/images/share.jpg', // 分享图标
         type: 'link', // 分享类型,music、video或link，不填默认为link
