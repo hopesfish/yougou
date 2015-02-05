@@ -9,6 +9,8 @@ wx.config({
     jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 });
 wx.ready(function(){
+    $('.mask-wait').hide();
+
     wx.onMenuShareTimeline({
         title: '小伙伴们~我正在优购时尚商城收集祝福赢取购物卡和品牌豪礼，速度支持我！', // 分享标题
         link: window.location.href, // 分享链接
