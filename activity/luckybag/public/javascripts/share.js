@@ -41,3 +41,6 @@ wx.ready(function(){
 wx.error(function(res){
     //alert(res.message || '签名过期！');
 });
+setTimeout(function() {
+    $('.mask-wait').hide();
+}, 5000);
