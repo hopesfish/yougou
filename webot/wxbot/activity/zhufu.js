@@ -10,7 +10,7 @@ module.exports = function(webot) {
     // 发起祝福
     webot.set('weixinzhufu', {
         pattern: function(info) {
-            return info.text === 'zhufu' || info.text === '我要求祝福';
+            return info.text === 'zhufu' || info.text === '求祝福';
         },
         handler: function(info, next) {
             LuckybagServices.start(info.uid).then(function(luckybag) {
