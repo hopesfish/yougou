@@ -25,13 +25,9 @@ block content
             img(src="http://localhost:3001/images/rule.png?mobile_build_version")
         - if (rank.length > 0)
             .rank
-                span.tit 中奖名单：
+                span.tit 最新进展：
                 span.winners
-                    - for winner, index in rank
-                        - if (index == 0)
-                            p.current #{winner.nickname}已领取
-                        - else
-                            p #{winner.nickname}已领取
+                    p #{rank.length}人已领取
         - if (votes.length > 0)
             .votes
                 .tit 祝福榜单 (#{votes.length}人已祝福)
