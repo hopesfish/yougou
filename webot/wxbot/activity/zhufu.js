@@ -13,6 +13,11 @@ module.exports = function(webot) {
             return info.text === 'zhufu' || info.text === '求祝福';
         },
         handler: function(info, next) {
+            var now = (new Date()).getTime();
+            if (info.text == '求祝福' && now < 1423108740000) {
+                return next("活动未开始!");
+            }
+            
             LuckybagServices.start(info.uid).then(function(luckybag) {
                 if (luckybag.bonus >= 25) {
                     info.text = '2015ACODEFORGREETINGFROMWEIXIN';
@@ -29,7 +34,7 @@ module.exports = function(webot) {
                         ].join(""));
                     } else {
                         return next(null, [
-                            '亲~速度召集小伙伴来送祝福，你就有机会赢取优购（←国内最大的时尚鞋服电商）500元礼品卡和大嘴猴/Mossy的惊喜豪礼哦！',
+                            '亲~速度召集小伙伴来送祝福，你就有机会赢取优购（←国内最大的时尚鞋服电商）200元礼品卡和大嘴猴/Mossy的惊喜豪礼哦！',
                             '\n<a href="' + url + '">点击这里</a>参与游戏，速度玩起来吧！'
                         ].join("\n"));
                     }
