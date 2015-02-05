@@ -23,11 +23,11 @@ block content
             img(src="http://localhost:3001/images/howto.png?mobile_build_version")
         a.button.sub-button(href="http://localhost:3001/rule")
             img(src="http://localhost:3001/images/rule.png?mobile_build_version")
-        - if (rank.length > 0)
-            .rank
-                span.tit 最新进展：
-                span.winners
-                    p #{rank.length}人已领取
+        //- - if (rank.length > 0)
+        //-     .rank
+        //-         span.tit 最新进展：
+        //-         span.winners
+        //-             p #{rank.length}人已领取
         - if (votes.length > 0)
             .votes
                 .tit 祝福榜单 (#{votes.length}人已祝福)
