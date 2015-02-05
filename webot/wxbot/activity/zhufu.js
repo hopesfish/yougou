@@ -14,7 +14,7 @@ module.exports = function(webot) {
         },
         handler: function(info, next) {
             LuckybagServices.start(info.uid).then(function(luckybag) {
-                if (luckybag.bonus >= 15) {
+                if (luckybag.bonus >= 25) {
                     info.text = '2015ACODEFORGREETINGFROMWEIXIN';
                     next();
                 } else {
