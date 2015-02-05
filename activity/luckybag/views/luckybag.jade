@@ -9,9 +9,7 @@ block content
         - if (!voteable)
             a.button.collect-btn(href="#")
                 img(src="http://localhost:3001/images/collect.png?mobile_build_version")
-                - if (votes.length == 0)
-                    div 您还差15个祝福才可以领取
-                - else if (votes.length > 0 && votes.length < 25)
+                - if (votes.length < 25)
                     div 您还差#{25-votes.length}个祝福才可以领取
                 - else if (votes.length >= 25)
                     div 赶快回订阅号领取奖励吧！
