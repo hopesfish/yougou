@@ -11,6 +11,8 @@ module.exports = function() {
 	require("./testDreamVote")();
     require("./testXmas")();
     require("./testXmasVote")();*/
-    require("./testLuckybag")();
+    require("./testFinddiff")();
+    require("./testFinddiffResult")();
+    //require("./testLuckybag")();
 	//require("./testLuckybagVote")();
 }

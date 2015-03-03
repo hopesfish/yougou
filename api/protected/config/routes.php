@@ -11,6 +11,9 @@ return array(
 		'api/autoreply'=>'autoreply/restcreate',
 		'api/autoreply/<replyId:[\d\w-]{36}>'=>'autoreply/restupdate',
 
+		'api/activity/finddiff/<finddiffId:[\d\w-]{36}?>'=>'finddiff/restupdate',
+		'api/activity/finddiff/<finddiffId:[\d\w-]{36}?>/result'=>'finddiffResult/restcreate',
+		/*
 		'api/activity/dream/<dreamId:[\d\w-]{36}?>'=>'dream/restupdate',
 		'api/activity/dream/<dreamId:[\d\w-]{36}?>/vote'=>'vote/restcreate',
 
@@ -19,7 +22,7 @@ return array(
 
 		'api/activity/luckybag/<luckybagId:[\d\w-]{36}?>'=>'luckybag/restupdate',
 		'api/activity/luckybag/<luckybagId:[\d\w-]{36}?>/actions/exchange'=>'luckybag/restexchange',
-		'api/activity/luckybag/<luckybagId:[\d\w-]{36}?>/vote'=>'luckybagVote/restcreate',
+		'api/activity/luckybag/<luckybagId:[\d\w-]{36}?>/vote'=>'luckybagVote/restcreate',*/
 	),
 
 	'@get'=>array(
@@ -35,6 +38,13 @@ return array(
 		'api/autoreply/migrate'=>'autoreply/restmigrate',
 		'api/autoreply/<replyId:[\d\w-]{36}?>'=>'autoreply/restget',
 
+		'api/activity/finddiff'=>'finddiff/restlist',
+        'api/activity/finddiff/rank'=>'finddiff/restrank',
+        'api/activity/finddiff/<id:[\d\w-]{36}?>'=>'finddiff/restget',
+        'api/activity/finddiff/start'=>'finddiff/reststart',
+        'api/activity/finddiff/<finddiffId:[\d\w-]{36}?>/result'=>'finddiffResult/restlist',
+
+		/*
 		'api/activity/dream'=>'dream/restlist',
 		'api/activity/dream/rank'=>'dream/restrank',
 		'api/activity/dream/<id:[\d\w-]{36}?>'=>'dream/restget',
@@ -52,7 +62,7 @@ return array(
 		'api/activity/luckybag/rank'=>'luckybag/restrank',
 		'api/activity/luckybag/<id:[\d\w-]{36}?>'=>'luckybag/restget',
 		'api/activity/luckybag/start'=>'luckybag/reststart',
-		'api/activity/luckybag/<luckybagId:[\d\w-]{36}?>/vote'=>'luckybagVote/restlist',
+		'api/activity/luckybag/<luckybagId:[\d\w-]{36}?>/vote'=>'luckybagVote/restlist',*/
 	),
 
 
