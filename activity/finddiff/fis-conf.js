@@ -53,29 +53,14 @@ fis.config.merge({
     }
 });
 
-var clientRoadmap = [
-    {
-        reg: '**.css',
-        release : '/static/css$&',
-        // 访问路径
-        url : '/stylesheets$&'
-    },
-    {
-        reg: /^\/public\/*$/i,
-        url: '/static/$1',
-        useMap: true,
-        useCompile: true,
-        useHash: true,
-        useOptimizer: true,
-        isMod: true,
-        useDomain: false
-    }
-];
-
 var roadmap = [
     {
-        //所有image目录下的.png，.gif文件
         reg : '**.styl',
+        release : '/public$&',
+        url : '$&'
+    },
+    {
+        reg : '**.css',
         release : '/public$&',
         url : '$&'
     },
@@ -118,7 +103,7 @@ var roadmap = [
     },
     {
         // 不需要fis处理的文件
-        reg : /^(\/views\/*|\/routes\/*|\/bin\/*|package.json)/i,
+        reg : /^(\/views\/*|\/routes\/*|\/conf\/*|\/bin\/*|\/services\/*|package.json)/i,
         useMap: true,
         useCompile: false,
         useHash: false,
@@ -135,7 +120,7 @@ fis.config.merge({
         // 本地部署
         local : {
             // 发布到当前项目的上一级的deploy目录
-            to : '../yougou_finddiff',
+            to : '../yougou-finddiff',
             // node_modules自行拷贝
             exclude : /\/node_modules\//i
         }

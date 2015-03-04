@@ -21,6 +21,8 @@
     "wechat-oauth": "*",
     "wechat-api": "*",
     "q": "*",
-    "node-redis": "*"
+    "node-redis": "*",
+    "express-session": "1.9.1",
+    "connect-redis": ">= 2.0.0"
   }
 }

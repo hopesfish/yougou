@@ -32,8 +32,8 @@ class FinddiffResultController extends Controller {
 
         if (!isset($_GET['finddiffId']) ||
             !isset($_POST['subOpenId']) ||
-            !isset($_POST['nickname']) ||
-            !isset($_POST['headimgurl']) ||
+            //!isset($_POST['nickname']) ||
+            //!isset($_POST['headimgurl']) ||
             !isset($_POST['bonus'])) {
             return $this->sendResponse(400, 'missed required properties');
         }
@@ -58,20 +58,26 @@ class FinddiffResultController extends Controller {
             $result = new FinddiffResult();
             $result->finddiff_id = $_GET['finddiffId'];
             $result->sub_open_id = $_POST['subOpenId'];
-            $result->nickname = $_POST['nickname'];
-            $result->headimgurl = $_POST['headimgurl'];
             $result->bonus = 0;
+        }
+
+        if (isset($_POST['nickname'])) {
+            $result->nickname = $_POST['nickname'];
+        }
+
+        if (isset($_POST['headimgurl'])) {
+            $result->headimgurl = $_POST['headimgurl'];
         }
 
         if (intval($_POST['bonus']) > $result->bonus) {
             $result->bonus = intval($_POST['bonus']);
+            $finddiff->bonus += $result->bonus;
         }
 
         if (!$result->save()) {
             return $this->sendResponse(500, 'faild to save result');
         }
-
-        $finddiff->bonus += $result->bonus;
+        
         if (!$finddiff->save()) {
             return $this->sendResponse(500, 'faild to save finddiff');
         }

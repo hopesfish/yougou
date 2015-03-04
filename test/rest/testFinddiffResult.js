@@ -91,6 +91,26 @@ module.exports = function() {
             });
         });
 
+        it('success to result finddiff within token 2nd without img', function(done){
+            async.series({
+                action: function(callback){
+                    base.create("/api/activity/finddiff/" + finddiffId + "/result", {
+                        subOpenId: subOpenId,
+                        bonus: 9
+                    }, {token: 'basic-valid'})
+                    .then(function(id) {
+                        resultId = id;
+                        done();
+                    }, function(err) {
+                        console.info(err);
+                        callback(new Error("should resultd"));
+                    });
+                }
+            }, function(err, results) {
+                done(err);
+            });
+        });
+
         it('success to get result list', function(done){
             async.series({
                 action: function(callback){

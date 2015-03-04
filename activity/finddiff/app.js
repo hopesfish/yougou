@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
 var swig = require('swig');
 
 var routes = require('./routes/index');
@@ -29,8 +31,20 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+    secret: 'jimubox session',
+    resave: false,
+    saveUninitialized: false,
+    store: new RedisStore({
+        host: 'localhost',
+        port: 6379,
+        ttl: 60 * 60 * 24 * 3, // session 3天有效
+        disableTTL: false
+    })
+}));
 //app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/', routes);
 

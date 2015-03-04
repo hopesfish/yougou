@@ -10,6 +10,7 @@ module.exports = {
     dream_root : 'http://localhost:3001',
     xmas_root : 'http://localhost:3001',
     luckybag_root : 'http://localhost:3001',
+    finddiff_root : 'http://localhost:3001',
     salt : 'weexiao',
     weixin : 'yougouwx'
 };

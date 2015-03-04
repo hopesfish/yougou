@@ -174,6 +174,27 @@ module.exports = function() {
             });
         });
 
+        it('failed to update finddiff with differen sub openid', function(done){
+            async.series({
+                action: function(callback){
+                    base.update("/api/activity/finddiff/" + finddiffId, {
+                        subOpenId: 'fakesubOpenId' + finddiffId,
+                        headimgurl: 'headimgurl' + finddiffId,
+                        nickname: 'nickname' + finddiffId
+                    },{token: 'basic-valid'})
+                    .then(function(result) {
+                        assert.equal(result.subOpenId, 'subOpenId' + finddiffId);
+                        done();
+                    }, function(err) {
+                        console.info(err);
+                        callback(new Error("should not updated"));
+                    });
+                }
+            }, function(err, results) {
+                done(err);
+            });
+        });
+
         it('success to get finddiff rank', function(done){
             async.series({
                 action: function(callback){

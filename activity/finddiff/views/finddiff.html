@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block title %}优购商城--认品牌，领奖品{% endblock %}
+
+{% block head %}
+    {% parent %}
+{% endblock %}
+
+{% block content %}
+    {{ finddiff.bonus }}
+    <button class="update" data-id="{{ finddiff.id }}">Update</button>
+{% endblock %}
+
+{% block module %}
+    {% parent %}
+    <script src="/public/modules/game.js"></script>
+{% endblock %}

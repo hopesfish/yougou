@@ -11,6 +11,7 @@ class FinddiffController extends Controller
         $newfinddiff['openId'] = $finddiff->open_id;
         $newfinddiff['subOpenId'] = $finddiff->sub_open_id;
         $newfinddiff['bonus'] = $finddiff->bonus;
+        $newfinddiff['rank'] = $finddiff->rank;
 
         return $newfinddiff;
     }
@@ -24,7 +25,7 @@ class FinddiffController extends Controller
     }
 
     /**
-     * 梦想集合数据
+     * 记录集合数据
      * GET /api/activity/finddiff
      */
     public function actionRestlist() {
@@ -92,7 +93,7 @@ class FinddiffController extends Controller
     }
 
     /* 
-     * 发起梦想
+     * 发起记录
      * GET /api/activity/finddiff/start?openId=xxx
      */
     public function actionReststart() {
@@ -127,7 +128,7 @@ class FinddiffController extends Controller
     }
 
     /* 
-     * 获得梦想
+     * 获得记录
      * GET /api/activity/finddiff/{id}
      */
     public function actionRestget() {
@@ -149,7 +150,7 @@ class FinddiffController extends Controller
     }
 
     /* 
-     * 更新梦想
+     * 更新记录
      * POST /api/activity/finddiff/{id}
      */
     public function actionRestupdate() {
@@ -167,9 +168,12 @@ class FinddiffController extends Controller
             return $this->sendResponse(404, 'not found');
         }
 
-        $finddiff->sub_open_id = $_POST['subOpenId'];
-        $finddiff->headimgurl = $_POST['headimgurl'];
-        $finddiff->nickname = $_POST['nickname'];
+        // 只允许提交一次
+        if ($finddiff->sub_open_id == null) {
+            $finddiff->sub_open_id = $_POST['subOpenId'];
+            $finddiff->headimgurl = $_POST['headimgurl'];
+            $finddiff->nickname = $_POST['nickname'];
+        }
 
         if (!$finddiff->save()) {
             return $this->sendResponse(500, 'faild to save finddiff');

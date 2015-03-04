@@ -10,6 +10,7 @@ module.exports = {
     dream_root : 'http://117.121.50.28:8083',
     xmas_root : 'http://117.121.50.28:8084',
     luckybag_root : 'http://weixin.yougou.com/activity/luckybag',
+    finddiff_root : 'http://weixin.yougou.com/activity/finddiff',
     //luckybag_root : 'http://117.121.50.28:8083',
     salt : 'weexiao',
     weixin : 'yougouwx'

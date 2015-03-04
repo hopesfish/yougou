@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block title %}优购商城--认品牌，领奖品{% endblock %}
+
+{% block head %}
+    {% parent %}
+{% endblock %}
+
+{% block content %}
+    {% for player in players %}
+      <li{% if player.first %} class="first"{% endif %}>
+        {{ player.id }}
+      </li>
+    {% endfor %}
+{% endblock %}
