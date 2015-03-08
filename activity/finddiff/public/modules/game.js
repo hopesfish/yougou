@@ -3,7 +3,7 @@ $().ready(function() {
         $.ajax({
             type: 'GET',
             url: 'http://localhost:3001/finddiff/' + $(this).attr('data-id') + '/bonus',
-            data: { bonus: '10' },
+            data: { bonus: '10', token: (new Date()).getTime() },
             dataType: 'text',
             success: function(data) {
                 //window.location.reload();

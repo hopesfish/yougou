@@ -65,6 +65,16 @@ var roadmap = [
         url : '$&'
     },
     {
+        reg : '**.png',
+        release : '/public$&',
+        url : '$&'
+    },
+    {
+        reg : '**.jpg',
+        release : '/public$&',
+        url : '$&'
+    },
+    {
         //所有lib目录下的js文件仅仅md5
         reg : '/public/lib/**.js',
         release : '/public$&',
