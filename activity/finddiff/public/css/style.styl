@@ -21,15 +21,14 @@ body
         width 48px
         height 48px
         background url(/public/images/voice.png?__inline) no-repeat 0 0
+    .content-wrap
+        text-align center
 #finddiff-entry
-    display none
     background url(/public/images/bg1.jpg?__inline) no-repeat
     .layer
         display none
     .layer-show
         display block
-    .content-wrap
-        text-align center
     .title-wrap
         height 97px
     .rule-wrap
@@ -38,7 +37,21 @@ body
         height 171px
     .result-wrap
     .rank-wrap
+        position relative
         padding-top 20px
+        .rank
+            display inline-block
+            width 80px
+            top 143px
+            left 485px
+            position absolute
+            color #fff
+            font-size 42px
+            text-align center
+    .timeout
+        color #fff
+        text-align center
+        padding-top 100px
     .button-wrap
         position relative
         top -10px
@@ -53,13 +66,49 @@ body
         .btn
             margin 3px 20px
 #finddiff-helper
-    display none
     background url(/public/images/helper-bg.jpg?__inline) no-repeat
+    .helpers
+        margin auto
+        width 680px
+        height 315px
+    .helper
+        float left
+        width 30%
+        color #fff
+        text-align center
+        margin 5px 1.5%
+        padding 20px 0
+        border-bottom 1px dashed #2c6782
+        img
+            position relative
+            top 5px
+            display inline-block
+            border-radius 12px
+            height 24px
+            width 24px
+        span
+            display inline-block
+            height 24px
+            line-height 24px
 #finddiff-game
+    display none
     background url(/public/images/game-bg.jpg?__inline) no-repeat
     .logo
         top 0px
         width 118px
         height 50px
         background url(/public/images/logo-min.jpg?__inline) no-repeat -5px -5px
+#finddiff-mask
+    position fixed
+    left 0
+    top 0
+    width 100%
+    height 100%
+    background-color #000
+    z-index 100
+    display none
+    p
+        color #fff
+        font-size 36px
+    
         

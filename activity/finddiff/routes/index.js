@@ -47,30 +47,12 @@ router.get('/', function(req, res) {
     res.render('index', {});
 });
 
-router.get('/start', function(req, res) {
-    res.redirect("http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=204032066&idx=1&sn=c2fae68468acec7811c80fd596c3ae05#rd");
-});
-
-router.get('/rule', function(req, res) {
-    res.redirect("http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=204375237&idx=1&sn=46cabf29be091b7e3e047f53c8820cbd#rd");
-});
-
-router.get('/howto', function(req, res) {
-    res.render('howto', {});
+router.get('/notice', function(req, res) {
+    res.render('notice', {});
 });
 
 router.get('/timeout', function(req, res) {
     res.render('timeout', {});
-});
-
-router.get('/finddiff/rank', function(req, res) {
-    // TODO 从redis里面读出来
-    FinddiffServices.queryRank({
-    }).then(function(paging) {
-        res.render('rank', {players: paging.result});
-    }, function() {
-        res.status(400).send('查询排行榜异常!');
-    });
 });
 
 router.get('/finddiff/:id', function(req, res) {
@@ -100,6 +82,15 @@ router.get('/finddiff/:id', function(req, res) {
     }, function(err) {
         console.error(err)
         res.status(404).send('读取相关数据异常!');
+    });
+});
+
+router.get('/finddiff/:id/rank', function(req, res) {
+    FinddiffServices.get(req.params.id)
+    .then(function(finddiff) {
+        res.render('rank', {finddiff: finddiff});
+    }, function() {
+        res.status(400).send('查询排行榜异常!');
     });
 });
 
@@ -273,12 +264,12 @@ router.get('/finddiff/:id/vote/confirm.test', function(req, res) {
     });
 });
 
-router.get('/finddiff/:id/votes', function(req, res) {
+router.get('/finddiff/:id/helpers', function(req, res) {
     // 从redis里面读出数据
     FinddiffServices.getVotes(req.params.id).then(function(paging) {
-        //console.info(paging.length);
-        res.status(200).send('votes');
-        //res.render('votes', {votes: paging.result});
+        console.info(paging);
+        //res.status(200).send('votes');
+        res.render('helpers', {helpers: paging});
     }, function(err) {
         console.info(err);
         res.status(400).send('获取投票历史失败!');

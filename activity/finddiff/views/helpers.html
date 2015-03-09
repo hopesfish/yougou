@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block title %}优购商城--认品牌，领奖品{% endblock %}
+
+{% block head %}
+    {% parent %}
+{% endblock %}
+
+{% block content %}
+    <div id="finddiff-helper" class="finddiff-layer">
+        <div class="helpers">
+            <div class="helper">
+                {% for helper in helpers %}
+                    <img src="{{ helper.headimgurl }}">
+                    <span>为您攒了 {{ helper.bonus }}个金币</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
