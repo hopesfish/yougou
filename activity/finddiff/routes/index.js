@@ -162,7 +162,8 @@ router.get('/finddiff/:id/fulfill', function(req, res) {
                         FinddiffServices.fulfill(finddiff.id, {
                             subOpenId: userInfo.openid,
                             headimgurl: userInfo.headimgurl,
-                            nickname: userInfo.nickname
+                            nickname: userInfo.nickname,
+                            bonus: 0
                         }).then(function() {
                             console.info('success to update starter');
                         }, function(err) {
@@ -202,7 +203,6 @@ router.get('/finddiff/:id/fulfill.test', function(req, res) {
             nickname: 'nickname' + suffix
         }).then(function() {
             req.session.subOpenId = 'testopenid' + suffix;
-            console.info(conf.server_root + '/finddiff/' + req.params.id);
             res.redirect(conf.server_root + '/finddiff/' + req.params.id);
         }, function(err) {
             console.error(err);

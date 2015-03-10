@@ -156,7 +156,6 @@ exports.getVotes = function(finddiffId, data) {
                 }
                 var url = '/api/activity/finddiff/' + finddiffId + '/result';
                 BaseServices.queryPaging(url, data).then(function(paging) {
-                    console.info(paging.result);
                     var records = paging.result;
                     for (var i=0; i<records.length; i++) {
                         rdsClient.rpush('finddiff:votes:' + finddiffId, JSON.stringify(records[i]), function(err) {
