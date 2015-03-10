@@ -37,7 +37,7 @@ wechatApi.registerTicketHandle(function(callback) {
     rdsClient.hget('weixin-ticket-token', 'token', function(err, txt) {
         if (err) {return callback(err);}
         console.info(typeof txt);
-        console.info(txt.ticket);
+        console.info(txt.toString());
         //callback(null, JSON.parse(txt || '{}'));
         callback(null, {});
     });
