@@ -27,6 +27,7 @@ module.exports = function(webot) {
                     info.text = '2015FINDDIFFCODE4TOP200';
                     next();
                 } else {
+                    console.info(info.id);
                     var over = false,
                         url = conf.finddiff_root + "/finddiff/" + finddiff.id + "/grant";
                     
@@ -39,7 +40,8 @@ module.exports = function(webot) {
                     } else {
                         return next(null, [
                             '亲~速度召集小伙伴来玩【品牌大作战】，你就有机会赢取优购（←国内最大的时尚鞋服电商）200元礼品卡和大嘴猴/Mossy的惊喜豪礼哦！',
-                            '\n<a href="' + url + '">点击这里</a>参与游戏，速度玩起来吧！友情提示：请将微信设置为横屏模式（【我】->【设置】->【通用】中【开启横屏模式】）'
+                            '\n<a href="' + url + '">点击这里</a>',
+                            '\n参与游戏，速度玩起来吧！友情提示：请将微信设置为横屏模式（【我】->【设置】->【通用】中【开启横屏模式】）'
                         ].join("\n"));
                     }
                 }
