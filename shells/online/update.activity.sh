@@ -10,7 +10,7 @@ git pull
 
 #deploy
 cd /home/yougou/yougou/activity/finddiff
-rm -rf /var/www/html/yougou-finddiff
+#rm -rf /var/www/html/yougou-finddiff
 fis release -omd online
 
 #sed
