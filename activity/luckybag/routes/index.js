@@ -35,6 +35,7 @@ wechatApi.setOpts({timeout: 15000});
 // 初始化ticket
 wechatApi.registerTicketHandle(function(callback) {
     rdsClient.hget('weixin-ticket-token', 'token', function(err, txt) {
+        console.info(err);
         if (err) {return callback(err);}
         //callback(null, JSON.parse(txt || '{}'));
         console.info(err);
@@ -42,6 +43,7 @@ wechatApi.registerTicketHandle(function(callback) {
         callback(null, {});
     });
 }, function(token, callback) {
+    console.info(token);
     rdsClient.hset('weixin-ticket-token', 'token', JSON.stringify(token), callback);
 });
 
