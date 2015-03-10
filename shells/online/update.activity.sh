@@ -10,6 +10,7 @@ git pull
 
 #deploy
 cd /home/yougou/yougou/activity/finddiff
+rm -rf /var/www/html/yougou-finddiff
 fis release -omd online
 
 #sed
@@ -28,5 +29,5 @@ rm -rf public
 cd /var/www/html/yougou-finddiff
 cnpm install
 pm2 delete finddiff
-pm2 start process.json
+#pm2 start process.json
 
