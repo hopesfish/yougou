@@ -113,7 +113,7 @@ var roadmap = [
     },
     {
         // 不需要fis处理的文件
-        reg : /^(\/views\/*|\/routes\/*|\/conf\/*|\/bin\/*|\/services\/*|package.json)/i,
+        reg : /^(\/views\/*|\/routes\/*|\/conf\/*|\/bin\/*|\/services\/*|*.json)/i,
         useMap: true,
         useCompile: false,
         useHash: false,
