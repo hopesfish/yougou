@@ -177,7 +177,7 @@ router.get('/finddiff/:id/fulfill', function(req, res) {
                         nickname: userInfo.nickname,
                         bonus: 0
                     }).then(function() {
-                        info.session.subOpenId = userInfo.openid;
+                        req.session.subOpenId = userInfo.openid;
                         res.redirect(conf.server_root + '/finddiff/' + finddiff.id);
                     }, function(err) {
                         console.error(err);
