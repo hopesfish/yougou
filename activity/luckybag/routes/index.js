@@ -36,7 +36,7 @@ wechatApi.setOpts({timeout: 15000});
 wechatApi.registerTicketHandle(function(callback) {
     rdsClient.hget('weixin-ticket-token', 'token', function(err, txt) {
         if (err) {return callback(err);}
-        callback(null, JSON.parse(txt));
+        callback(null, JSON.parse(txt || {}));
     });
 }, function(token, callback) {
     rdsClient.hset('weixin-ticket-token', 'token', JSON.stringify(token), callback);
@@ -45,14 +45,6 @@ wechatApi.registerTicketHandle(function(callback) {
 /* GET home page. */
 router.get('/', function(req, res) {
     res.render('index', {});
-});
-
-router.get('/start', function(req, res) {
-    res.redirect("http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=204032066&idx=1&sn=c2fae68468acec7811c80fd596c3ae05#rd");
-});
-
-router.get('/rule', function(req, res) {
-    res.redirect("http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=204375237&idx=1&sn=46cabf29be091b7e3e047f53c8820cbd#rd");
 });
 
 router.get('/howto', function(req, res) {
