@@ -35,10 +35,10 @@ wechatApi.setOpts({timeout: 15000});
 // 初始化ticket
 wechatApi.registerTicketHandle(function(callback) {
     rdsClient.hget('weixin-ticket-token', 'token', function(err, txt) {
-        console.info(err);
         if (err) {return callback(err);}
-        console.info(1111+txt);
-        callback(null, JSON.parse(txt || '{}'));
+        console.info(typeof txt);
+        //callback(null, JSON.parse(txt || '{}'));
+        callback(null, {"ticket":"bxLdikRXVbTPdHSM05e5u5fLqsRvNlbtXdJUC8wvMLshgqBMHsokxcD8E4YIUBniBe09DAetpncznV2IsKZnCA","expireTime":1426005663956});
     });
 }, function(token, callback) {
     console.info(token);
