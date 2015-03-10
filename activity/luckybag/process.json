@@ -1,6 +1,6 @@
 {
   "apps" : [{
-    "name"       : "luckybag",
+    "name"       : "finddiff",
     "script"     : "./bin/www",
     "instances"  : "1",
     "log_date_format"  : "YYYY-MM-DD HH:mm",

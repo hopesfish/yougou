@@ -133,6 +133,13 @@ fis.config.merge({
             to : '../yougou-finddiff',
             // node_modules自行拷贝
             exclude : /\/node_modules\//i
+        },
+        // 线上部署
+        online : {
+            // 发布到当前项目的上一级的deploy目录
+            to : '/var/www/html/yougou-finddiff',
+            // node_modules自行拷贝
+            exclude : /\/node_modules\//i
         }
     }
 });
