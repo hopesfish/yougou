@@ -142,7 +142,7 @@ fis.config.merge({
             exclude : /\/node_modules\//i,
             replace : {
                 from : '/public',
-                to : '/activity/finddiff'
+                to : '/activity/finddiff/public'
             }
         }
     }

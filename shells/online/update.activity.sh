@@ -1,6 +1,7 @@
 #!/bin/bash
 #init
 mkdir /var/www/html/yougou-finddiff
+mkdir /var/www/html/yougou-static/activity/finddiff
 
 #code
 cd /home/yougou/yougou
