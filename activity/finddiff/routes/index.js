@@ -34,14 +34,11 @@ wechatApi.setOpts({timeout: 15000});
 
 // 初始化ticket
 wechatApi.registerTicketHandle(function(type, callback) {
-    console.info(11111);
-    console.info(type);
     rdsClient.hget('weixin-ticket-token', 'token', function(err, txt) {
         if (err) {return callback(err);}
         callback(null, JSON.parse(txt));
     });
 }, function(type, token, callback) {
-    console.info(token);
     rdsClient.hset('weixin-ticket-token', 'token', JSON.stringify(token), callback);
 });
 
@@ -88,16 +85,10 @@ router.get('/finddiff/:id', function(req, res) {
     });
 });
 
-router.get('/finddiff/:id/rank', function(req, res) {
-    FinddiffServices.get(req.params.id)
-    .then(function(finddiff) {
-        res.render('rank', {finddiff: finddiff});
-    }, function() {
-        res.status(400).send('查询排行榜异常!');
-    });
-});
-
+// 发起人入口
 router.get('/finddiff/:id/grant', function(req, res) {
+    req.session.starter = req.params.id;
+
     FinddiffServices.get(req.params.id).then(function(finddiff) {
         res.cookie('finddiffId', req.params.id, { expires: new Date(Date.now() + 1000 * 60 * 30), httpOnly: true });
         var param = {
@@ -130,6 +121,23 @@ router.get('/finddiff/:id/grant', function(req, res) {
     });
 });
 
+// 助力人入口
+router.get('/finddiff/:id/help', function(req, res) {
+    FinddiffServices.get(req.params.id).then(function(finddiff) {
+        // 强制授权
+        var url = oauthClient.getAuthorizeURL(
+            conf.server_root + '/finddiff/' + finddiff.id + '/fulfill',
+            '',
+            //'snsapi_base'
+            'snsapi_userinfo'
+        );
+        res.redirect(url);
+    }, function() {
+        res.status(404).send('尚未发起!');
+    });
+});
+
+// 发起人/助力人信息
 router.get('/finddiff/:id/fulfill', function(req, res) {
     FinddiffServices.get(req.params.id).then(function(finddiff) {
         if (req.query.code) {
@@ -149,16 +157,30 @@ router.get('/finddiff/:id/fulfill', function(req, res) {
                         return;
                     }
                     var userInfo = result;
-                    FinddiffServices.fulfill(finddiff.id, {
+
+                    if (req.session.starter == finddiff.id) {
+                        FinddiffServices.fulfill(finddiff.id, {
+                            subOpenId: userInfo.openid,
+                            headimgurl: userInfo.headimgurl,
+                            nickname: userInfo.nickname
+                        }).then(function() {
+                            console.info('success to update starter');
+                        }, function(err) {
+                            console.error('failed to update starter');
+                            console.error(err);
+                        });
+                    }
+
+                    FinddiffServices.vote(finddiff.id, {
                         subOpenId: userInfo.openid,
                         headimgurl: userInfo.headimgurl,
                         nickname: userInfo.nickname
                     }).then(function() {
-                        req.session.subOpenId = userInfo.openid;
+                        info.session.subOpenId = userInfo.openid;
                         res.redirect(conf.server_root + '/finddiff/' + finddiff.id);
                     }, function(err) {
                         console.error(err);
-                        res.status(400).send('保存用户信息失败');
+                        res.redirect(conf.server_root + '/finddiff/' + finddiff.id);
                     });
                 });
             });
@@ -174,7 +196,7 @@ router.get('/finddiff/:id/fulfill', function(req, res) {
 router.get('/finddiff/:id/fulfill.test', function(req, res) {
     FinddiffServices.get(req.params.id).then(function(finddiff) {
         var suffix = (new Date()).getTime();
-        FinddiffServices.fulfill(req.params.id, {
+        FinddiffServices.vote(req.params.id, {
             subOpenId: 'testopenid' + suffix,
             headimgurl: 'headimgurl' + suffix,
             nickname: 'nickname' + suffix
@@ -188,94 +210,6 @@ router.get('/finddiff/:id/fulfill.test', function(req, res) {
         });
     }, function() {
         res.status(404).send('尚未发起!');
-    });
-});
-
-router.get('/finddiff/:id/vote', function(req, res) {
-    FinddiffServices.get(req.params.id).then(function(finddiff) {
-        var url = oauthClient.getAuthorizeURL(
-            conf.server_root + '/finddiff/' + finddiff.id + '/vote/confirm',
-            '',
-            'snsapi_userinfo'
-        );
-        res.redirect(url);
-    }, function(err) {
-        console.error(err);
-        res.status(400).send('尚未发起!');
-    });
-});
-
-router.get('/finddiff/:id/vote/confirm', function(req, res) {
-    FinddiffServices.get(req.params.id).then(function(finddiff) {
-        if (!finddiff.nickname) {
-            res.status(400).send('资料不全');
-        } else if (req.query.code) {
-            oauthClient.getAccessToken(req.query.code, function (err, result) {
-                if (err) {
-                    console.error(err);
-                    res.render('timeout', {});
-                    //res.status(400).send('无法获得授权');
-                    return;
-                }
-                var openid = result.data.openid;
-                oauthClient.getUser(openid, function (err, result) {
-                    if (err) {
-                        console.error(err);
-                        res.render('timeout', {});
-                        //res.status(400).send('无法获得用户信息');
-                        return;
-                    }
-                    var userInfo = result;
-                    FinddiffServices.vote(finddiff.id, {
-                        subOpenId: userInfo.openid,
-                        headimgurl: userInfo.headimgurl,
-                        nickname: userInfo.nickname
-                    }).then(function() {
-                        info.session.subOpenId = userInfo.openid;
-                        res.redirect(conf.server_root + '/finddiff/' + req.params.id);
-                    }, function(err) {
-                        console.error(err);
-                        res.redirect(conf.server_root + '/finddiff/' + req.params.id);
-                    });
-                });
-            });
-        } else {
-            res.render('timeout', {});
-            //res.status(400).send('未完成授权');
-        }
-    }, function() {
-        res.status(404).send('尚未发起!');
-    });
-});
-
-router.get('/finddiff/:id/vote/confirm.test', function(req, res) {
-    FinddiffServices.get(req.params.id).then(function(finddiff) {
-        var suffix = (new Date()).getTime();
-        FinddiffServices.vote(req.params.id, {
-            subOpenId: 'testopenid' + suffix,
-            headimgurl: 'headimgurl' + suffix,
-            nickname: 'nickname' + suffix
-        }).then(function() {
-            req.session.subOpenId = 'testopenid' + suffix;
-            res.redirect(conf.server_root + '/finddiff/' + req.params.id);
-        }, function(err) {
-            console.error(err);
-            res.status(400).send('保存用户信息失败');
-        });
-    }, function() {
-        res.status(404).send('尚未发起!');
-    });
-});
-
-router.get('/finddiff/:id/helpers', function(req, res) {
-    // 从redis里面读出数据
-    FinddiffServices.getVotes(req.params.id).then(function(paging) {
-        console.info(paging);
-        //res.status(200).send('votes');
-        res.render('helpers', {helpers: paging});
-    }, function(err) {
-        console.info(err);
-        res.status(400).send('获取投票历史失败!');
     });
 });
 
@@ -293,6 +227,29 @@ router.get('/finddiff/:id/bonus', function(req, res) {
     }, function(err) {
         console.error(err);
         res.status(400).send('failed to update bonus');
+    });
+});
+
+// GET 助力结果
+router.get('/finddiff/:id/helpers', function(req, res) {
+    // 从redis里面读出数据
+    FinddiffServices.getVotes(req.params.id).then(function(paging) {
+        //console.info(paging);
+        //res.status(200).send('votes');
+        res.render('helpers', {helpers: paging});
+    }, function(err) {
+        console.info(err);
+        res.status(400).send('获取投票历史失败!');
+    });
+});
+
+// GET 当前排名
+router.get('/finddiff/:id/rank', function(req, res) {
+    FinddiffServices.get(req.params.id)
+    .then(function(finddiff) {
+        res.render('rank', {finddiff: finddiff});
+    }, function() {
+        res.status(400).send('查询排行榜异常!');
     });
 });
 

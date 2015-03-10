@@ -107,30 +107,14 @@ exports.fulfill = function(finddiffId, data) {
 };
 
 /**
- * 投票
+ * 更新微信信息或者取得金币数
  */
 exports.vote = function(finddiffId, data) {
     var deferred = Q.defer(),
         url = '/api/activity/finddiff/' + finddiffId + '/result';
 
     BaseServices.create(url, data).then(function() {
-        // TODO 奇怪的祝福语?
-        rdsClient.rpush('finddiff:votes:' + finddiffId, JSON.stringify(data), function(err) {
-            if (err) {
-                console.error('failed to update finddiff vote record');
-                console.error(err);
-                return deferred.reject(err);
-            }
-            // 删除SET值 导致下一个请求来自DB
-            rdsClient.hdel('finddiff', finddiffId, function(err) {
-                if (err) {
-                    console.error('failed to remove finddiff record');
-                    console.error(err);
-                    return deferred.reject(err);
-                }
-                deferred.resolve();
-            });
-        });
+        deferred.resolve();
     }, function(err) {
         deferred.reject(err);
     })
@@ -140,7 +124,7 @@ exports.vote = function(finddiffId, data) {
 
 var lastvotes = {};
 /**
- * 投票历史
+ * 查看助力数据,每分钟更新一次数据
  */
 exports.getVotes = function(finddiffId, data) {
     var deferred = Q.defer();
@@ -157,7 +141,7 @@ exports.getVotes = function(finddiffId, data) {
         }
         var now = (new Date()).getTime();
 
-        if (votes && (now - lastvotes[finddiffId]) < 1000 * 60 * 60) {
+        if (votes && (now - lastvotes[finddiffId]) < 1000 * 60) {
             var items = [];
             for (var i=0; i<votes.length; i++) {
                 items.push(JSON.parse(votes[i]));
@@ -172,6 +156,7 @@ exports.getVotes = function(finddiffId, data) {
                 }
                 var url = '/api/activity/finddiff/' + finddiffId + '/result';
                 BaseServices.queryPaging(url, data).then(function(paging) {
+                    console.info(paging.result);
                     var records = paging.result;
                     for (var i=0; i<records.length; i++) {
                         rdsClient.rpush('finddiff:votes:' + finddiffId, JSON.stringify(records[i]), function(err) {
