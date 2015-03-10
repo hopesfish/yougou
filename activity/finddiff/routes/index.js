@@ -33,12 +33,14 @@ var wechatApi = new API('wx0f186d92b18bc5b0', 'a1e509c1ee4b0fcd9ab4d29cb6ea35e6'
 wechatApi.setOpts({timeout: 15000});
 
 // 初始化ticket
-wechatApi.registerTicketHandle(function(callback) {
+wechatApi.registerTicketHandle(function(type, callback) {
+    console.info(11111);
+    console.info(type);
     rdsClient.hget('weixin-ticket-token', 'token', function(err, txt) {
         if (err) {return callback(err);}
-        callback(null, JSON.parse(txt.toString()));
+        callback(null, JSON.parse(txt));
     });
-}, function(token, callback) {
+}, function(type, token, callback) {
     console.info(token);
     rdsClient.hset('weixin-ticket-token', 'token', JSON.stringify(token), callback);
 });
