@@ -139,7 +139,11 @@ fis.config.merge({
             // 发布到当前项目的上一级的deploy目录
             to : '/var/www/html/yougou-finddiff',
             // node_modules自行拷贝
-            exclude : /\/node_modules\//i
+            exclude : /\/node_modules\//i,
+            replace : {
+                from : '/public',
+                to : '/activity/finddiff'
+            }
         }
     }
 });
