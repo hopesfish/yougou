@@ -29,5 +29,5 @@ rm -rf public
 cd /var/www/html/yougou-finddiff
 cnpm install
 pm2 delete finddiff
-#pm2 start process.json
+pm2 start process.json
 

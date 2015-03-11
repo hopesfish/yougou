@@ -47,7 +47,7 @@ router.get('/', function(req, res) {
     res.render('index', {});
 });
 
-router.get('/finddiff/notice', function(req, res) {
+router.get('/notice', function(req, res) {
     res.render('notice', {});
 });
 
