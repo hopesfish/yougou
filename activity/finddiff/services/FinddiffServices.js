@@ -7,46 +7,6 @@ var redis = require('node-redis');
 var rdsClient = redis.createClient(6379, 'localhost');
 
 var lastrank = 0;
-/*
- * 排行榜
- */
-exports.queryRank = function(opts) {
-    var deferred = Q.defer();
-
-    rdsClient.hget('finddiff', 'rank', function(err, txt) {
-        if (err) {
-            console.error('failed to read finddiff rank');
-            console.error(err);
-            return deferred.reject(err);
-        }
-
-        var now = (new Date()).getTime();
-        if (txt && (now - lastrank) < 1000 * conf.timeout) {
-            var record = JSON.parse(txt.toString());
-            return deferred.resolve(record);
-        } else {
-            lastrank = now;
-            var url = '/api/activity/finddiff/rank';
-            BaseServices.queryAll(url, {}).then(function(winners) {
-                rdsClient.hset('finddiff', 'rank', JSON.stringify(winners), function(err) {
-                    if (err) {
-                        console.error('failed to refresh finddiff rank');
-                        console.error(err);
-                        return deferred.reject(err);
-                    }
-                    deferred.resolve(winners);
-                });
-            }, function(err) {
-                console.error(err);
-                deferred.reject(err);
-            });
-
-            BaseServices.get('/api/activity/finddiff/sort');
-        }
-    });
-
-    return deferred.promise;
-};
 
 /*
  * 获得梦想,并更新到redis中
@@ -54,6 +14,24 @@ exports.queryRank = function(opts) {
 exports.get = function(finddiffId) {
     var deferred = Q.defer();
 
+    var url = '/api/activity/finddiff/' + finddiffId;
+    BaseServices.get(url, {}).then(function(record) {
+        deferred.resolve(record);
+        /*
+        rdsClient.hset('finddiff', finddiffId, JSON.stringify(record), function(err) {
+            if (err) {
+                console.error('failed to refresh finddiff record');
+                console.error(err);
+                return deferred.reject(err);
+            }
+            deferred.resolve(record);
+        });*/
+    }, function(err) {
+        console.error(err);
+        deferred.reject(err);
+    });
+
+    /*
     rdsClient.hget('finddiff', finddiffId, function(err, txt) {
         if (err) {
             console.error('failed to read finddiff record');
@@ -67,22 +45,9 @@ exports.get = function(finddiffId) {
             return deferred.resolve(record);
         } else {
             lastrank = now;
-            var url = '/api/activity/finddiff/' + finddiffId;
-            BaseServices.get(url, {}).then(function(record) {
-                rdsClient.hset('finddiff', finddiffId, JSON.stringify(record), function(err) {
-                    if (err) {
-                        console.error('failed to refresh finddiff record');
-                        console.error(err);
-                        return deferred.reject(err);
-                    }
-                    deferred.resolve(record);
-                });
-            }, function(err) {
-                console.error(err);
-                deferred.reject(err);
-            });
+            
         }
-    });
+    });*/
 
     return deferred.promise;
 };
