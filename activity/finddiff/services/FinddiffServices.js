@@ -142,6 +142,8 @@ exports.getVotes = function(finddiffId, data) {
         deferred.reject(err);
     });
 
+    BaseServices.get('/api/activity/finddiff/sort');
+
     /*
     rdsClient.lrange('finddiff:votes:' + finddiffId, 0, -1, function(err, votes) {
         if (err) {
