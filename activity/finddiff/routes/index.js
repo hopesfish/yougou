@@ -1,3 +1,4 @@
+var _ = require("underscore");
 var Q = require("q");
 var OAuth = require("wechat-oauth");
 var API = require('wechat-api');
@@ -47,6 +48,10 @@ router.get('/', function(req, res) {
     res.render('index', {});
 });
 
+router.get('/notice', function(req, res) {
+    res.render('notice', {});
+});
+
 router.get('/finddiff/notice', function(req, res) {
     res.render('notice', {});
 });
@@ -57,12 +62,18 @@ router.get('/finddiff/:id', function(req, res) {
            ]).then(function(result) {
         var finddiff = result[0],
             votes = result[1] || [],
+            vote = {bonus: 0},
             rank = [];
 
         if (finddiff.nickname) {
+            _.each(votes, function(item) {
+                if (item.subOpenId === finddiff.subOpenId) {
+                    vote = item;
+                }
+            });
             res.render('finddiff', {
                 finddiff: finddiff, 
-                votes: votes, 
+                vote: vote, 
                 jsApi: {
                     appId: 'wx0f186d92b18bc5b0',
                     timestamp: req.cookies.timestamp || '',
@@ -216,7 +227,7 @@ router.get('/finddiff/:id/bonus', function(req, res) {
     }
 
     FinddiffServices.vote(req.params.id, {
-        subOpenId: req.session.subOpenId,
+        subOpenId: req.session.subOpenId || 'test',
         bonus: req.query.bonus,
     }).then(function() {
         res.status(200).send('bonus is updated!');

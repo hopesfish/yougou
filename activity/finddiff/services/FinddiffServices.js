@@ -21,7 +21,7 @@ exports.queryRank = function(opts) {
         }
 
         var now = (new Date()).getTime();
-        if (txt && (now - lastrank) < 1000 * 60 * 5) {
+        if (txt && (now - lastrank) < 1000 * conf.timeout) {
             var record = JSON.parse(txt.toString());
             return deferred.resolve(record);
         } else {
@@ -40,6 +40,8 @@ exports.queryRank = function(opts) {
                 console.error(err);
                 deferred.reject(err);
             });
+
+            BaseServices.get('/api/activity/finddiff/sort');
         }
     });
 
@@ -59,10 +61,12 @@ exports.get = function(finddiffId) {
             return deferred.reject(err);
         }
 
-        if (txt) {
+        var now = (new Date()).getTime();
+        if (txt && (now - lastrank) < 1000 * conf.timeout) {
             var record = JSON.parse(txt.toString());
             return deferred.resolve(record);
         } else {
+            lastrank = now;
             var url = '/api/activity/finddiff/' + finddiffId;
             BaseServices.get(url, {}).then(function(record) {
                 rdsClient.hset('finddiff', finddiffId, JSON.stringify(record), function(err) {
@@ -114,7 +118,31 @@ exports.vote = function(finddiffId, data) {
         url = '/api/activity/finddiff/' + finddiffId + '/result';
 
     BaseServices.create(url, data).then(function() {
-        deferred.resolve();
+        // 强制刷新缓存
+        rdsClient.del('finddiff:votes:' + finddiffId, function(err) {
+            if (err) {
+                console.error(err);
+                console.error('failed to clear votes');
+            }
+            var url = '/api/activity/finddiff/' + finddiffId + '/result';
+            BaseServices.queryPaging(url, data).then(function(paging) {
+                var records = paging.result;
+                for (var i=0; i<records.length; i++) {
+                    rdsClient.rpush('finddiff:votes:' + finddiffId, JSON.stringify(records[i]), function(err) {
+                        if (err) {
+                            console.error('failed to update finddiff vote record');
+                            console.error(err);
+                            return deferred.reject(err);
+                        }
+                        
+                    });
+                }
+                deferred.resolve(records);
+            }, function(err) {
+                console.error(err);
+                deferred.reject(err);
+            });
+        });
     }, function(err) {
         deferred.reject(err);
     })
@@ -141,7 +169,7 @@ exports.getVotes = function(finddiffId, data) {
         }
         var now = (new Date()).getTime();
 
-        if (votes && (now - lastvotes[finddiffId]) < 1000 * 60) {
+        if (votes && (now - lastvotes[finddiffId]) < 1000 * conf.timeout) {
             var items = [];
             for (var i=0; i<votes.length; i++) {
                 items.push(JSON.parse(votes[i]));
@@ -172,7 +200,9 @@ exports.getVotes = function(finddiffId, data) {
                     console.error(err);
                     deferred.reject(err);
                 });
-            })
+
+                BaseServices.get('/api/activity/finddiff/sort');
+            });
         }
     });
 

@@ -9,12 +9,12 @@
 {% block content %}
     <div id="finddiff-helper" class="finddiff-layer">
         <div class="helpers">
+            {% for helper in helpers %}
             <div class="helper">
-                {% for helper in helpers %}
-                    <img src="{{ helper.headimgurl }}" alt="{{ helper.nickname }}">
-                    <span>贡献了 {{ helper.bonus }}个金币</span>
-                {% endfor %}
+                <img src="{{ helper.headimgurl }}" alt="{{ helper.nickname }}">
+                <span>{{ helper.nickname.substring(0, 8) }}贡献了{{ helper.bonus }}金币</span>
             </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

@@ -69,6 +69,30 @@ class FinddiffController extends Controller
     }
 
     /**
+     * 排名排序
+     * GET /api/activity/sort
+     */
+    public function actionRestsort() {
+        $this->checkRestAuth();
+
+        $criteria = new CDbCriteria();
+
+        $criteria->order = 'bonus DESC';
+
+
+        $items = Finddiff::model()->findAll($criteria);
+
+        $rank = 1;
+        foreach ($items as $item) {
+            $item->rank = $rank;
+            $item->save();
+            $rank++;
+        }
+
+        $this->sendResponse(200, 'ok');
+    }
+
+    /**
      * 排行榜
      * GET /api/activity/finddiff/rank
      */

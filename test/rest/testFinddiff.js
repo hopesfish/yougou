@@ -210,5 +210,21 @@ module.exports = function() {
                 done(err);
             });
         });
+
+        it('success to sort finddiff rank', function(done){
+            async.series({
+                action: function(callback){
+                    base.get("/api/activity/finddiff/sort", {token: 'basic-valid'})
+                    .then(function(result) {
+                        done();
+                    }, function(err) {
+                        console.info(err);
+                        callback(new Error("should sort"));
+                    });
+                }
+            }, function(err, results) {
+                done(err);
+            });
+        });
     });
 }

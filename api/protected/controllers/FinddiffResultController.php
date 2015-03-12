@@ -7,6 +7,7 @@ class FinddiffResultController extends Controller {
 
         $newitem = array();
         $newitem['id'] = $item->id;
+        $newitem['subOpenId'] = $item->sub_open_id;
         $newitem['bonus'] = (int)$item->bonus;
         $newitem['createdTime'] = $item->created_time;
         $newitem['headimgurl'] = $item->headimgurl;

@@ -18,7 +18,8 @@ $().ready(function() {
         ],
         finds = [],
         playing = false,
-        bonus = 0;
+        bonus = 0,
+        blood = 3;
 
     if (names.length != logos.length) {
         alert('初始化游戏失败！');
@@ -27,10 +28,14 @@ $().ready(function() {
 
     // add event
     $('.logo-wrap').on('click', '.active', function(e){
+        if (!playing) { return; }
+
         if (parseInt($(e.currentTarget).attr('data-idx')) == finds[0]) {
             bonus += stages[idx].bonus;
             idx++;
             scene(); 
+        } else {
+            blood--;
         }
     });
     
@@ -50,8 +55,14 @@ $().ready(function() {
         // init
         var len = names.length;
         var stage = stages[idx], token = parseInt(12345678 * Math.random()) + parseInt(87654321 * Math.random());
-        for (var i=1; i<stage.total + 1; i++) {
-            finds.push((token + i) % len);
+        var map = {};
+        for (var i=0; i<stage.total; i++) {
+            var position = (token + parseInt(100 * Math.random())) % len;
+            while(map[position]) {
+                position++;
+            }
+            map[position] = 1;
+            finds.push(position);
         }
 
         //console.info(finds);
@@ -73,26 +84,37 @@ $().ready(function() {
 
         // 开始游戏
         playing = true;
+        blood = 3;
         // 生成场景
         scene();
         // 倒计时
         var seconds = 45;
         var timers = setInterval(function() {
-            if (seconds <= 0) {
-                clearInterval(timers);
+            if (seconds <= 0 || blood <= 0) {
                 playing = false;
                 update();
                 end();
+                clearInterval(timers);
             } else {
-                $('.remain-time').text('剩余时间：' + --seconds + '秒 金币数：' + bonus + '个');
+                $('.remain-time').text('剩余时间：' + --seconds + '秒 金币数：' + bonus + '个 生命点：' + blood + '个');
             }
         }, 1000);
-        $('.remain-time').text('剩余时间：' + seconds + '秒 金币数：' + bonus + '个');
+        $('.remain-time').text('剩余时间：' + seconds + '秒 金币数：' + bonus + '个 生命点：' + blood + '个');
     }
     //start();
 
     function update() {
-        alert(bonus);
+        var best = parseInt($('.result-wrap .bonus').text()), msg = '';
+        if (bonus > best) {
+            msg = '历史最好成绩：' + bonus + '个金币！！！';
+            $('.result-wrap .bonus').text(bonus);
+        } else if (bonus > 0) {
+            msg = '本次只获得' + bonus + '个金币，请继续加油！'
+        } else {
+            msg = '一句话：加油！'
+        }
+        alert(msg);
+
         $.ajax({
             type: 'GET',
             url: './' + $('#finddiff-game').attr('data-id') + '/bonus',

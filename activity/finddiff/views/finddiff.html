@@ -10,7 +10,7 @@
     <div id="finddiff-entry" class="finddiff-layer">
         <div class="logo"></div>
         <div class="voice"></div>
-        <div class="start layer-show">
+        <div class="start layer {% if vote.bonus == 0 %} layer-show {% endif %}">
             <div class="title-wrap content-wrap">
                 <img src="/public/images/title.png?__inline" title="优购品牌大作战">
             </div>
@@ -26,9 +26,10 @@
                 </a>
             </div>
         </div>
-        <div class="end layer">
+        <div class="end layer {% if vote.bonus > 0 %} layer-show {% endif %}">
             <div class="result-wrap content-wrap">
                 <img src="/public/images/result.png?__inline" title="优购品牌结果">
+                <span class="bonus">{{vote.bonus}}</span>
             </div>
             <div class="content-wrap button-wrap end-button-wrap">
                 <p>
@@ -238,20 +239,23 @@
             <img src="/public/images/logo/阿迪.png?__inline" title="品牌图案">
         </div>
         <div class="remain-time">
-            剩余时间：60秒 金币数：0个
+            剩余时间：60秒 金币数：0个 生命点：3个
         </div>
     </div>
     <div id="finddiff-mask">
         <div class="finddiff-layer">
             <div class="mask-wrap content-wrap">
                 <img src="/public/images/mask.jpg?__inline" title="分享到朋友圈">
-                <p>分享到朋友圈，邀请朋友来帮助您提高排名！</p>
+                <p>速度邀请朋友来帮助您提高排名！</p>
             </div>
         </div>
     </div>
+    <div id="jsApi" appId="{{jsApi.appId}}" timestamp="{{jsApi.timestamp}}" nonceStr="{{jsApi.nonceStr}}" signature="{{jsApi.signature}}"></div>
 {% endblock %}
 
 {% block module %}
     {% parent %}
     <script src="/public/modules/game.js"></script>
+    <script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="/public/modules/share.js"></script>
 {% endblock %}

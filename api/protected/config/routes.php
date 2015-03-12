@@ -42,6 +42,7 @@ return array(
         'api/activity/finddiff/rank'=>'finddiff/restrank',
         'api/activity/finddiff/<id:[\d\w-]{36}?>'=>'finddiff/restget',
         'api/activity/finddiff/start'=>'finddiff/reststart',
+        'api/activity/finddiff/sort'=>'finddiff/restsort',
         'api/activity/finddiff/<finddiffId:[\d\w-]{36}?>/result'=>'finddiffResult/restlist',
 
 		/*
