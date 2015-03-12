@@ -24,10 +24,10 @@ wx.ready(function(){
     });*/
 
     wx.onMenuShareAppMessage({
-        title: '优购送出百万新年大礼包啦！', // 分享标题 优购给您发新年红包啦！
-        desc: '小伙伴们~我正在优购时尚商城收集祝福赢取购物卡和大嘴猴/moussy精美礼物，速度支持我！', // 分享描述
+        title: '优购新春大礼包等你拿！', // 分享标题 优购给您发新年红包啦！
+        desc: '小伙伴们~我正在优购时尚商城玩品牌大作战，快来帮帮我！！', // 分享描述
         link: window.location.href, // 分享链接
-        imgUrl: 'http://weixin.yougou.com/activity/finddiff/public/images/share.jpg', // 分享图标
+        imgUrl: 'http://weixin.yougou.com/activity/finddiff/public/images/share_264f219.jpg', // 分享图标
         type: 'link', // 分享类型,music、video或link，不填默认为link
         dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
         success: function () { 
