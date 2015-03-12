@@ -104,16 +104,7 @@ $().ready(function() {
     //start();
 
     function update() {
-        var best = parseInt($('.result-wrap .bonus').text()), msg = '';
-        if (bonus > best) {
-            msg = '历史最好成绩：' + bonus + '个金币！！！';
-            $('.result-wrap .bonus').text(bonus);
-        } else if (bonus > 0) {
-            msg = '本次只获得' + bonus + '个金币，请继续加油！'
-        } else {
-            msg = '一句话：加油！'
-        }
-        alert(msg);
+        
 
         $.ajax({
             type: 'GET',
@@ -121,10 +112,19 @@ $().ready(function() {
             data: { bonus: bonus, token: (new Date()).getTime() },
             dataType: 'text',
             success: function(data) {
-                //window.location.reload();
+                var best = parseInt($('.result-wrap .bonus').text()), msg = '';
+                if (bonus > best) {
+                    msg = '历史最好成绩：' + bonus + '个金币！！！';
+                    $('.result-wrap .bonus').text(bonus);
+                } else if (bonus > 0) {
+                    msg = '本次只获得' + bonus + '个金币，请继续加油！'
+                } else {
+                    msg = '一句话：加油！'
+                }
+                alert(msg);
             },
             error: function(xhr, type) {
-                //alert('无法保存游戏分数！');
+                alert('无法保存游戏分数！');
             }
         })
     }

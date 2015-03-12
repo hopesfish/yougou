@@ -207,7 +207,8 @@ router.get('/finddiff/:id/fulfill.test', function(req, res) {
         FinddiffServices.vote(req.params.id, {
             subOpenId: 'testopenid' + suffix,
             headimgurl: 'headimgurl' + suffix,
-            nickname: 'nickname' + suffix
+            nickname: 'nickname' + suffix,
+            bonus: 0
         }).then(function() {
             req.session.subOpenId = 'testopenid' + suffix;
             res.redirect(conf.server_root + '/finddiff/' + req.params.id);
