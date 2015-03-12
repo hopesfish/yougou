@@ -122,6 +122,27 @@ var lastvotes = {};
 exports.getVotes = function(finddiffId, data) {
     var deferred = Q.defer();
 
+    var url = '/api/activity/finddiff/' + finddiffId + '/result';
+    BaseServices.queryPaging(url, data).then(function(paging) {
+        var records = paging.result;
+        /*
+        for (var i=0; i<records.length; i++) {
+            rdsClient.rpush('finddiff:votes:' + finddiffId, JSON.stringify(records[i]), function(err) {
+                if (err) {
+                    console.error('failed to update finddiff vote record');
+                    console.error(err);
+                    return deferred.reject(err);
+                }
+                
+            });
+        }*/
+        deferred.resolve(records);
+    }, function(err) {
+        console.error(err);
+        deferred.reject(err);
+    });
+
+    /*
     rdsClient.lrange('finddiff:votes:' + finddiffId, 0, -1, function(err, votes) {
         if (err) {
             console.error('failed to read finddiff votes record');
@@ -169,7 +190,7 @@ exports.getVotes = function(finddiffId, data) {
                 BaseServices.get('/api/activity/finddiff/sort');
             });
         }
-    });
+    });*/
 
     return deferred.promise;
 };
