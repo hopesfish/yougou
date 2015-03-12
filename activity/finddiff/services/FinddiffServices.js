@@ -142,7 +142,11 @@ exports.getVotes = function(finddiffId, data) {
         deferred.reject(err);
     });
 
-    BaseServices.get('/api/activity/finddiff/sort');
+    var now = (new Date()).getTime();
+    if ((now - lastrank) < 1000 * conf.timeout) {
+        BaseServices.get('/api/activity/finddiff/sort');
+        lastrank = now;
+    }
 
     /*
     rdsClient.lrange('finddiff:votes:' + finddiffId, 0, -1, function(err, votes) {
