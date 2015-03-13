@@ -118,8 +118,8 @@ router.get('/finddiff/:id/grant', function(req, res) {
             var url = oauthClient.getAuthorizeURL(
                 conf.server_root + '/finddiff/' + finddiff.id + '/fulfill',
                 '',
-                //'snsapi_base'
-                'snsapi_userinfo'
+                'snsapi_base'
+                //'snsapi_userinfo'
             );
             res.redirect(url);
         });
@@ -156,41 +156,45 @@ router.get('/finddiff/:id/fulfill', function(req, res) {
                     return;
                 }
                 var openid = result.data.openid;
-                oauthClient.getUser(openid, function (err, result) {
-                    if (err) {
-                        console.error(err);
-                        //res.status(400).send('无法获得用户信息');
-                        res.render('timeout', {});
-                        return;
-                    }
-                    var userInfo = result;
 
-                    if (req.session.starter == finddiff.id) {
-                        FinddiffServices.fulfill(finddiff.id, {
-                            subOpenId: userInfo.openid,
-                            headimgurl: userInfo.headimgurl,
-                            nickname: userInfo.nickname
-                        }).then(function() {
-                            console.info('success to update starter');
-                        }, function(err) {
-                            console.error('failed to update starter');
-                            console.error(err);
-                        });
-                    }
-
-                    FinddiffServices.vote(finddiff.id, {
-                        subOpenId: userInfo.openid,
-                        headimgurl: userInfo.headimgurl,
-                        nickname: userInfo.nickname,
-                        bonus: 0
+                if (result.data.scope == 'snsapi_base') {
+                    FinddiffServices.fulfill(finddiff.id, {
+                        subOpenId: openid,
+                        headimgurl: 'fakeimg' + openid,
+                        nickname: 'fakenickname' + openid
                     }).then(function() {
-                        req.session.subOpenId = userInfo.openid;
+                        console.info('success to update starter');
+                        req.session.subOpenId = openid;
                         res.redirect(conf.server_root + '/finddiff/' + finddiff.id);
                     }, function(err) {
+                        console.error('failed to update starter');
                         console.error(err);
-                        res.redirect(conf.server_root + '/finddiff/' + finddiff.id);
                     });
-                });
+                } else {
+                    oauthClient.getUser(openid, function (err, result) {
+                        if (err) {
+                            console.error(err);
+                            //res.status(400).send('无法获得用户信息');
+                            res.render('timeout', {});
+                            return;
+                        }
+                        var userInfo = result;
+
+                        FinddiffServices.vote(finddiff.id, {
+                            subOpenId: userInfo.openid,
+                            headimgurl: userInfo.headimgurl,
+                            nickname: userInfo.nickname,
+                            bonus: 0
+                        }).then(function() {
+                            req.session.subOpenId = userInfo.openid;
+                            res.redirect(conf.server_root + '/finddiff/' + finddiff.id);
+                        }, function(err) {
+                            console.error(err);
+                            res.redirect(conf.server_root + '/finddiff/' + finddiff.id);
+                        });
+                    });
+                }
+                
             });
         } else {
             res.render('timeout', {});
