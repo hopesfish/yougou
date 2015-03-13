@@ -1,6 +1,18 @@
 $rate = 0.68
 $ratePercent = 68%
 
+$offset = -1px
+@keyframes shrink
+    0%
+        left $offset
+    25%
+        right $offset
+    50%
+        left $offset
+    75%
+        right $offset
+    100%
+        right $offset
 body
     background-color #000
     padding 0
@@ -162,9 +174,15 @@ body
             height 220px * $rate
             img
                 display none
+                position relative
                 height 50px * $rate
                 &.active
                     display inline-block
+                &.wrong
+                    -webkit-animation shrink
+                    -webkit-animation-duration 0.1s
+                    -webkit-animation-timing-function ease
+                    -webkit-animation-iteration-count 3
         .medium-logo-wrap
             img
                 display none

@@ -19,7 +19,7 @@ $().ready(function() {
         finds = [],
         playing = false,
         bonus = 0,
-        blood = 3;
+        seconds = 45;
 
     if (names.length != logos.length) {
         alert('初始化游戏失败！');
@@ -35,7 +35,8 @@ $().ready(function() {
             idx++;
             scene(); 
         } else {
-            blood--;
+            $(e.currentTarget).addClass('wrong');
+            seconds -= 3;
         }
     });
     
@@ -84,22 +85,21 @@ $().ready(function() {
 
         // 开始游戏
         playing = true;
-        blood = 3;
         // 生成场景
         scene();
         // 倒计时
-        var seconds = 45;
+        seconds = 45;
         var timers = setInterval(function() {
-            if (seconds <= 0 || blood <= 0) {
+            if (seconds <= 0) {
                 playing = false;
                 update();
                 end();
                 clearInterval(timers);
             } else {
-                $('.remain-time').text('剩余时间：' + --seconds + '秒 金币数：' + bonus + '个 生命点：' + blood + '个');
+                $('.remain-time').text('剩余时间：' + --seconds + '秒 金币数：' + bonus + '个');
             }
         }, 1000);
-        $('.remain-time').text('剩余时间：' + seconds + '秒 金币数：' + bonus + '个 生命点：' + blood + '个');
+        $('.remain-time').text('剩余时间：' + seconds + '秒 金币数：' + bonus + '个');
     }
     //start();
 
