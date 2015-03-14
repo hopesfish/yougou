@@ -34,6 +34,7 @@ $().ready(function() {
         seconds = 45;
 
     if (names.length == 0 || logos.length == 0) {
+        alert('没有LOGO数据！');
         return;
     }
     if (names.length != logos.length) {
