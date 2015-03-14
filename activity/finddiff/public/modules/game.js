@@ -1,20 +1,27 @@
 $().ready(function() {
+    // 根据屏幕宽度置顶样式
+    var width = document.body.clientWidth,
+        TOTAL = {min: 5, max: 12};
+    if (width <= 480) {
+        TOTAL.min = 6;
+        $(document.body).addClass("ip4");
+    } else if (width >= 660) {
+        TOTAL.min = 8;
+        $(document.body).addClass("ip6");
+    }
+
     var names = $('.logo-name-wrap').children(),
         logos = $('.logo-wrap').children(),
         idx = 0,
         stages = [
-            {theme: 'max-logo-wrap', total: 5, bonus: 1},
-            {theme: 'max-logo-wrap', total: 5, bonus: 1},
-            {theme: 'max-logo-wrap', total: 5, bonus: 1},
-            {theme: 'max-logo-wrap', total: 5, bonus: 1},
-            {theme: 'max-logo-wrap', total: 5, bonus: 1},
-            {theme: 'max-logo-wrap', total: 5, bonus: 1},
-            {theme: 'medium-logo-wrap', total: 12, bonus: 3},
-            {theme: 'medium-logo-wrap', total: 12, bonus: 3},
-            {theme: 'medium-logo-wrap', total: 12, bonus: 3},
-            {theme: 'medium-logo-wrap', total: 12, bonus: 3},
-            {theme: 'medium-logo-wrap', total: 12, bonus: 3},
-            {theme: 'medium-logo-wrap', total: 12, bonus: 3},
+            {theme: 'max-logo-wrap', total: TOTAL.min, bonus: 1},
+            /*{theme: 'max-logo-wrap', total: TOTAL.min, bonus: 1},
+            {theme: 'max-logo-wrap', total: TOTAL.min, bonus: 1},
+            {theme: 'max-logo-wrap', total: TOTAL.min, bonus: 1},
+            {theme: 'max-logo-wrap', total: TOTAL.min, bonus: 1},
+            {theme: 'max-logo-wrap', total: TOTAL.min, bonus: 1},*/
+            //{theme: 'medium-logo-wrap', total: TOTAL.max, bonus: 3},
+            //{theme: 'medium-logo-wrap', total: TOTAL.max, bonus: 3},
         ],
         finds = [],
         playing = false,
