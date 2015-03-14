@@ -48,6 +48,10 @@ router.get('/', function(req, res) {
     res.render('index', {});
 });
 
+router.get('/finddiff/timeout', function(req, res) {
+    res.render('timeout', {});
+});
+
 router.get('/notice', function(req, res) {
     res.render('notice', {});
 });

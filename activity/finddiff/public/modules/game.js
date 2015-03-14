@@ -33,6 +33,9 @@ $().ready(function() {
         bonus = 0,
         seconds = 45;
 
+    if (names.length == 0 || logos.length == 0) {
+        return;
+    }
     if (names.length != logos.length) {
         alert('初始化游戏失败！');
         return;
@@ -42,11 +45,21 @@ $().ready(function() {
     $('.logo-wrap').on('click', '.active', function(e){
         if (!playing) { return; }
 
-        if (parseInt($(e.currentTarget).attr('data-idx')) == finds[0]) {
+        var element = $(e.currentTarget);
+
+
+        if (parseInt(element.attr('data-idx')) == finds[0]) {
             bonus += stages[idx].bonus;
             idx++;
             scene(); 
         } else {
+            $(".minus-seconds").css({
+                left:element.position().left + 70,
+                top:element.position().top + 30
+            }).addClass('fadeout');
+            setTimeout(function() {
+                $(".minus-seconds").removeClass('fadeout');
+            }, 1000);
             $(e.currentTarget).addClass('wrong');
             seconds -= 3;
         }
@@ -131,9 +144,13 @@ $().ready(function() {
                 } else if (bonus > 0) {
                     msg = '本次只获得' + bonus + '个金币，请继续加油！'
                 } else {
-                    msg = '一句话：加油！'
+                    msg = '亲，你一个都没认对！';
                 }
-                alert(msg);
+                $('#finddiff-last .mask-wrap').text(msg);
+                $('#finddiff-last').show();
+                setTimeout(function() {
+                    $('#finddiff-last').hide();
+                }, 3000);
             },
             error: function(xhr, type) {
                 alert('无法保存游戏分数！');
