@@ -2,6 +2,11 @@ $().ready(function() {
     // 根据屏幕宽度置顶样式
     var width = document.body.clientWidth,
         TOTAL = {min: 5, max: 12};
+    if (width < 380) {
+        alert('请将手机设置成横屏模式！');
+        window.location.reload();
+        return;
+    }
     if (width <= 480) {
         TOTAL.min = 6;
         $(document.body).addClass("ip4");
