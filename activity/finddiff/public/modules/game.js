@@ -11,7 +11,7 @@ $().ready(function() {
     if (width <= 480) {
         TOTAL.min = 6;
         $(document.body).addClass("ip4");
-    } else if (width >= 660) {
+    } else if (width >= 640) {
         TOTAL.min = 8;
         $(document.body).addClass("ip6");
     }
