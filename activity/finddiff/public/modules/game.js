@@ -3,7 +3,7 @@ $().ready(function() {
     var width = document.body.clientWidth,
         TOTAL = {min: 5, max: 12};
     if (width < 380) {
-        alert('请将手机设置成横屏模式！');
+        alert('为了更好的游玩体验，请您将手机设置成横屏模式，然后再点击下方【确定】按钮！');
         window.location.reload();
         return;
     }
@@ -31,7 +31,7 @@ $().ready(function() {
         finds = [],
         playing = false,
         bonus = 0,
-        seconds = 45;
+        seconds = 30;
 
     if (names.length == 0 || logos.length == 0) {
         alert('没有LOGO数据！');
@@ -55,7 +55,7 @@ $().ready(function() {
             scene(); 
         } else {
             $(".minus-seconds").css({
-                left:element.position().left + 70,
+                left:element.position().left + 60,
                 top:element.position().top + 30
             }).addClass('fadeout');
             setTimeout(function() {
@@ -114,7 +114,7 @@ $().ready(function() {
         // 生成场景
         scene();
         // 倒计时
-        seconds = 45;
+        seconds = 30;
         var timers = setInterval(function() {
             if (seconds <= 0) {
                 playing = false;
