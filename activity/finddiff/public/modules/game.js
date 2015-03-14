@@ -7,7 +7,6 @@ $().ready(function() {
         window.location.reload();
         return;
     }
-    alert(width);
     if (width <= 480) {
         TOTAL.min = 6;
         $(document.body).addClass("ip4");
