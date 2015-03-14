@@ -37,6 +37,8 @@ $().ready(function() {
         alert('没有LOGO数据！');
         return;
     }
+    //console.info(names.length);
+    //console.info(logos.length);
     if (names.length != logos.length) {
         alert('初始化游戏失败！');
         return;
