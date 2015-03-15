@@ -79,11 +79,6 @@ router.get('/finddiff/:id', function(req, res) {
             vote = {bonus: 0},
             rank = [];
 
-        wechatApi.getUser(finddiff.openId, function(err, user) {
-            console.info('dy user info...');
-            console.info(user);
-        });
-
         if (finddiff.nickname) {
             _.each(votes, function(item) {
                 if (item.subOpenId === finddiff.subOpenId) {
@@ -175,6 +170,16 @@ router.get('/finddiff/:id/fulfill', function(req, res) {
                     return;
                 }
                 var openid = result.data.openid;
+
+                fwWechatApi.getUser(openid, function(err, user) {
+                    console.info('fw user info...');
+                    console.info(user);
+                });
+
+                wechatApi.getUser(finddiff.openId, function(err, user) {
+                    console.info('dy user info...');
+                    console.info(user);
+                });
 
                 if (result.data.scope == 'snsapi_base') {
                     FinddiffServices.fulfill(finddiff.id, {
