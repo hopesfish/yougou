@@ -79,7 +79,7 @@ router.get('/finddiff/:id', function(req, res) {
             vote = {bonus: 0},
             rank = [];
 
-        wechatApi.getUser(finddiff.openId, function(user) {
+        wechatApi.getUser(finddiff.openId, function(err, user) {
             console.info('dy user info...');
             console.info(user);
         });
