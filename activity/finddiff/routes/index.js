@@ -20,7 +20,7 @@ var oauthClient = new OAuth('wxdc7c7ccc033ba612', '591bea60d3724af80f103e545b03a
     rdsClient.hset('weixin:' + openid, 'token', JSON.stringify(token), callback);
 });
 
-// 初始化微信api
+// 初始化订阅微信api
 var wechatApi = new API('wx0f186d92b18bc5b0', 'a1e509c1ee4b0fcd9ab4d29cb6ea35e6', function(callback) {
     rdsClient.hget('weixin-api-token', 'token', function(err, txt) {
         if (err) {return callback(err);}
@@ -29,6 +29,16 @@ var wechatApi = new API('wx0f186d92b18bc5b0', 'a1e509c1ee4b0fcd9ab4d29cb6ea35e6'
 }, function(token, callback) {
     rdsClient.hset('weixin-api-token', 'token', JSON.stringify(token), callback);
 });
+// 初始化服务号微信api
+var fwWechatApi = new API('wxdc7c7ccc033ba612', '591bea60d3724af80f103e545b03a5d6', function(callback) {
+    rdsClient.hget('fw-weixin-api-token', 'token', function(err, txt) {
+        if (err) {return callback(err);}
+        callback(null, JSON.parse(txt));
+    });
+}, function(token, callback) {
+    rdsClient.hset('fw-weixin-api-token', 'token', JSON.stringify(token), callback);
+});
+
 
 // 超时时间
 wechatApi.setOpts({timeout: 15000});
@@ -68,6 +78,11 @@ router.get('/finddiff/:id', function(req, res) {
             votes = result[1] || [],
             vote = {bonus: 0},
             rank = [];
+
+        wechatApi.getUser(finddiff.openId, function(user) {
+            console.info('dy user info...');
+            console.info(user);
+        });
 
         if (finddiff.nickname) {
             _.each(votes, function(item) {
