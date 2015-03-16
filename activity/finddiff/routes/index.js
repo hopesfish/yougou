@@ -72,7 +72,6 @@ router.get('/finddiff/notice', function(req, res) {
 
 // 发起人第一次入口
 router.get('/finddiff/start', function(req, res) {
-    return res.send('hello');
     // 强制授权
     var url = oauthClient.getAuthorizeURL(
         conf.server_root + '/finddiff/started',
