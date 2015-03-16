@@ -40,6 +40,7 @@ module.exports = function(webot) {
             return info.text === 'znm';
         },
         handler: function(info, next) {
+            console.info(info.uid);
             wechatApi.getUser(info.uid, function(err, user) {
                 console.info(user);
                 FinddiffServices.query(user.unionid).then(function(paging) {
