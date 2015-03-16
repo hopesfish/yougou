@@ -15,7 +15,7 @@ var lastrank = 0;
 exports.start = function(unionId) {
     var deferred = Q.defer();
 
-    var url = '/api/activity/finddiff?unionId=' + unionId;
+    var url = '/api/activity/finddiff/start?unionId=' + unionId;
     BaseServices.get(url, {}).then(function(record) {
         console.info(record);
         deferred.resolve(record);
