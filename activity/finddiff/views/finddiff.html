@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-    <div id="finddiff-entry" class="finddiff-layer">
+    <div id="finddiff-entry" class="finddiff-layer" data-set="{{finddiff.id}}/set">
         <div class="logo"></div>
         <div class="voice"></div>
         <div class="start layer {% if vote.bonus == 0 %} layer-show {% endif %}">
@@ -36,13 +36,13 @@
                     <a href="#">
                         <img src="/public/images/restart.png?__inline" title="重新开始" class="btn restart-btn">
                     </a>
-                    <a href="{{finddiff.id}}/helpers">
-                        <img src="/public/images/helper.png?__inline" title="助力结果" class="btn helper-btn">
+                    <a href="{{finddiff.id}}/rank">
+                        <img src="/public/images/total.png?__inline" title="金币总和" class="btn total-btn">
                     </a>
                 </p>
                 <p>
-                    <a href="{{finddiff.id}}/rank">
-                        <img src="/public/images/total.png?__inline" title="金币总和" class="btn total-btn">
+                    <a href="award">
+                        <img src="/public/images/award.png?__inline" title="如何领奖" class="btn total-btn">
                     </a>
                     <a href="javascript:void(0)">
                         <img src="/public/images/share.png?__inline" title="点此分享" class="btn share-btn">
@@ -208,7 +208,8 @@
     <div id="finddiff-last" class="finddiff-mask">
         <div class="finddiff-layer">
             <div class="mask-wrap content-wrap">
-                最新结果
+                <img src="/public/images/last.png?__inline" title="本局结果">
+                <div class="result">0</div>
             </div>
         </div>
     </div>

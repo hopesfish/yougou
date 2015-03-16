@@ -2,17 +2,15 @@ $().ready(function() {
     // 根据屏幕宽度置顶样式
     var width = document.body.clientWidth,
         TOTAL = {min: 5, max: 12};
-    if (width < 380) {
-        alert('为了更好的游玩体验，请您将手机设置成横屏模式，然后再点击下方【确定】按钮！');
-        window.location.reload();
+    if (width < 380 && $('#finddiff-entry').size() > 0) {
+        window.location.href = $('#finddiff-entry').attr('data-set');
         return;
     }
-    if (width <= 480) {
-        TOTAL.min = 6;
-        $(document.body).addClass("ip4");
-    } else if (width >= 640) {
+    if (width >= 640) {
         TOTAL.min = 8;
         $(document.body).addClass("ip6");
+    } else {
+        TOTAL.min = 6;
     }
 
     var names = $('.logo-name-wrap').children(),
@@ -29,12 +27,12 @@ $().ready(function() {
             //{theme: 'medium-logo-wrap', total: TOTAL.max, bonus: 3},
         ],
         finds = [],
+        find = 0,
         playing = false,
         bonus = 0,
         seconds = 30;
 
     if (names.length == 0 || logos.length == 0) {
-        alert('没有LOGO数据！');
         return;
     }
     //console.info(names.length);
@@ -51,7 +49,7 @@ $().ready(function() {
         var element = $(e.currentTarget);
 
 
-        if (parseInt(element.attr('data-idx')) == finds[0]) {
+        if (parseInt(element.attr('data-idx')) == find) {
             bonus += stages[idx].bonus;
             idx++;
             scene(); 
@@ -86,19 +84,16 @@ $().ready(function() {
         var stage = stages[idx], token = parseInt(12345678 * Math.random()) + parseInt(87654321 * Math.random());
         var map = {};
         for (var i=0; i<stage.total; i++) {
-            var position = (token + parseInt(100 * Math.random())) % len;
-            while(map[position]) {
-                position++;
-            }
-            map[position] = 1;
+            var position = (token + i*3) % len;
             finds.push(position);
         }
 
         //console.info(finds);
+        find = finds[parseInt(finds.length * Math.random())];
 
         // render
         $('.logo-wrap').addClass(stage.theme);
-        $(names[finds[0]]).addClass('active');
+        $(names[find]).addClass('active');
         for (var i=0; i<finds.length; i++) {
             $(logos[finds[i]]).addClass('active');
             $(logos[finds[i]]).attr('data-idx', finds[i]);
@@ -132,8 +127,6 @@ $().ready(function() {
     //start();
 
     function update() {
-        
-
         $.ajax({
             type: 'GET',
             url: './' + $('#finddiff-game').attr('data-id') + '/bonus',
@@ -142,14 +135,10 @@ $().ready(function() {
             success: function(data) {
                 var best = parseInt($('.result-wrap .bonus').text()), msg = '';
                 if (bonus > best) {
-                    msg = '历史最好成绩：' + bonus + '个金币！！！';
+                    //msg = '历史最好成绩：' + bonus + '个金币！！！';
                     $('.result-wrap .bonus').text(bonus);
-                } else if (bonus > 0) {
-                    msg = '本次只获得' + bonus + '个金币，请继续加油！'
-                } else {
-                    msg = '亲，你一个都没认对！';
                 }
-                $('#finddiff-last .mask-wrap').text(msg);
+                $('#finddiff-last .result').text(bonus);
                 $('#finddiff-last').show();
                 setTimeout(function() {
                     $('#finddiff-last').hide();

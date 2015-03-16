@@ -70,6 +70,11 @@ router.get('/finddiff/notice', function(req, res) {
     res.render('notice', {});
 });
 
+
+router.get('/finddiff/award', function(req, res) {
+    res.send('跳到订阅号微信图文页');
+});
+
 // 发起人第一次入口
 router.get('/finddiff/start', function(req, res) {
     // 强制授权
@@ -106,6 +111,10 @@ router.get('/finddiff/started', function(req, res) {
         res.render('timeout', {});
         //res.status(400).send('未完成授权');
     }
+});
+
+router.get('/finddiff/:id/set', function(req, res) {
+    res.render('set', {id: req.params.id});
 });
 
 router.get('/finddiff/:id', function(req, res) {
