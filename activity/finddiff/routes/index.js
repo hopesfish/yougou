@@ -70,44 +70,9 @@ router.get('/finddiff/notice', function(req, res) {
     res.render('notice', {});
 });
 
-router.get('/finddiff/:id', function(req, res) {
-    Q.all([FinddiffServices.get(req.params.id),
-           FinddiffServices.getVotes(req.params.id)
-           ]).then(function(result) {
-        var finddiff = result[0],
-            votes = result[1] || [],
-            vote = {bonus: 0},
-            rank = [];
-
-        if (finddiff.nickname) {
-            _.each(votes, function(item) {
-                if (item.subOpenId === finddiff.subOpenId) {
-                    vote = item;
-                }
-            });
-            res.render('finddiff', {
-                finddiff: finddiff, 
-                vote: vote, 
-                jsApi: {
-                    appId: 'wx0f186d92b18bc5b0',
-                    timestamp: req.cookies.timestamp || '',
-                    nonceStr: req.cookies.nonceStr || '',
-                    signature: req.cookies.signature || ''
-                }
-            });
-        } else {
-            console.error("not started");
-            res.status(400).send('尚未认证!');
-        }
-
-    }, function(err) {
-        console.error(err)
-        res.status(404).send('读取相关数据异常!');
-    });
-});
-
 // 发起人第一次入口
 router.get('/finddiff/start', function(req, res) {
+    return res.send('hello');
     // 强制授权
     var url = oauthClient.getAuthorizeURL(
         conf.server_root + '/finddiff/started',
@@ -142,6 +107,42 @@ router.get('/finddiff/started', function(req, res) {
         res.render('timeout', {});
         //res.status(400).send('未完成授权');
     }
+});
+
+router.get('/finddiff/:id', function(req, res) {
+    Q.all([FinddiffServices.get(req.params.id),
+           FinddiffServices.getVotes(req.params.id)
+           ]).then(function(result) {
+        var finddiff = result[0],
+            votes = result[1] || [],
+            vote = {bonus: 0},
+            rank = [];
+
+        if (finddiff.nickname) {
+            _.each(votes, function(item) {
+                if (item.subOpenId === finddiff.subOpenId) {
+                    vote = item;
+                }
+            });
+            res.render('finddiff', {
+                finddiff: finddiff, 
+                vote: vote, 
+                jsApi: {
+                    appId: 'wx0f186d92b18bc5b0',
+                    timestamp: req.cookies.timestamp || '',
+                    nonceStr: req.cookies.nonceStr || '',
+                    signature: req.cookies.signature || ''
+                }
+            });
+        } else {
+            console.error("not started");
+            res.status(400).send('尚未认证!');
+        }
+
+    }, function(err) {
+        console.error(err)
+        res.status(404).send('读取相关数据异常!');
+    });
 });
 
 // 发起人进入游戏入口
