@@ -5,7 +5,7 @@ var SERVER = base.config().SERVER;
 
 module.exports = function() {
     describe('test finddiff api : ', function() {
-        var openId = 'openid' + (new Date()).getTime();
+        var unionId = 'openid' + (new Date()).getTime();
 
         it('failed to get finddiff data without basic token', function(done){
             // an example using an object instead of an array
@@ -46,7 +46,7 @@ module.exports = function() {
             // an example using an object instead of an array
             async.series({
                 action: function(callback){
-                    base.get("/api/activity/finddiff/start?openId=" + openId, {token: 'basic-none'})
+                    base.get("/api/activity/finddiff/start?unionId=" + unionId, {token: 'basic-none'})
                     .then(function(id) {
                         callback(new Error("token is required"));
                     }, function(err) {
@@ -63,10 +63,10 @@ module.exports = function() {
             // an example using an object instead of an array
             async.series({
                 action: function(callback){
-                    base.get("/api/activity/finddiff/start?openId=" + openId, {token: 'basic-valid'})
+                    base.get("/api/activity/finddiff/start?unionId=" + unionId, {token: 'basic-valid'})
                     .then(function(finddiff) {
                         finddiffId = finddiff.id;
-                        assert.equal(finddiff.openId, openId);
+                        assert.equal(finddiff.unionId, unionId);
                         done();
                     }, function(err) {
                         console.info(err);
@@ -82,10 +82,10 @@ module.exports = function() {
             // an example using an object instead of an array
             async.series({
                 action: function(callback){
-                    base.get("/api/activity/finddiff/start?openId=" + openId, {token: 'basic-valid'})
+                    base.get("/api/activity/finddiff/start?unionId=" + unionId, {token: 'basic-valid'})
                     .then(function(finddiff) {
                         assert.equal(finddiff.id, finddiffId);
-                        assert.equal(finddiff.openId, openId);
+                        assert.equal(finddiff.unionId, unionId);
                         done();
                     }, function(err) {
                         console.info(err);
@@ -119,7 +119,7 @@ module.exports = function() {
             // an example using an object instead of an array
             async.series({
                 action: function(callback){
-                    base.queryPaging("/api/activity/finddiff?openId=" + openId, {token: 'basic-valid'})
+                    base.queryPaging("/api/activity/finddiff?unionId=" + unionId, {token: 'basic-valid'})
                     .then(function(result) {
                         assert.equal(result.total, 1);
                         assert.equal(result.result[0].id, finddiffId);

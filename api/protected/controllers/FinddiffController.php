@@ -8,6 +8,7 @@ class FinddiffController extends Controller
         $newfinddiff['id'] = $finddiff->id;
         $newfinddiff['nickname'] = $finddiff->nickname;
         $newfinddiff['headimgurl'] = $finddiff->headimgurl;
+        $newfinddiff['unionId'] = $finddiff->union_id;
         $newfinddiff['openId'] = $finddiff->open_id;
         $newfinddiff['subOpenId'] = $finddiff->sub_open_id;
         $newfinddiff['bonus'] = $finddiff->bonus;
@@ -51,6 +52,10 @@ class FinddiffController extends Controller
 
         if (isset($_GET['openId'])) {
             $criteria->compare('open_id', $_GET['openId']);
+        }
+
+        if (isset($_GET['unionId'])) {
+            $criteria->compare('union_id', $_GET['unionId']);
         }
         
         $criteria->limit = $take;
@@ -124,21 +129,21 @@ class FinddiffController extends Controller
         $this->checkRestAuth();
         
         //判断是否全部填写
-        if (!isset($_GET['openId'])) {
+        if (!isset($_GET['unionId'])) {
             return $this->sendResponse(400, 'missed required properties');
         }
-        $openId = $_GET['openId'];
+        $unionId = $_GET['unionId'];
 
         // 查询是否已经生成
         $criteria = new CDbCriteria();
-        $criteria->compare("open_id", $openId);
+        $criteria->compare("union_id", $unionId);
 
         $finddiffes = Finddiff::model()->findAll($criteria);
         $finddiff = null;
 
         if (count($finddiffes) == 0) {
             $finddiff = new Finddiff();
-            $finddiff->open_id = $openId;
+            $finddiff->union_id = $unionId;
             $finddiff->bonus = 0; // 使用分为计量单位,从零开始
 
             if (!$finddiff->save()) {

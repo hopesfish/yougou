@@ -1,9 +1,9 @@
 var BaseServices = require("./BaseServices");
 
 /*
- * 发起finddiff
+ * 查询
  */
-exports.start = function(openId) {
-    var url = '/api/activity/finddiff/start?openId=' + openId;
-    return BaseServices.get(url, {});
+exports.query = function(unionId) {
+    var url = '/api/activity/finddiff?unionId=' + unionId;
+    return BaseServices.queryAll(url);
 };

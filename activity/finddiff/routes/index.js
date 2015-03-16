@@ -106,7 +106,46 @@ router.get('/finddiff/:id', function(req, res) {
     });
 });
 
-// 发起人入口
+// 发起人第一次入口
+router.get('/finddiff/start', function(req, res) {
+    // 强制授权
+    var url = oauthClient.getAuthorizeURL(
+        conf.server_root + '/finddiff/started',
+        '',
+        'snsapi_base'
+        //'snsapi_userinfo'
+    );
+    res.redirect(url);
+});
+
+// 发起人完成发起
+router.get('/finddiff/started', function(req, res) {
+    if (req.query.code) {
+        oauthClient.getAccessToken(req.query.code, function (err, result) {
+            if (err) {
+                console.error(err);
+                //res.status(400).send('无法获得授权码');
+                res.render('timeout', {});
+                return;
+            }
+            var unionid = result.data.unionid;
+
+            FinddiffServices.start(unionid).then(function(finddiff) {
+                console.info('success to start the game');
+                res.redirect(conf.server_root + '/finddiff/' + finddiff.id + '/grant');
+            }, function(err) {
+                console.error('failed to start');
+                console.error(err);
+            });
+        });
+    } else {
+        res.render('timeout', {});
+        //res.status(400).send('未完成授权');
+    }
+});
+
+
+// 发起人进入游戏入口
 router.get('/finddiff/:id/grant', function(req, res) {
     req.session.starter = req.params.id;
 
@@ -171,6 +210,7 @@ router.get('/finddiff/:id/fulfill', function(req, res) {
                 }
                 var openid = result.data.openid;
 
+                /*
                 fwWechatApi.getUser(openid, function(err, user) {
                     console.info('fw user info...');
                     console.info(user);
@@ -179,7 +219,7 @@ router.get('/finddiff/:id/fulfill', function(req, res) {
                 wechatApi.getUser(finddiff.openId, function(err, user) {
                     console.info('dy user info...');
                     console.info(user);
-                });
+                });*/
 
                 if (result.data.scope == 'snsapi_base') {
                     FinddiffServices.fulfill(finddiff.id, {

@@ -5,15 +5,15 @@ var SERVER = base.config().SERVER;
 
 module.exports = function() {
     describe('test result api : ', function() {
-        var openId = 'openid' + (new Date()).getTime(),
-            subOpenId = 'sub' + openId;
+        var unionId = 'unionId' + (new Date()).getTime(),
+            subOpenId = 'sub' + unionId;
 
         var finddiffId;
         it('success to create finddiff data with basic token', function(done){
             // an example using an object instead of an array
             async.series({
                 action: function(callback){
-                    base.get("/api/activity/finddiff/start?openId=starter" + openId, {token: 'basic-valid'})
+                    base.get("/api/activity/finddiff/start?unionId=starter" + unionId, {token: 'basic-valid'})
                     .then(function(finddiff) {
                         finddiffId = finddiff.id;
                         done();

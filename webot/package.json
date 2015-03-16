@@ -15,6 +15,8 @@
     "request": "*",
     "date-utils": "*",
     "node-xlsx": "*",
-    "underscore": "*"
+    "underscore": "*",
+    "wechat-api": "*",
+    "node-redis": "*"
   }
 }

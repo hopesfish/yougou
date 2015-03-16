@@ -2,5 +2,5 @@
 
 // webot send --des http://localhost:8081/wechat/webot --token yougouwx t promote
 
-// webot send --des http://localhost:8081/wechat/webot --token yougouwx t findnm
+// webot send --des http://localhost:8081/wechat/webot --token yougouwx t znm
 

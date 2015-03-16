@@ -8,6 +8,51 @@ var rdsClient = redis.createClient(6379, 'localhost');
 
 var lastrank = 0;
 
+
+/*
+ * 开始游戏
+ */
+exports.start = function(unionid) {
+    var deferred = Q.defer();
+
+    var url = '/api/activity/finddiff?unionid=' + unionid;
+    BaseServices.get(url, {}).then(function(record) {
+        deferred.resolve(record);
+        /*
+        rdsClient.hset('finddiff', finddiffId, JSON.stringify(record), function(err) {
+            if (err) {
+                console.error('failed to refresh finddiff record');
+                console.error(err);
+                return deferred.reject(err);
+            }
+            deferred.resolve(record);
+        });*/
+    }, function(err) {
+        console.error(err);
+        deferred.reject(err);
+    });
+
+    /*
+    rdsClient.hget('finddiff', finddiffId, function(err, txt) {
+        if (err) {
+            console.error('failed to read finddiff record');
+            console.error(err);
+            return deferred.reject(err);
+        }
+
+        var now = (new Date()).getTime();
+        if (txt && (now - lastrank) < 1000 * conf.timeout) {
+            var record = JSON.parse(txt.toString());
+            return deferred.resolve(record);
+        } else {
+            lastrank = now;
+            
+        }
+    });*/
+
+    return deferred.promise;
+};
+
 /*
  * 获得梦想,并更新到redis中
  */

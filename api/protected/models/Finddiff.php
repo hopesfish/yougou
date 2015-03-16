@@ -18,10 +18,10 @@ class Finddiff extends WexActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('open_id', 'required'),
+            array('union_id', 'required'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('open_id, sub_open_id, bonus', 'safe', 'on'=>'search'),
+            array('union_id, sub_open_id, bonus', 'safe', 'on'=>'search'),
         );
     }
 
@@ -47,6 +47,7 @@ class Finddiff extends WexActiveRecord {
             'nickname' => '用户昵称',
             'headimgurl' => '用户头像',
             'open_id' => '公众号openid',
+            'union_id' => '用户唯一标识',
             'sub_open_id' => '服务号openid',
             'bonus' => '分数',
             'rank' => '排名',

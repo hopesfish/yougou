@@ -37,6 +37,7 @@ sed -i "s#mobile_build_version#${mobile_build_version}#g" `grep -lr mobile_build
 cd /var/www/html/yougou-webot/conf
 mv -f index.online.js index.js
 cd /var/www/html/yougou-webot
+cnpm install
 pm2 delete wechat
 pm2 start process.json
 
