@@ -157,6 +157,7 @@ router.get('/finddiff/:id/grant', function(req, res) {
         };
         wechatApi.getJsConfig(param, function(err, result) {
             if (err) {
+                console.error(err);
                 console.error('JS SDK授权异常!');
                 //return res.status(400).send('JS SDK授权异常!');
                 return res.render('timeout', {});
