@@ -12,10 +12,10 @@ var lastrank = 0;
 /*
  * 开始游戏
  */
-exports.start = function(unionid) {
+exports.start = function(unionId) {
     var deferred = Q.defer();
 
-    var url = '/api/activity/finddiff?unionid=' + unionid;
+    var url = '/api/activity/finddiff?unionId=' + unionId;
     BaseServices.get(url, {}).then(function(record) {
         deferred.resolve(record);
         /*
