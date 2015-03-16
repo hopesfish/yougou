@@ -144,7 +144,6 @@ router.get('/finddiff/started', function(req, res) {
     }
 });
 
-
 // 发起人进入游戏入口
 router.get('/finddiff/:id/grant', function(req, res) {
     req.session.starter = req.params.id;
