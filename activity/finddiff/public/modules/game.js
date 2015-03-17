@@ -2,9 +2,11 @@ $().ready(function() {
     // 根据屏幕宽度置顶样式
     var width = document.body.clientWidth,
         TOTAL = {min: 5, max: 12};
-    alert(width)
     if (width < 440 && $('#finddiff-entry').size() > 0) {
-        window.location.href = $('#finddiff-entry').attr('data-set');
+        $('#finddiff-set').show();
+        $('#finddiff-set').click(function() {
+            window.location.reload();
+        });
         return;
     }
     if (width >= 640) {
@@ -85,12 +87,12 @@ $().ready(function() {
         var stage = stages[idx], token = parseInt(12345678 * Math.random()) + parseInt(87654321 * Math.random());
         var map = {};
         for (var i=0; i<stage.total; i++) {
-            var position = (token + i*3) % len;
+            var position = (token + i*2) % len;
             finds.push(position);
         }
 
         //console.info(finds);
-        find = finds[parseInt(finds.length * Math.random())];
+        find = finds[parseInt(finds.length * Math.random(), 10)];
 
         // render
         $('.logo-wrap').addClass(stage.theme);
