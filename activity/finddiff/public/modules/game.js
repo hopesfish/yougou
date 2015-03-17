@@ -2,7 +2,7 @@ $().ready(function() {
     // 根据屏幕宽度置顶样式
     var width = document.body.clientWidth,
         TOTAL = {min: 5, max: 12};
-    if (width < 440) {
+    if (width < 440 && $('#finddiff-entry').size() > 0) {
         window.location.href = $('#finddiff-entry').attr('data-set');
         return;
     }
