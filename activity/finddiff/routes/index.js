@@ -124,7 +124,8 @@ router.get('/finddiff/:id', function(req, res) {
         var finddiff = result[0],
             votes = result[1] || [],
             vote = {bonus: 0},
-            rank = [];
+            rank = [],
+            owner = false;
 
         if (finddiff.nickname) {
             _.each(votes, function(item) {
@@ -134,12 +135,14 @@ router.get('/finddiff/:id', function(req, res) {
             });
             res.render('finddiff', {
                 finddiff: finddiff, 
-                vote: vote, 
+                vote: vote,
+                owner: true, //req.session.subOpenId == finddiff.subOpenId,
                 jsApi: {
                     appId: 'wx0f186d92b18bc5b0',
                     timestamp: req.cookies.timestamp || '',
                     nonceStr: req.cookies.nonceStr || '',
-                    signature: req.cookies.signature || ''
+                    signature: req.cookies.signature || '',
+
                 }
             });
         } else {
@@ -321,7 +324,7 @@ router.get('/finddiff/:id/helpers', function(req, res) {
     FinddiffServices.getVotes(req.params.id).then(function(paging) {
         //console.info(paging);
         //res.status(200).send('votes');
-        res.render('helpers', {helpers: paging});
+        res.render('helpers', {helpers: paging, ownerId: req.session.subOpenId});
     }, function(err) {
         console.info(err);
         res.status(400).send('获取投票历史失败!');

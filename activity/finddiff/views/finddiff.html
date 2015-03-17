@@ -28,10 +28,13 @@
         </div>
         <div class="end layer {% if vote.bonus > 0 %} layer-show {% endif %}">
             <div class="result-wrap content-wrap">
-                <img src="/public/images/result.png?__inline" title="优购品牌结果">
+                {% if owner %} <img src="/public/images/result.png?__inline" title="优购品牌结果"> {% endif %}
+                {% if !owner %} <img src="/public/images/result_help.png?__inline" title="优购品牌结果"> {% endif %}
+                
                 <span class="bonus">{{vote.bonus}}</span>
             </div>
             <div class="content-wrap button-wrap end-button-wrap">
+                {% if owner %}
                 <p>
                     <a href="#">
                         <img src="/public/images/restart.png?__inline" title="重新开始" class="btn restart-btn">
@@ -48,6 +51,17 @@
                         <img src="/public/images/share.png?__inline" title="点此分享" class="btn share-btn">
                     </a>
                 </p>
+                {% endif %}
+                {% if !owner %}
+                <p>
+                    <a href="#">
+                        <img src="/public/images/restart.png?__inline" title="重新开始" class="btn restart-btn">
+                    </a>
+                    <a href="start">
+                        <img src="/public/images/join.png?__inline" title="我也要玩" class="btn total-btn">
+                    </a>
+                </p>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -208,8 +222,7 @@
     <div id="finddiff-last" class="finddiff-mask">
         <div class="finddiff-layer">
             <div class="mask-wrap content-wrap">
-                <img src="/public/images/last.png?__inline" title="本局结果">
-                <div class="result">0</div>
+                亲，您本局赢得了<span class="result">0</span>个金币！
             </div>
         </div>
     </div>
