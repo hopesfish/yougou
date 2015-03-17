@@ -15,9 +15,6 @@
                 <img src="{{ helper.headimgurl }}" alt="{{ helper.nickname }}">
                 <span>{{ helper.nickname.substring(0, 8) }}贡献了{{ helper.bonus }}金币</span>
                 {% endif %}
-                {% if helper.subOpenId == ownerId %}
-                <span>我赢得了{{ helper.bonus }}金币</span>
-                {% endif %}
             </div>
             {% endfor %}
         </div>
