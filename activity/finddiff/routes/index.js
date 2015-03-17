@@ -136,7 +136,7 @@ router.get('/finddiff/:id', function(req, res) {
             res.render('finddiff', {
                 finddiff: finddiff, 
                 vote: vote,
-                owner: true, //req.session.subOpenId == finddiff.subOpenId,
+                owner: req.session.subOpenId == finddiff.subOpenId,
                 jsApi: {
                     appId: 'wx0f186d92b18bc5b0',
                     timestamp: req.cookies.timestamp || '',
