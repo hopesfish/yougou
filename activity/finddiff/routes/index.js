@@ -129,7 +129,7 @@ router.get('/finddiff/:id', function(req, res) {
 
         if (finddiff.nickname) {
             _.each(votes, function(item) {
-                if (item.subOpenId === finddiff.subOpenId) {
+                if (item.subOpenId === req.session.subOpenId) {
                     vote = item;
                 }
             });
