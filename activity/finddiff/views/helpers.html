@@ -10,12 +10,12 @@
     <div id="finddiff-helper" class="finddiff-layer">
         <div class="helpers">
             {% for helper in helpers %}
+            {% if helper.subOpenId != ownerId %}
             <div class="helper">
-                {% if helper.subOpenId != ownerId %}
                 <img src="{{ helper.headimgurl }}" alt="{{ helper.nickname }}">
                 <span>{{ helper.nickname.substring(0, 8) }}贡献了{{ helper.bonus }}金币</span>
-                {% endif %}
             </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
