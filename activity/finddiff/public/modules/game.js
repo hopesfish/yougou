@@ -2,7 +2,7 @@ $().ready(function() {
     // 根据屏幕宽度置顶样式
     var width = document.body.clientWidth,
         TOTAL = {min: 5, max: 12};
-    if (width < 440 && $('#finddiff-entry').size() > 0) {
+    if (width < 420 && $('#finddiff-entry').size() > 0) {
         $('#finddiff-set').show();
         $('#finddiff-set').click(function() {
             window.location.reload();

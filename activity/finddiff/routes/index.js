@@ -72,7 +72,7 @@ router.get('/finddiff/notice', function(req, res) {
 
 
 router.get('/finddiff/award', function(req, res) {
-    res.send('跳到订阅号微信图文页');
+    res.redirect('http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=205304203&idx=1&sn=6b52c06b6649ae72bcbc51ecf1a719e4#rd');
 });
 
 // 发起人第一次入口
