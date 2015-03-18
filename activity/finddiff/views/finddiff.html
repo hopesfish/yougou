@@ -10,7 +10,7 @@
     <div id="finddiff-entry" class="finddiff-layer" data-set="{{finddiff.id}}/set">
         <div class="logo"></div>
         <div class="voice"></div>
-        <div class="start layer {% if vote.bonus == 0 %} layer-show {% endif %}">
+        <div class="start layer {% if vote.bonus == 0 && owner %} layer-show {% endif %}">
             <div class="title-wrap content-wrap">
                 <img src="/public/images/title.png?__inline" title="优购品牌大作战">
             </div>
@@ -26,7 +26,7 @@
                 </a>
             </div>
         </div>
-        <div class="end layer {% if vote.bonus > 0 %} layer-show {% endif %}">
+        <div class="end layer {% if vote.bonus > 0 || (vote.bonus == 0 && !owner)%} layer-show {% endif %}">
             <div class="result-wrap content-wrap">
                 {% if owner %} <img src="/public/images/result.png?__inline" title="优购品牌结果"> {% endif %}
                 {% if !owner %} <img src="/public/images/result_help.png?__inline" title="优购品牌结果"> {% endif %}

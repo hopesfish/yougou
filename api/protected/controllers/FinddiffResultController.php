@@ -59,7 +59,7 @@ class FinddiffResultController extends Controller {
             $result = new FinddiffResult();
             $result->finddiff_id = $_GET['finddiffId'];
             $result->sub_open_id = $_POST['subOpenId'];
-            $result->bonus = 1;
+            $result->bonus = 0;
         }
 
         if (isset($_POST['nickname'])) {
