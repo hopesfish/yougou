@@ -27,6 +27,26 @@ module.exports = function() {
             });
         });
 
+        it('success to update finddiff without token', function(done){
+            async.series({
+                action: function(callback){
+                    base.update("/api/activity/finddiff/" + finddiffId, {
+                        subOpenId: subOpenId,
+                        headimgurl: 'headimgurl' + finddiffId,
+                        nickname: 'nickname' + finddiffId
+                    },{token: 'basic-valid'})
+                    .then(function(result) {
+                        done();
+                    }, function(err) {
+                        console.info(err);
+                        callback(new Error("should not updated"));
+                    });
+                }
+            }, function(err, results) {
+                done(err);
+            });
+        });
+
         it('fail to result finddiff within token', function(done){
             async.series({
                 action: function(callback){
