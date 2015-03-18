@@ -50,6 +50,11 @@ exports.start = function(unionId) {
             
         }
     });*/
+    var now = (new Date()).getTime();
+    if ((now - lastrank) > 1000 * 5) {
+        BaseServices.get('/api/activity/finddiff/sort');
+        lastrank = now;
+    }
 
     return deferred.promise;
 };
@@ -76,6 +81,12 @@ exports.get = function(finddiffId) {
         console.error(err);
         deferred.reject(err);
     });
+
+    var now = (new Date()).getTime();
+    if ((now - lastrank) > 1000 * 5 * 60) {
+        BaseServices.get('/api/activity/finddiff/sort');
+        lastrank = now;
+    }
 
     /*
     rdsClient.hget('finddiff', finddiffId, function(err, txt) {
@@ -187,12 +198,6 @@ exports.getVotes = function(finddiffId, data) {
         console.error(err);
         deferred.reject(err);
     });
-
-    var now = (new Date()).getTime();
-    if ((now - lastrank) > 1000 * 5) {
-        BaseServices.get('/api/activity/finddiff/sort');
-        lastrank = now;
-    }
 
     /*
     rdsClient.lrange('finddiff:votes:' + finddiffId, 0, -1, function(err, votes) {
