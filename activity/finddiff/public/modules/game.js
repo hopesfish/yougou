@@ -87,7 +87,7 @@ $().ready(function() {
         var stage = stages[idx], token = parseInt(12345678 * Math.random()) + parseInt(87654321 * Math.random());
         var map = {};
         for (var i=0; i<stage.total; i++) {
-            var position = (token + i*2) % len;
+            var position = (token + i) % len;
             finds.push(position);
         }
 
