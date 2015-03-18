@@ -10,18 +10,17 @@ wx.config({
 });
 wx.ready(function(){
 
-    /*
     wx.onMenuShareTimeline({
-        title: '小伙伴们~我正在优购时尚商城玩品牌大作战，快来帮帮我！', // 分享标题
-        link: window.location.href, // 分享链接
-        imgUrl: 'http://weixin.yougou.com/activity/finddiff/public/images/share.jpg', // 分享图标
+        title: '小伙伴们~我正在玩优购版“找你妹”，快来帮帮我！', // 分享标题
+        link: $("#share-link").attr('url'), // 分享链接
+        imgUrl: 'http://weixin.yougou.com/activity/finddiff/public/images/share_9fe1c5f.jpg', // 分享图标
         success: function () { 
             // 用户确认分享后执行的回调函数
         },
         cancel: function () { 
             // 用户取消分享后执行的回调函数
         }
-    });*/
+    });
 
     wx.onMenuShareAppMessage({
         title: '优购版“找你妹”玩起来！', // 分享标题 优购给您发新年红包啦！
