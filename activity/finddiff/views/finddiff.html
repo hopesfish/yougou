@@ -26,7 +26,7 @@
                 </a>
             </div>
         </div>
-        <div class="end layer {% if vote.bonus > 0 || (vote.bonus == 0 && !owner)%} layer-show {% endif %}">
+        <div class="end layer {% if vote.bonus > 0 || !owner%} layer-show {% endif %}">
             <div class="result-wrap content-wrap">
                 {% if owner %} <img src="/public/images/result.png?__inline" title="优购品牌结果"> {% endif %}
                 {% if !owner %} <img src="/public/images/result_help.png?__inline" title="优购品牌结果"> {% endif %}
@@ -41,6 +41,9 @@
                     </a>
                     <a href="{{finddiff.id}}/rank">
                         <img src="/public/images/total.png?__inline" title="金币总和" class="btn total-btn">
+                    </a>
+                    <a href="notice">
+                        <img src="/public/images/notice.png?__inline" title="注意事项" class="btn notice-btn">
                     </a>
                 </p>
                 <p>
@@ -60,6 +63,9 @@
                     <a href="start">
                         <img src="/public/images/join.png?__inline" title="我也要玩" class="btn total-btn">
                     </a>
+                    <a href="notice">
+                        <img src="/public/images/notice.png?__inline" title="注意事项" class="btn notice-btn">
+                    </a>
                 </p>
                 {% endif %}
             </div>
@@ -69,47 +75,25 @@
         <div class="logo"></div>
         <div class="voice"></div>
         <div class="logo-name-wrap">
-            <img src="/public/images/logoname/15分钟.png?__inline" title="品牌名字">
-            <img src="/public/images/logoname/DC.png?__inline" title="品牌名字">
-            <img src="/public/images/logoname/GLM.png?__inline" title="品牌名字">
-            <img src="/public/images/logoname/GXG.png?__inline" title="品牌名字">
-            <img src="/public/images/logoname/fed.png?__inline" title="品牌名字">
-
-            <img src="/public/images/logoname/lee.png?__inline" title="品牌名字">
             <img src="/public/images/logoname/马-克-华-菲.png?__inline" title="品牌名字">
             <img src="/public/images/logoname/万斯.png?__inline" title="品牌名字">
 
-            <img src="/public/images/logoname/他她.png?__inline" title="品牌名字">
             <img src="/public/images/logoname/匡威.png?__inline" title="品牌名字">
-            <img src="/public/images/logoname/卡文.png?__inline" title="品牌名字">
             <img src="/public/images/logoname/卡特.png?__inline" title="品牌名字">
 
-            <img src="/public/images/logoname/哈森.png?__inline" title="品牌名字">
-            <img src="/public/images/logoname/威斯.png?__inline" title="品牌名字">
             <img src="/public/images/logoname/康莉.png?__inline" title="品牌名字">
 
             <img src="/public/images/logoname/彪马.png?__inline" title="品牌名字">
-            <img src="/public/images/logoname/拔佳.png?__inline" title="品牌名字">
-            <img src="/public/images/logoname/森达.png?__inline" title="品牌名字">
-            <img src="/public/images/logoname/泛高.png?__inline" title="品牌名字">
             <img src="/public/images/logoname/爱乐.png?__inline" title="品牌名字">
 
             <img src="/public/images/logoname/特步.png?__inline" title="品牌名字">
             <img src="/public/images/logoname/狼爪.png?__inline" title="品牌名字">
             <img src="/public/images/logoname/百丽.png?__inline" title="品牌名字">
 
-            <img src="/public/images/logoname/米菲.png?__inline" title="品牌名字">
-            <img src="/public/images/logoname/考莫.png?__inline" title="品牌名字">
             <img src="/public/images/logoname/耐克.png?__inline" title="品牌名字">
-            <img src="/public/images/logoname/芭迪.png?__inline" title="品牌名字">
-
-            <img src="/public/images/logoname/迈乐.png?__inline" title="品牌名字">
 
             <img src="/public/images/logoname/骆驼.png?__inline" title="品牌名字">
             <img src="/public/images/logoname/三叶草.png?__inline" title="品牌名字">
-            <img src="/public/images/logoname/卓诗尼.png?__inline" title="品牌名字">
-
-            <img src="/public/images/logoname/史努比.png?__inline" title="品牌名字">
             <img src="/public/images/logoname/天美意.png?__inline" title="品牌名字">
 
             <img src="/public/images/logoname/奥卡索.png?__inline" title="品牌名字">
@@ -118,67 +102,37 @@
             <img src="/public/images/logoname/探路者.png?__inline" title="品牌名字">
 
             <img src="/public/images/logoname/接吻猫.png?__inline" title="品牌名字">
-            <img src="/public/images/logoname/斯凯奇.png?__inline" title="品牌名字">
             <img src="/public/images/logoname/新百伦.png?__inline" title="品牌名字">
 
-            <img src="/public/images/logoname/杰米熊.png?__inline" title="品牌名字">
             <img src="/public/images/logoname/百思图.png?__inline" title="品牌名字">
-            <img src="/public/images/logoname/真美诗.png?__inline" title="品牌名字">
-
-            <img src="/public/images/logoname/红蜻蜓.png?__inline" title="品牌名字">
             <img src="/public/images/logoname/茵奈儿.png?__inline" title="品牌名字">
-            <img src="/public/images/logoname/萨洛蒙.png?__inline" title="品牌名字">
 
             <img src="/public/images/logoname/鬼冢虎.png?__inline" title="品牌名字">
             <img src="/public/images/logoname/乐斯菲斯.png?__inline" title="品牌名字">
-            <img src="/public/images/logoname/哥伦比亚.png?__inline" title="品牌名字">
 
-            <img src="/public/images/logoname/莱尔斯丹.png?__inline" title="品牌名字">
             <img src="/public/images/logoname/阿迪达斯.png?__inline" title="品牌名字">
-            <img src="/public/images/logoname/亦谷.png?__inline" title="品牌名字">
         </div>
         <div class="logo-wrap">
-            <img src="/public/images/logo/15分钟.png?__inline" title="品牌图案">
-            <img src="/public/images/logo/DC.png?__inline" title="品牌图案">
-            <img src="/public/images/logo/GLM.png?__inline" title="品牌图案">
-            <img src="/public/images/logo/GXG.png?__inline" title="品牌图案">
-            <img src="/public/images/logo/FED.png?__inline" title="品牌图案">
 
-            <img src="/public/images/logo/李.png?__inline" title="品牌图案">
             <img src="/public/images/logo/马-克-华-菲.png?__inline" title="品牌图案">
             <img src="/public/images/logo/万斯.png?__inline" title="品牌图案">
 
-            <img src="/public/images/logo/他她.png?__inline" title="品牌图案">
             <img src="/public/images/logo/匡威.png?__inline" title="品牌图案">
-            <img src="/public/images/logo/卡文.png?__inline" title="品牌图案">
             <img src="/public/images/logo/卡特.png?__inline" title="品牌图案">
 
-            <img src="/public/images/logo/哈森.png?__inline" title="品牌图案">
-            <img src="/public/images/logo/威斯.png?__inline" title="品牌图案">
             <img src="/public/images/logo/康莉.png?__inline" title="品牌图案">
 
             <img src="/public/images/logo/彪马.png?__inline" title="品牌图案">
-            <img src="/public/images/logo/拔佳.png?__inline" title="品牌图案">
-            <img src="/public/images/logo/森达.png?__inline" title="品牌图案">
-            <img src="/public/images/logo/泛高.png?__inline" title="品牌图案">
             <img src="/public/images/logo/爱乐.png?__inline" title="品牌图案">
 
             <img src="/public/images/logo/特步.png?__inline" title="品牌图案">
             <img src="/public/images/logo/狼爪.png?__inline" title="品牌图案">
             <img src="/public/images/logo/百丽.png?__inline" title="品牌图案">
 
-            <img src="/public/images/logo/米菲.png?__inline" title="品牌图案">
-            <img src="/public/images/logo/考莫.png?__inline" title="品牌图案">
             <img src="/public/images/logo/耐克.png?__inline" title="品牌图案">
-            <img src="/public/images/logo/芭迪.png?__inline" title="品牌图案">
-
-            <img src="/public/images/logo/迈乐.png?__inline" title="品牌图案">
 
             <img src="/public/images/logo/骆驼.png?__inline" title="品牌图案">
             <img src="/public/images/logo/三叶草.png?__inline" title="品牌图案">
-            <img src="/public/images/logo/卓诗尼.png?__inline" title="品牌图案">
-
-            <img src="/public/images/logo/史努比.png?__inline" title="品牌图案">
             <img src="/public/images/logo/天美意.png?__inline" title="品牌图案">
 
             <img src="/public/images/logo/奥卡索.png?__inline" title="品牌图案">
@@ -187,24 +141,15 @@
             <img src="/public/images/logo/探路者.png?__inline" title="品牌图案">
 
             <img src="/public/images/logo/接吻猫.png?__inline" title="品牌图案">
-            <img src="/public/images/logo/斯凯奇.png?__inline" title="品牌图案">
             <img src="/public/images/logo/新百伦.png?__inline" title="品牌图案">
 
-            <img src="/public/images/logo/杰米熊.png?__inline" title="品牌图案">
             <img src="/public/images/logo/百思图.png?__inline" title="品牌图案">
-            <img src="/public/images/logo/真美诗.png?__inline" title="品牌图案">
-
-            <img src="/public/images/logo/红蜻蜓.png?__inline" title="品牌图案">
             <img src="/public/images/logo/茵奈儿.png?__inline" title="品牌图案">
-            <img src="/public/images/logo/萨洛蒙.png?__inline" title="品牌图案">
 
             <img src="/public/images/logo/鬼冢虎.png?__inline" title="品牌图案">
             <img src="/public/images/logo/乐斯菲斯.png?__inline" title="品牌图案">
-            <img src="/public/images/logo/哥伦比亚.png?__inline" title="品牌图案">
 
-            <img src="/public/images/logo/莱尔斯丹.png?__inline" title="品牌图案">
             <img src="/public/images/logo/阿迪.png?__inline" title="品牌图案">
-            <img src="/public/images/logo/亦谷.png?__inline" title="品牌图案">
         </div>
         <div class="minus-seconds">扣3秒</div>
         <div class="remain-time">

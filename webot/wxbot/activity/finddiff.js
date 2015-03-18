@@ -53,10 +53,16 @@ module.exports = function(webot) {
                         ].join("\n"));
                     } else {
                         finddiff = finddiffs[0];
-                        if (finddiff.rank > 0 && finddiff.rank < 50 && award) {
+                        if (finddiff.rank > 0 && finddiff.rank < 10 && award) {
+                            info.text = '2015FINDDIFFCODE4TOP10';
+                            return next();
+                        } else if (finddiff.rank >= 11 && finddiff.rank < 30 && award) {
+                            info.text = '2015FINDDIFFCODE4TOP30';
+                            return next();
+                        } else if (finddiff.rank >= 31 && finddiff.rank < 50 && award) {
                             info.text = '2015FINDDIFFCODE4TOP50';
                             return next();
-                        } else if (finddiff.rank > 50 && finddiff.rank < 200 && award) {
+                        } else if (finddiff.rank >= 51 && finddiff.rank < 200 && award) {
                             info.text = '2015FINDDIFFCODE4TOP200';
                             return next();
                         } else {
