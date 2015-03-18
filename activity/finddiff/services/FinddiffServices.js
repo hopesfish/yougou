@@ -189,7 +189,7 @@ exports.getVotes = function(finddiffId, data) {
     });
 
     var now = (new Date()).getTime();
-    if ((now - lastrank) > 1000 * 60 * conf.timeout) {
+    if ((now - lastrank) > 1000 * 5) {
         BaseServices.get('/api/activity/finddiff/sort');
         lastrank = now;
     }
