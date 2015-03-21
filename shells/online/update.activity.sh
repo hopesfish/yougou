@@ -25,7 +25,7 @@ mv -f index.online.js index.js
 cd /var/www/html/yougou-finddiff
 rm -rf /var/www/html/yougou-static/activity/finddiff
 cp -rf public /var/www/html/yougou-static/activity/finddiff
-cp /home/yougou/yougou/activity/finddiff/public/images/share.jpg /var/www/html/yougou-static/activity/finddiff
+cp /home/yougou/yougou/activity/finddiff/public/images/share.png /var/www/html/yougou-static/activity/finddiff
 rm -rf public
 cd /var/www/html/yougou-finddiff
 cnpm install
