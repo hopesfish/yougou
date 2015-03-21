@@ -29,8 +29,7 @@ $().ready(function() {
             '莱尔斯丹',
         ];
 
-    alert(width);
-    if (width < 360) {
+    if (width <= 400) {
         $('#finddiff-set').show();
         $('#finddiff-set').click(function() {
             window.location.reload();
