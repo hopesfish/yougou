@@ -305,7 +305,7 @@ router.get('/finddiff/:id/fulfill.test', function(req, res) {
 // GET AJAX调用,更新某人分数
 router.get('/finddiff/:id/bonus', function(req, res) {
     if (!req.session.subOpenId) {
-        res.status(400).send('oauth is required!');
+        //res.status(400).send('oauth is required!');
     }
 
     FinddiffServices.vote(req.params.id, {

@@ -12,7 +12,8 @@
             {% for helper in helpers %}
             {% if helper.subOpenId != ownerId %}
             <div class="helper">
-                <img src="{{ helper.headimgurl }}" alt="{{ helper.nickname }}">
+                <span>您的好友</span>
+                <img src="{{ helper.headimgurl }}">
                 <span>{{ helper.nickname.substring(0, 8) }}贡献了{{ helper.bonus }}金币</span>
             </div>
             {% endif %}
@@ -22,5 +23,4 @@
 {% endblock %}
 {% block module %}
     {% parent %}
-    <script src="/public/modules/game.js"></script>
 {% endblock %}

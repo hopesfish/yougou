@@ -1,33 +1,46 @@
 $().ready(function() {
     // 根据屏幕宽度置顶样式
     var width = document.body.clientWidth,
-        TOTAL = {min: 5, max: 12};
-    if (width && width < 300 && $('#finddiff-entry').size() > 0) {
+        names = [
+            '阿迪达斯',
+            '新百伦',
+            '耐克',
+            '他她',
+            '范斯',
+
+            '匡威',
+            '彪马',
+            '拔佳',
+            '森达',
+            '百丽',
+
+            '鳄鱼',
+            '三叶草',
+            '亚瑟士',
+            '大嘴猴',
+            '天美意',
+
+            '奥卡索',
+            '思加图',
+            '接吻猫',
+            '百思图',
+            '鬼冢虎',
+
+            '莱尔斯丹',
+        ];
+
+    if (width && width < 360 && $('#finddiff-entry').size() > 0) {
         $('#finddiff-set').show();
         $('#finddiff-set').click(function() {
             window.location.reload();
         });
         return;
     }
-    if (width >= 640) {
-        TOTAL.min = 8;
-        $(document.body).addClass("ip6");
-    } else {
-        TOTAL.min = 6;
-    }
 
-    var names = $('.logo-name-wrap').children(),
-        logos = $('.logo-wrap').children(),
+    var logos = $('.logo-wrap').children(),
         idx = 0,
         stages = [
-            {theme: 'max-logo-wrap', total: TOTAL.min, bonus: 1},
-            /*{theme: 'max-logo-wrap', total: TOTAL.min, bonus: 1},
-            {theme: 'max-logo-wrap', total: TOTAL.min, bonus: 1},
-            {theme: 'max-logo-wrap', total: TOTAL.min, bonus: 1},
-            {theme: 'max-logo-wrap', total: TOTAL.min, bonus: 1},
-            {theme: 'max-logo-wrap', total: TOTAL.min, bonus: 1},*/
-            //{theme: 'medium-logo-wrap', total: TOTAL.max, bonus: 3},
-            //{theme: 'medium-logo-wrap', total: TOTAL.max, bonus: 3},
+            {theme: 'max-logo-wrap', total: 8, bonus: 1},
         ],
         finds = [],
         find = 0,
@@ -35,13 +48,12 @@ $().ready(function() {
         bonus = 0,
         seconds = 30;
 
-    if (names.length == 0 || logos.length == 0) {
+    if (logos.length == 0) {
+        alert('无Logo数据');
         return;
     }
-    //console.info(names.length);
-    //console.info(logos.length);
-    if (names.length != logos.length) {
-        alert('初始化游戏失败！');
+    if (logos.length != names.length) {
+        alert('Logo数据异常');
         return;
     }
 
@@ -79,7 +91,6 @@ $().ready(function() {
         // reset
         $('.logo-wrap').removeClass('max-logo-wrap');
         $('.logo-wrap .active').removeClass('active');
-        $('.logo-name-wrap .active').removeClass('active');
         finds = [];
 
         // init
@@ -95,16 +106,17 @@ $().ready(function() {
         find = finds[parseInt(finds.length * Math.random(), 10)];
 
         // render
-        $('.logo-wrap').addClass(stage.theme);
-        $(names[find]).addClass('active');
         for (var i=0; i<finds.length; i++) {
             $(logos[finds[i]]).addClass('active');
             $(logos[finds[i]]).attr('data-idx', finds[i]);
         }
+        $('.logo-name-wrap span').text(names[find]);
     }
 
     function start() {
         $('#finddiff-entry').hide();
+        $('#finddiff-end').hide();
+
         $('.start').removeClass("layer-show").addClass("layer");
         $('.end').removeClass("layer-show").addClass("layer");
         $('#finddiff-game').show();
@@ -123,11 +135,10 @@ $().ready(function() {
                 clearInterval(timers);
             } else {
                 $('.remain-time').text('剩余时间：' + --seconds + '秒 金币数：' + bonus + '个');
+                $('#finddiff-end .result-wrap span').text(bonus);
             }
         }, 1000);
-        $('.remain-time').text('剩余时间：' + seconds + '秒 金币数：' + bonus + '个');
     }
-    //start();
 
     function update() {
         $.ajax({
@@ -136,13 +147,7 @@ $().ready(function() {
             data: { bonus: bonus, token: (new Date()).getTime() },
             dataType: 'text',
             success: function(data) {
-                var best = parseInt($('.result-wrap .bonus').text()), msg = '';
-                if (bonus > best) {
-                    //msg = '历史最好成绩：' + bonus + '个金币！！！';
-                    $('.result-wrap .bonus').text(bonus);
-                }
-                $('#finddiff-last .result').text(bonus);
-                $('#finddiff-last').show();
+                $('.remain-time').text('剩余时间：' + seconds + '秒 金币数：' + bonus + '个');
                 setTimeout(function() {
                     $('#finddiff-last').hide();
                 }, 3000);
@@ -154,9 +159,9 @@ $().ready(function() {
     }
 
     function end() {
-        $('#finddiff-entry').show();
-        $('.end').addClass("layer-show");
+        $('#finddiff-entry').hide();
         $('#finddiff-game').hide();
+        $('#finddiff-end').show();
     }
 
     $('.start-btn').click(function() {
@@ -173,4 +178,7 @@ $().ready(function() {
     $("#finddiff-mask").click(function() {
         $(this).hide();
     });
+
+    $('#finddiff-game').hide();
+    $('#finddiff-end').hide();
 });
