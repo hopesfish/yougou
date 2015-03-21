@@ -66,17 +66,23 @@
             <span> 0</span>
         </div>
         <div class="button-wrap">
+            {% if owner %}
             <a href="#"><img src="/public/images/restart-btn.png?__inline" title="重新开始" class="restart-btn"></a>
             <a href="{{ finddiff.id }}/helpers"><img src="/public/images/helper-btn.png?__inline" title="谁帮助了"></a>
             <a href="{{ finddiff.id }}/rank"><img src="/public/images/rank-btn.png?__inline" title="排行" class="rank-btn"></a>
             <a href="#"><img src="/public/images/share-btn.png?__inline" title="分享到朋友圈" class="share-btn"></a>
+            {% endif %}
+
+            {% if !owner %}
+            <a href="#"><img src="/public/images/restart-btn.png?__inline" title="重新开始" class="restart-btn"></a>
+            <a href="start"><img src="/public/images/join-btn.png?__inline" title="我也要玩" class="btn total-btn"></a>
+            {% endif %}
         </div>
     </div>
 
     <div id="finddiff-mask" class="finddiff-mask">
         <div class="mask-wrap content-wrap">
-            <img src="/public/images/mask.jpg?__inline" title="分享到朋友圈">
-            <p>点击右上角… 速度邀请小伙伴来帮你提高排名哦！</p>
+            <img src="/public/images/mask.png?__inline" title="分享到朋友圈">
         </div>
     </div>
 
