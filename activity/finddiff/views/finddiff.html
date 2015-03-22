@@ -78,7 +78,7 @@
             {% endif %}
 
             {% if !owner %}
-            <a href="#"><img src="/public/images/restart-btn.png?__inline" title="重新开始" class="restart-btn"></a>
+            <a href="#"><img src="/public/images/replay-btn.png?__inline" title="重新开始" class="restart-btn"></a>
             <a href="start"><img src="/public/images/join-btn.png?__inline" title="我也要玩" class="btn total-btn"></a>
             {% endif %}
         </div>
@@ -94,9 +94,9 @@
         请将手机调至横屏模式!<br><br>设置完成后，请<a href="#">点击这里开始游戏</a>
     </div>
 
-    <audio id="rightAudio" src="/finddiff/right.mp3"></audio>
-    <audio id="wrongAudio" src="/finddiff/wrong.mp3"></audio>
-    <audio id="timeAudio" src="/finddiff/time.mp3" loop=loop></audio>
+    <audio id="rightAudio" src="/activity/finddiff/right.mp3"></audio>
+    <audio id="wrongAudio" src="/activity/finddiff/wrong.mp3"></audio>
+    <audio id="timeAudio" src="/activity/finddiff/time.mp3" loop=loop></audio>
 
     <div id="share-link" url="http://weixin.yougou.com/activity/finddiff/finddiff/{{finddiff.id}}/help"></div>
     <div id="jsApi"
