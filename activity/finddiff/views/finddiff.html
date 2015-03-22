@@ -63,7 +63,7 @@
     <div id="finddiff-end" class="finddiff-layer {% if vote.bonus > 0 %} layer-show {% endif %}">
         <div class="result-wrap">
             <img src="/public/images/result.png?__inline" title="结果">
-            <span> 0</span>
+            <span> {{ finddiff.bonus }}</span>
         </div>
         <div class="button-wrap">
             {% if owner %}
