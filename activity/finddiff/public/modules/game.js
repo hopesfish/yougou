@@ -171,7 +171,7 @@ $().ready(function() {
         playing = true;
 
         idx = 0;
-    
+
         // 生成场景
         scene();
         // 倒计时
@@ -186,7 +186,8 @@ $().ready(function() {
                 clearInterval(timers);
                 update();
             } else {
-                $('.remain-time').text('剩余时间：' + --seconds + '秒 金币数：' + bonus + '个');
+                $('.remain-time .time').text(--seconds + '秒');
+                $('.remain-time .bonus').text(bonus + '个');
                 $('#finddiff-end .result-wrap span').text(bonus);
                 if (seconds < 10) {
                     $('.remain-time').addClass('remain-time-warning');
