@@ -110,7 +110,7 @@ $().ready(function() {
 
     function scene() {
         // next
-        if (idx > stages.length) {
+        if (idx >= stages.length) {
             idx = stages.length - 1;
         }
 
@@ -169,12 +169,16 @@ $().ready(function() {
 
         // 开始游戏
         playing = true;
+
+        idx = 0;
+    
         // 生成场景
         scene();
         // 倒计时
         seconds = 30;
 
-        idx = 0;
+        
+
         var timers = setInterval(function() {
             if (seconds <= 0) {
                 playing = false;
