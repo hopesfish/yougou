@@ -128,7 +128,7 @@ router.get('/finddiff/:id', function(req, res) {
             owner = false;
 
         if (finddiff.nickname) {
-            vote = {bonus: 0};
+            vote = {bonus: 10};
             _.each(votes, function(item) {
                 if (item.subOpenId === req.session.subOpenId) {
                     vote = item;
@@ -137,7 +137,7 @@ router.get('/finddiff/:id', function(req, res) {
             res.render('finddiff', {
                 finddiff: finddiff, 
                 vote: vote,
-                owner: req.session.subOpenId == finddiff.subOpenId,
+                owner: true,//req.session.subOpenId == finddiff.subOpenId,
                 jsApi: {
                     appId: 'wx0f186d92b18bc5b0',
                     timestamp: req.cookies.timestamp || '',

@@ -6,7 +6,7 @@ $().ready(function() {
             '新百伦',
             '耐克',
             '他她',
-            '范斯',
+            '万斯',
 
             '匡威',
             '彪马',
@@ -27,7 +27,7 @@ $().ready(function() {
             '鬼冢虎',
 
             '莱尔斯丹',
-        ];
+        ], found = {};
 
     if (width <= 400) {
         $('#finddiff-set').show();
@@ -96,14 +96,27 @@ $().ready(function() {
         // init
         var len = names.length;
         var stage = stages[idx], token = parseInt(12345678 * Math.random()) + parseInt(87654321 * Math.random());
-        var map = {};
+        var map = {}, foundIdx;
         for (var i=0; i<stage.total; i++) {
             var position = (token + i) % len;
             finds.push(position);
         }
 
+        foundIdx = parseInt(finds.length * Math.random());
+        // 不能重复
+        if (found[foundIdx]) {
+            for (var i=parseInt(foundIdx * Math.random()); i<finds.length; i++) {
+                if (!found[foundIdx]) {
+                    foundIdx = i;
+                    break;
+                }
+            }
+        }
+
         //console.info(finds);
-        find = finds[parseInt(finds.length * Math.random(), 10)];
+        //console.info(found);
+        found[foundIdx] = 'used';
+        find = finds[foundIdx];
 
         // render
         for (var i=0; i<finds.length; i++) {
@@ -180,5 +193,4 @@ $().ready(function() {
     });
 
     $('#finddiff-game').hide();
-    $('#finddiff-end').hide();
 });

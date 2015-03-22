@@ -10,7 +10,7 @@
     <div id="finddiff-logo">
         <img src="/public/images/logo.png?__inline" title="Logo">
     </div>
-    <div id="finddiff-entry" class="finddiff-layer">
+    <div id="finddiff-entry" class="finddiff-layer {% if vote.bonus == 0 %} layer-show {% endif %}">
         <div class="title-wrap">
             <img src="/public/images/title.png?__inline" title="品牌大作战">
         </div>
@@ -60,7 +60,7 @@
         <div class="minus-seconds">扣3秒</div>
     </div>
 
-    <div id="finddiff-end" class="finddiff-layer">
+    <div id="finddiff-end" class="finddiff-layer {% if vote.bonus > 0 %} layer-show {% endif %}">
         <div class="result-wrap">
             <img src="/public/images/result.png?__inline" title="结果">
             <span> 0</span>
