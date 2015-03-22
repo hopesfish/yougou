@@ -27,7 +27,7 @@ $().ready(function() {
             '鬼冢虎',
 
             '莱尔斯丹',
-        ], found = {};
+        ], found = {}, voice = true;
 
     if (width <= 400) {
         $('#finddiff-set').show();
@@ -40,7 +40,23 @@ $().ready(function() {
     var logos = $('.logo-wrap').children(),
         idx = 0,
         stages = [
-            {theme: 'max-logo-wrap', total: 8, bonus: 1},
+            {theme: 'min-logo-wrap', total: 8, bonus: 1},
+            {theme: 'min-logo-wrap', total: 8, bonus: 1},
+            {theme: 'min-logo-wrap', total: 8, bonus: 1},
+            {theme: 'min-logo-wrap', total: 8, bonus: 1},
+            {theme: 'min-logo-wrap', total: 8, bonus: 1},
+
+            {theme: 'mid-logo-wrap', total: 10, bonus: 2},
+            {theme: 'mid-logo-wrap', total: 10, bonus: 2},
+            {theme: 'mid-logo-wrap', total: 10, bonus: 2},
+            {theme: 'mid-logo-wrap', total: 10, bonus: 2},
+            {theme: 'mid-logo-wrap', total: 10, bonus: 2},
+
+            {theme: 'max-logo-wrap', total: 12, bonus: 3},
+            {theme: 'max-logo-wrap', total: 12, bonus: 3},
+            {theme: 'max-logo-wrap', total: 12, bonus: 3},
+            {theme: 'max-logo-wrap', total: 12, bonus: 3},
+            {theme: 'max-logo-wrap', total: 12, bonus: 3},
         ],
         finds = [],
         find = 0,
@@ -67,28 +83,40 @@ $().ready(function() {
         if (parseInt(element.attr('data-idx')) == find) {
             bonus += stages[idx].bonus;
             idx++;
-            scene(); 
+            scene();
+            if (voice) {
+                $('#rightAudio')[0].play();
+            }
         } else {
             $(".minus-seconds").css({
                 left:element.position().left + 60,
                 top:element.position().top + 30
             }).addClass('fadeout');
+        
+            $(e.currentTarget).addClass('wrong');
+
             setTimeout(function() {
                 $(".minus-seconds").removeClass('fadeout');
+                $(e.currentTarget).removeClass('wrong');
             }, 1000);
-            $(e.currentTarget).addClass('wrong');
+
             seconds -= 3;
+            if (voice) {
+                $('#wrongAudio')[0].play();
+            }
         }
     });
     
 
     function scene() {
         // next
-        if (idx >= stages.length) {
+        if (idx > stages.length) {
             idx = stages.length - 1;
         }
 
         // reset
+        $('.logo-wrap').removeClass('min-logo-wrap');
+        $('.logo-wrap').removeClass('mid-logo-wrap');
         $('.logo-wrap').removeClass('max-logo-wrap');
         $('.logo-wrap .active').removeClass('active');
         finds = [];
@@ -119,6 +147,7 @@ $().ready(function() {
         find = finds[foundIdx];
 
         // render
+        $('.logo-wrap').addClass(stage.theme);
         for (var i=0; i<finds.length; i++) {
             $(logos[finds[i]]).addClass('active');
             $(logos[finds[i]]).attr('data-idx', finds[i]);
@@ -127,6 +156,10 @@ $().ready(function() {
     }
 
     function start() {
+        if (voice) {
+            $('#timeAudio')[0].play();
+        }
+
         $('#finddiff-entry').hide();
         $('#finddiff-end').hide();
 
@@ -143,12 +176,15 @@ $().ready(function() {
         var timers = setInterval(function() {
             if (seconds <= 0) {
                 playing = false;
-                update();
                 end();
                 clearInterval(timers);
+                update();
             } else {
                 $('.remain-time').text('剩余时间：' + --seconds + '秒 金币数：' + bonus + '个');
                 $('#finddiff-end .result-wrap span').text(bonus);
+                if (seconds < 10) {
+                    $('.remain-time').addClass('remain-time-warning');
+                }
             }
         }, 1000);
     }
@@ -175,7 +211,18 @@ $().ready(function() {
         $('#finddiff-entry').hide();
         $('#finddiff-game').hide();
         $('#finddiff-end').show();
+        $('#timeAudio')[0].pause();
     }
+
+    $('#finddiff-voice').click(function() {
+        if ($('#finddiff-voice').hasClass('disable')) {
+            voice = true;
+            $('#finddiff-voice').removeClass('disable');
+        } else {
+            voice = false;
+            $('#finddiff-voice').addClass('disable');
+        }
+    });
 
     $('.start-btn').click(function() {
         start();
