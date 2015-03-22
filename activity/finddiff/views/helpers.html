@@ -10,7 +10,7 @@
     <div id="finddiff-helper" class="finddiff-layer layer-show">
         <div class="helpers">
             {% for helper in helpers %}
-            {% if helper.subOpenId != ownerId %}
+            {% if helper.subOpenId != ownerId && helper.bonus > 0 %}
             <div class="helper">
                 <span>您的好友</span>
                 <img src="{{ helper.headimgurl }}">
