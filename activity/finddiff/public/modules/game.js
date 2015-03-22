@@ -173,6 +173,8 @@ $().ready(function() {
         scene();
         // 倒计时
         seconds = 30;
+
+        idx = 0;
         var timers = setInterval(function() {
             if (seconds <= 0) {
                 playing = false;
