@@ -221,6 +221,7 @@ $().ready(function() {
         } else {
             voice = false;
             $('#finddiff-voice').addClass('disable');
+            $('#timeAudio')[0].pause();
         }
     });
 
