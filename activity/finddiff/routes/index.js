@@ -128,7 +128,7 @@ router.get('/finddiff/:id', function(req, res) {
             owner = false;
 
         if (finddiff.nickname) {
-            vote = {bonus: 0};
+            vote = {bonus: 10};
             _.each(votes, function(item) {
                 if (item.subOpenId === req.session.subOpenId) {
                     vote = item;
@@ -137,7 +137,7 @@ router.get('/finddiff/:id', function(req, res) {
             res.render('finddiff', {
                 finddiff: finddiff, 
                 vote: vote,
-                owner: req.session.subOpenId == finddiff.subOpenId,
+                owner: true, //req.session.subOpenId == finddiff.subOpenId,
                 jsApi: {
                     appId: 'wx0f186d92b18bc5b0',
                     timestamp: req.cookies.timestamp || '',
@@ -334,11 +334,16 @@ router.get('/finddiff/:id/helpers', function(req, res) {
 
 // GET 当前排名
 router.get('/finddiff/:id/rank', function(req, res) {
-    FinddiffServices.get(req.params.id)
-    .then(function(finddiff) {
-        res.render('rank', {finddiff: finddiff});
-    }, function() {
-        res.status(400).send('查询排行榜异常!');
+    Q.all([FinddiffServices.get(req.params.id),
+           FinddiffServices.getVotes(req.params.id)
+           ]).then(function(result) {
+        var finddiff = result[0],
+            paging = result[1] || [];
+
+        res.render('rank', {finddiff: finddiff, helpers: paging, ownerId: req.session.subOpenId});
+    }, function(err) {
+        console.error(err)
+        res.status(404).send('读取相关数据异常!');
     });
 });
 

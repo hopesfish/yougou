@@ -10,11 +10,22 @@
     <div id="finddiff-logo">
         <img src="/public/images/logo.png?__inline" title="Logo">
     </div>
-    <div id="finddiff-entry" class="finddiff-layer layer-show">
+    <div id="finddiff-helper" class="finddiff-layer layer-show">
         <div class="rank-wrap content-wrap">
             <span class="bonus">{{ finddiff.bonus }}</span>
             <span class="rank">{{ finddiff.rank }}</span>
             <img src="/public/images/rank.png?__inline" title="排名结果">
+        </div>
+        <div class="helpers">
+            {% for helper in helpers %}
+            {% if helper.subOpenId != ownerId && helper.bonus > 0 %}
+            <div class="helper">
+                <span>您的好友</span>
+                <img src="{{ helper.headimgurl }}">
+                <span>贡献了{{ helper.bonus }}金币</span>
+            </div>
+            {% endif %}
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

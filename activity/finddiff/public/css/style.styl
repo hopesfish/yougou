@@ -129,28 +129,7 @@ body
             strong
                 color red
             &:last-child
-                border none
-                
-    .rank-wrap
-        position relative
-        padding-top 5%
-        text-align center
-        img
-            margin 0 16%
-            width 68%
-        .bonus
-            position absolute
-            color #ff6000
-            left 68%
-            top 32%
-            font-size 32px
-        .rank
-            position absolute
-            color #fff
-            left 57%
-            top 61%
-            font-size 32px
-            
+                border none     
     .timeout
         padding-top 10%
         text-align center
@@ -262,14 +241,27 @@ body
         img
             width 100%
 #finddiff-helper.finddiff-layer
+    background url(/public/images/bg-simple.jpg?__inline) repeat-y top center
     min-height 100%
-    img
+    .rank-wrap
         position relative
-        top 3px
-        display inline-block
-        line-height 24px
-        height 24px
-        border-radius 12px
+        padding-top 5%
+        text-align center
+        img
+            margin 0 16%
+            width 68%
+        .bonus
+            position absolute
+            color #ff6000
+            left 68%
+            top 32%
+            font-size 32px
+        .rank
+            position absolute
+            color #fff
+            left 57%
+            top 61%
+            font-size 32px
     .helpers
         background-color #fff
         margin 0 10%
@@ -281,6 +273,13 @@ body
         color #000
         line-height 36px
         border-bottom 1px dotted #000
+        img
+            position relative
+            top 3px
+            display inline-block
+            line-height 24px
+            height 24px
+            border-radius 12px
         &:last-child
             border-bottom none
 .finddiff-mask
