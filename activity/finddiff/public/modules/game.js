@@ -89,7 +89,7 @@ $().ready(function() {
                 setTimeout(function() {
                     $('#rightAudio')[0].pause();
                     $('#timeAudio')[0].play();
-                }, 800);
+                }, 1000);
             }
         } else {
             $(".minus-seconds").css({
@@ -111,7 +111,7 @@ $().ready(function() {
                 setTimeout(function() {
                     $('#wrongAudio')[0].pause();
                     $('#timeAudio')[0].play();
-                }, 800);
+                }, 1000);
             }
         }
     });
@@ -226,18 +226,24 @@ $().ready(function() {
         $('.remain-time .time').text('30秒');
         $('.remain-time .bonus').text('0个');
         setTimeout(function() {
+            $('#wrongAudio')[0].pause();
+            $('#rightAudio')[0].pause();
             $('#timeAudio')[0].pause();
-        }, 500);
+        }, 1000);
     }
 
     $('#finddiff-voice').click(function() {
         if ($('#finddiff-voice').hasClass('disable')) {
             voice = true;
             $('#finddiff-voice').removeClass('disable');
+            $('#wrongAudio')[0].pause();
+            $('#rightAudio')[0].pause();
             $('#timeAudio')[0].play();
         } else {
             voice = false;
             $('#finddiff-voice').addClass('disable');
+            $('#wrongAudio')[0].pause();
+            $('#rightAudio')[0].pause();
             $('#timeAudio')[0].pause();
         }
     });

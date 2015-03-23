@@ -11,7 +11,7 @@ wx.config({
 wx.ready(function(){
 
     wx.onMenuShareTimeline({
-        title: '选对优购在线品牌，300元现金礼品卡就是你哒！速度买Adidad/NIKE/NB去噜~', // 分享标题
+        title: '速度玩起优购品牌大作战，1000元现金礼品卡就是你哒！速度买Adidad/NIKE/NB去噜~', // 分享标题
         link: $("#share-link").attr('url'), // 分享链接
         imgUrl: 'http://weixin.yougou.com/activity/finddiff/share.png', // 分享图标
         success: function () { 
@@ -24,7 +24,7 @@ wx.ready(function(){
 
     wx.onMenuShareAppMessage({
         title: '优购版“找你妹”玩起来！', // 分享标题 优购给您发新年红包啦！
-        desc: '选对优购在线品牌，300元现金礼品卡就是你哒！速度买Adidad/NIKE/NB去噜~', // 分享描述
+        desc: '速度玩起优购品牌大作战，1000元现金礼品卡就是你哒！速度买Adidad/NIKE/NB去噜~', // 分享描述
         link: $("#share-link").attr('url'), // 分享链接
         imgUrl: 'http://weixin.yougou.com/activity/finddiff/share.png', // 分享图标
         type: 'link', // 分享类型,music、video或link，不填默认为link
