@@ -225,6 +225,7 @@ $().ready(function() {
         if ($('#finddiff-voice').hasClass('disable')) {
             voice = true;
             $('#finddiff-voice').removeClass('disable');
+            $('#timeAudio')[0].play();
         } else {
             voice = false;
             $('#finddiff-voice').addClass('disable');
