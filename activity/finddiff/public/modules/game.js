@@ -88,7 +88,7 @@ $().ready(function() {
                 $('#rightAudio')[0].play();
                 setTimeout(function() {
                     $('#timeAudio')[0].play();
-                }, 500);
+                }, 1000);
             }
         } else {
             $(".minus-seconds").css({
@@ -108,7 +108,7 @@ $().ready(function() {
                 $('#wrongAudio')[0].play();
                 setTimeout(function() {
                     $('#timeAudio')[0].play();
-                }, 500);
+                }, 1000);
             }
         }
     });
