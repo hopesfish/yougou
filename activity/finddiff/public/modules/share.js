@@ -11,7 +11,7 @@ wx.config({
 wx.ready(function(){
 
     wx.onMenuShareTimeline({
-        title: '小伙伴们~我正在玩优购版“找你妹”，快来帮帮我！', // 分享标题
+        title: '选对优购在线品牌，300元现金礼品卡就是你哒！速度买Adidad/NIKE/NB去噜~', // 分享标题
         link: $("#share-link").attr('url'), // 分享链接
         imgUrl: 'http://weixin.yougou.com/activity/finddiff/share.png', // 分享图标
         success: function () { 

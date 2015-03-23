@@ -21,7 +21,6 @@ $().ready(function() {
             '天美意',
 
             '奥卡索',
-            //'思加图',
             '接吻猫',
             '百思图',
             '鬼冢虎',
@@ -94,8 +93,8 @@ $().ready(function() {
             }
         } else {
             $(".minus-seconds").css({
-                left:element.position().left + 60,
-                top:element.position().top + 30
+                left:element.position().left - 20,
+                top:element.position().top + 10
             }).addClass('fadeout');
         
             $(e.currentTarget).addClass('wrong');
@@ -216,7 +215,7 @@ $().ready(function() {
             success: function(data) {
             },
             error: function(xhr, type) {
-                alert('无法保存游戏分数！');
+                //alert('无法保存游戏分数！');
             }
         })
     }

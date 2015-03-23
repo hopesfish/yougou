@@ -152,7 +152,9 @@ body
             font-size 32px
             
     .timeout
+        padding-top 10%
         text-align center
+        color red
 #finddiff-game.finddiff-layer
     height 100%
     background none
@@ -166,7 +168,8 @@ body
         font-size 16px
         font-weight bold
         span
-            font-size 28px
+            font-size 30px
+            font-weight bold
     .spitter
         height 3px
         background url(/public/images/line.png?__inline) repeat-x top center
@@ -191,9 +194,6 @@ body
                 -webkit-animation-duration 0.1s
                 -webkit-animation-timing-function ease
                 -webkit-animation-iteration-count 3
-            &.monkey
-                max-height 60px
-                max-width 60px
     .mid-logo-wrap
         img
             width 15%
@@ -208,7 +208,8 @@ body
         top 0
         color red
         opacity 0
-        font-size 24px
+        font-size 20px
+        
         &.fadeout
             animation fadeout
             animation-duration 1s
@@ -225,12 +226,16 @@ body
         bottom 0
         img
             position relative
-            top 3px
-            height 24px
+            height 30px
             margin-left 30px
+            vertical-align top
+            margin-top 3px
         span
             margin-left 5px
             font-size 20px
+            vertical-align top
+            margin-top 3px
+            color #fff
     .remain-time-warning
         font-weight bold        
 #finddiff-end
