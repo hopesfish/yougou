@@ -86,6 +86,9 @@ $().ready(function() {
             scene();
             if (voice) {
                 $('#rightAudio')[0].play();
+                setTimeout(function() {
+                    $('#timeAudio')[0].play();
+                }, 500);
             }
         } else {
             $(".minus-seconds").css({
@@ -103,6 +106,9 @@ $().ready(function() {
             seconds -= 3;
             if (voice) {
                 $('#wrongAudio')[0].play();
+                setTimeout(function() {
+                    $('#timeAudio')[0].play();
+                }, 500);
             }
         }
     });
