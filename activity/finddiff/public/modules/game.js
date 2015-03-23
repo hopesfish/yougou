@@ -86,6 +86,9 @@ $().ready(function() {
             if (voice) {
                 $('#timeAudio')[0].pause();
                 $('#rightAudio')[0].play();
+                setTimeout(function() {
+                    $('#timeAudio')[0].play();
+                }, 500);
             }
         } else {
             $(".minus-seconds").css({
@@ -104,6 +107,9 @@ $().ready(function() {
             if (voice) {
                 $('#timeAudio')[0].pause();
                 $('#wrongAudio')[0].play();
+                setTimeout(function() {
+                    $('#timeAudio')[0].play();
+                }, 500);
             }
         }
     });
