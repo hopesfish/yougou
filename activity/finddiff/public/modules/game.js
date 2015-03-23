@@ -86,15 +86,11 @@ $().ready(function() {
             if (voice) {
                 $('#timeAudio')[0].pause();
                 $('#rightAudio')[0].play();
-                setTimeout(function() {
-                    $('#rightAudio')[0].pause();
-                    $('#timeAudio')[0].play();
-                }, 1000);
             }
         } else {
             $(".minus-seconds").css({
                 left:element.position().left - 20,
-                top:element.position().top + 10
+                top:element.position().top
             }).addClass('fadeout');
         
             $(e.currentTarget).addClass('wrong');
@@ -108,10 +104,6 @@ $().ready(function() {
             if (voice) {
                 $('#timeAudio')[0].pause();
                 $('#wrongAudio')[0].play();
-                setTimeout(function() {
-                    $('#wrongAudio')[0].pause();
-                    $('#timeAudio')[0].play();
-                }, 1000);
             }
         }
     });
@@ -229,7 +221,7 @@ $().ready(function() {
         $('.remain-time .bonus').text('0个');
         setTimeout(function() {
             $('#timeAudio')[0].pause();
-        }, 1000);
+        }, 100);
     }
 
     $('#finddiff-voice').click(function() {
