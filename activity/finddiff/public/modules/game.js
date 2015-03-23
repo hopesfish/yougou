@@ -186,6 +186,8 @@ $().ready(function() {
         scene();
         // 倒计时
         seconds = 30;
+        // 总分
+        bonus = 0;
 
         
 
