@@ -228,7 +228,9 @@ $().ready(function() {
         $('#finddiff-entry').hide();
         $('#finddiff-game').hide();
         $('#finddiff-end').show();
-        $('#timeAudio')[0].pause();
+        setTimeout(function() {
+            $('#timeAudio')[0].pause();
+        }, 1000);
     }
 
     $('#finddiff-voice').click(function() {
