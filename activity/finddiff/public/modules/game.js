@@ -87,8 +87,9 @@ $().ready(function() {
                 $('#timeAudio')[0].pause();
                 $('#rightAudio')[0].play();
                 setTimeout(function() {
+                    $('#rightAudio')[0].pause();
                     $('#timeAudio')[0].play();
-                }, 500);
+                }, 800);
             }
         } else {
             $(".minus-seconds").css({
@@ -108,8 +109,9 @@ $().ready(function() {
                 $('#timeAudio')[0].pause();
                 $('#wrongAudio')[0].play();
                 setTimeout(function() {
+                    $('#wrongAudio')[0].pause();
                     $('#timeAudio')[0].play();
-                }, 500);
+                }, 800);
             }
         }
     });
@@ -186,8 +188,6 @@ $().ready(function() {
         // 总分
         bonus = 0;
 
-        
-
         var timers = setInterval(function() {
             if (seconds <= 0) {
                 playing = false;
@@ -227,7 +227,7 @@ $().ready(function() {
         $('.remain-time .bonus').text('0个');
         setTimeout(function() {
             $('#timeAudio')[0].pause();
-        }, 100);
+        }, 500);
     }
 
     $('#finddiff-voice').click(function() {
