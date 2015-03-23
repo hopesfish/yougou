@@ -194,7 +194,6 @@ $().ready(function() {
                 playing = false;
                 end();
                 clearInterval(timers);
-                update();
             } else {
                 $('.remain-time .time').text(--seconds + '秒');
                 $('.remain-time .bonus').text(bonus + '个');
@@ -213,10 +212,6 @@ $().ready(function() {
             data: { bonus: bonus, token: (new Date()).getTime() },
             dataType: 'text',
             success: function(data) {
-                $('.remain-time').text('剩余时间：' + seconds + '秒 金币数：' + bonus + '个');
-                setTimeout(function() {
-                    $('#finddiff-last').hide();
-                }, 3000);
             },
             error: function(xhr, type) {
                 alert('无法保存游戏分数！');
@@ -225,6 +220,7 @@ $().ready(function() {
     }
 
     function end() {
+        update();
         $('#finddiff-entry').hide();
         $('#finddiff-game').hide();
         $('#finddiff-end').show();
