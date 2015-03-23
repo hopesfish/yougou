@@ -226,6 +226,8 @@ $().ready(function() {
         $('#finddiff-entry').hide();
         $('#finddiff-game').hide();
         $('#finddiff-end').show();
+        $('.remain-time .time').text('30秒');
+        $('.remain-time .bonus').text('0个');
         setTimeout(function() {
             $('#timeAudio')[0].pause();
         }, 1000);
