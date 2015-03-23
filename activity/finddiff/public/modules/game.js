@@ -85,8 +85,10 @@ $().ready(function() {
             idx++;
             scene();
             if (voice) {
+                $('#timeAudio')[0].pause();
                 $('#rightAudio')[0].play();
                 setTimeout(function() {
+                    $('#rightAudio')[0].pause();
                     $('#timeAudio')[0].play();
                 }, 1000);
             }
@@ -105,8 +107,10 @@ $().ready(function() {
 
             seconds -= 3;
             if (voice) {
+                $('#timeAudio')[0].pause();
                 $('#wrongAudio')[0].play();
                 setTimeout(function() {
+                    $('#wrongAudio')[0].pause();
                     $('#timeAudio')[0].play();
                 }, 1000);
             }
