@@ -48,7 +48,6 @@ module.exports = function(webot) {
                         url = conf.finddiff_root + "/finddiff/start";
                         return next(null, [
                             '亲~速度召集小伙伴们来玩【优购品牌大作战】游戏吧！手快眼力好，优购（←国内最大的时尚鞋服电商）送出的1000元/500元/300元的现金礼品卡就有机会被你妥妥赢走！',
-                            '\n进入游戏之前，请将手机及微信设置成为横屏模式。',
                             '\n<a href="' + url + '">点击这里</a>速度参与游戏！'
                         ].join("\n"));
                     } else {
