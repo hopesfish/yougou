@@ -10,11 +10,19 @@
     <div id="finddiff-helper" class="finddiff-layer layer-show">
         <div class="helpers">
             {% for helper in helpers %}
+            {% if helper.subOpenId == ownerId && helper.bonus > 0 %}
+            <div class="helper">
+                <span>我最多赢了{{ helper.bonus }}个金币</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+            
+            {% for helper in helpers %}
             {% if helper.subOpenId != ownerId && helper.bonus > 0 %}
             <div class="helper">
                 <span>您的好友</span>
                 <img src="{{ helper.headimgurl }}">
-                <span>贡献了{{ helper.bonus }}金币</span>
+                <span>贡献了{{ helper.bonus }}个金币</span>
             </div>
             {% endif %}
             {% endfor %}
