@@ -9,9 +9,7 @@
 {% block content %}
     <div id="finddiff-helper" class="finddiff-layer layer-show">
         <div class="helpers">
-            {{ownerId}}
             {% for helper in helpers %}
-            {{helper.subOpenId}}
             {% if helper.subOpenId == ownerId && helper.bonus > 0 %}
             <div class="helper">
                 <span>我最多赢了{{ helper.bonus }}个金币</span>
