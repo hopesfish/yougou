@@ -76,8 +76,11 @@ $().ready(function() {
     $('.logo-wrap').on('click', '.active', function(e){
         if (!playing) { return; }
 
-        var element = $(e.currentTarget);
+        var element = $(e.currentTarget), voiceHandler;
 
+        if (voiceHandler) {
+            clearTimer(voiceHandler);
+        }
 
         if (parseInt(element.attr('data-idx')) == find) {
             bonus += stages[idx].bonus;
@@ -86,7 +89,7 @@ $().ready(function() {
             if (voice) {
                 $('#timeAudio')[0].pause();
                 $('#rightAudio')[0].play();
-                setTimeout(function() {
+                voiceHandler = setTimeout(function() {
                     $('#rightAudio')[0].pause();
                     $('#timeAudio')[0].play();
                 }, 1000);
@@ -108,7 +111,7 @@ $().ready(function() {
             if (voice) {
                 $('#timeAudio')[0].pause();
                 $('#wrongAudio')[0].play();
-                setTimeout(function() {
+                voiceHandler = setTimeout(function() {
                     $('#wrongAudio')[0].pause();
                     $('#timeAudio')[0].play();
                 }, 1000);
