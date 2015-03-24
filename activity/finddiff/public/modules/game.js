@@ -199,7 +199,6 @@ $().ready(function() {
             } else {
                 $('.remain-time .time').text(--seconds + '秒');
                 $('.remain-time .bonus').text(bonus + '个');
-                $('#finddiff-end .result-wrap span').text(bonus);
                 if (seconds < 10) {
                     $('.remain-time').addClass('remain-time-warning');
                 }
@@ -223,6 +222,7 @@ $().ready(function() {
 
     function end() {
         update();
+        $('#finddiff-end .result-wrap span').text(bonus);
         $('#finddiff-entry').hide();
         $('#finddiff-game').hide();
         $('#finddiff-end').show();
