@@ -25,11 +25,11 @@ $offset = -3px
 html
     //background-color #c5f8fe
     background-color #000
-    height 100%
+    min-height 100%
 body
     padding 0
     margin 0
-    height 100%
+    min-height 100%
 a
 img
     border 0
@@ -101,39 +101,7 @@ img
             margin 0 3%
             width 25%
         img
-            width 100%
-    
-    .notice-wrap
-        position relative
-        top 20px
-        width 80%
-        margin 0 5%
-        margin-bottom 20px
-        background-color #fff
-        text-align center
-        border-radius 30px
-        padding 5px 5%
-        .label-wrap
-            position absolute
-            width 100%
-            left 0
-            top -15px
-            text-align center
-        .label
-            width 20%
-        ol
-            margin 0 20px
-            list-style decimal
-        li
-            color #313131
-            text-align left
-            font-size 12px
-            line-height 24px
-            border-bottom 1px dotted #d2d2d2
-            strong
-                color red
-            &:last-child
-                border none     
+            width 100%  
     .timeout
         padding-top 10%
         text-align center
@@ -286,6 +254,47 @@ img
             border-radius 12px
         &:last-child
             border-bottom none
+#finddiff-notice.finddiff-layer
+    background url(/public/images/bg-simple.jpg?__inline) repeat-y top center
+    min-height 100%
+    .notice-wrap
+        clear both
+        position relative
+        top 20px
+        width 86%
+        margin 0 1%
+        padding 0 6%
+        margin-bottom 20px
+        background-color #fff
+        text-align center
+        border-radius 30px
+        .label-wrap
+            position absolute
+            width 100%
+            left 0
+            top -15px
+            text-align center
+        .label
+            width 20%
+        ol
+            list-style decimal
+        li
+            color #313131
+            text-align left
+            font-size 12px
+            line-height 32px
+            border-bottom 1px dotted #d2d2d2
+            strong
+                color red
+            &:last-child
+                border none
+    .hightlight-notice-wrap
+        background-color #0099ff
+        li
+            color #fff
+            border-bottom 1px dotted #146da8
+            strong
+                color #ffff00
 .finddiff-mask
     position fixed
     left 0
