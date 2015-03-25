@@ -248,6 +248,17 @@ router.get('/finddiff/:id/fulfill', function(req, res) {
                         console.error(err);
                     });
                 } else {
+                    FinddiffServices.fulfill(finddiff.id, {
+                        subOpenId: openid,
+                        headimgurl: 'fakeimg' + openid,
+                        nickname: 'fakenickname' + openid
+                    }).then(function() {
+                        console.info('success to update starter');
+                    }, function(err) {
+                        console.error('failed to update starter');
+                        console.error(err);
+                    });
+                    
                     oauthClient.getUser(openid, function (err, result) {
                         if (err) {
                             console.error(err);
