@@ -16,9 +16,6 @@
             <span class="rank">{{ finddiff.rank }}</span>
             <img src="/public/images/rank.png?__inline" title="排名结果">
         </div>
-        <div class="rank-wrap content-wrap" style="padding:0;margin:10px">
-            <a href="#"><img src="/public/images/long-share-btn.png?__inline" title="分享到朋友圈" class="share-btn"></a>
-        </div>
         
         <div class="helpers">
             {% for helper in helpers %}
@@ -41,21 +38,8 @@
         </div>
     </div>
 
-    <div id="finddiff-mask" class="finddiff-mask">
-        <div class="mask-wrap content-wrap">
-            <img src="/public/images/mask.png?__inline" title="分享到朋友圈">
-        </div>
-    </div>
-
-    <div id="share-link" url="http://weixin.yougou.com/activity/finddiff/finddiff/{{finddiff.id}}/help"></div>
-    <div id="jsApi"
-         appId="{{jsApi.appId}}" timestamp="{{jsApi.timestamp}}"
-         nonceStr="{{jsApi.nonceStr}}" signature="{{jsApi.signature}}"></div>
 {% endblock %}
 
 {% block module %}
     {% parent %}
-    <script src="/public/modules/game.js"></script>
-    <script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-    <script src="/public/modules/share.js"></script>
 {% endblock %}
