@@ -24,6 +24,7 @@
         <div class="button-wrap">
             <a href="#"><img src="/public/images/start.png?__inline" title="开始" class="start-btn"></a>
             <a href="notice"><img src="/public/images/notice.png?__inline" title="注意事项"></a>
+            <img src="/public/images/highlight-label.png?__inline" class="highlight" title="提示">
         </div>
     </div>
     <div id="finddiff-game" class="finddiff-layer" data-id="{{ finddiff.id }}">
@@ -69,12 +70,19 @@
     <div id="finddiff-end" class="finddiff-layer {% if vote.bonus > 0 %} layer-show {% endif %}">
         <div class="result-wrap">
             {% if owner %}
-            <img src="/public/images/result.png?__inline" title="结果">
+            <div>
+                <img src="/public/images/best-label.png?__inline" title="最好" class="label"><span> {{ vote.bonus }}</span>
+            </div>
+            <div>
+                <img src="/public/images/total-label.png?__inline" title="总分" class="label"><span> {{ finddiff.bonus }}</span>
+                <img src="/public/images/rank-label.png?__inline" title="排名" class="label"><span> {{ finddiff.rank }}</span>
+            </div>
             {% endif %}
             {% if !owner %}
-            <img src="/public/images/result1.png?__inline" title="结果">
+            <img src="/public/images/result1.png?__inline" class="help-img" title="结果">
+            <span class="help-bonus"> {{ vote.bonus }}</span>
             {% endif %}
-            <span> {{ vote.bonus }}</span>
+            
         </div>
         <div class="button-wrap">
             {% if owner %}
@@ -85,8 +93,8 @@
             {% endif %}
 
             {% if !owner %}
-            <a href="#"><img src="/public/images/replay-btn.png?__inline" title="重新开始" class="restart-btn"></a>
-            <a href="start"><img src="/public/images/join-btn.png?__inline" title="我也要玩" class="btn total-btn"></a>
+            <a href="#" class="long-link"><img src="/public/images/replay-btn.png?__inline" title="重新开始" class="restart-btn"></a>
+            <a href="start" class="long-link"><img src="/public/images/join-btn.png?__inline" title="我也要玩" class="btn total-btn"></a>
             {% endif %}
         </div>
     </div>

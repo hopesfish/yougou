@@ -340,7 +340,17 @@ router.get('/finddiff/:id/rank', function(req, res) {
         var finddiff = result[0],
             paging = result[1] || [];
 
-        res.render('rank', {finddiff: finddiff, helpers: paging, ownerId: req.session.subOpenId});
+        res.render('rank', {
+            finddiff: finddiff, 
+            helpers: paging, 
+            ownerId: req.session.subOpenId,
+            jsApi: {
+                appId: 'wx0f186d92b18bc5b0',
+                timestamp: req.cookies.timestamp || '',
+                nonceStr: req.cookies.nonceStr || '',
+                signature: req.cookies.signature || '',
+            }
+        });
     }, function(err) {
         console.error(err)
         res.status(404).send('读取相关数据异常!');

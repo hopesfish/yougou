@@ -63,13 +63,15 @@ $().ready(function() {
         bonus = 0,
         seconds = 30;
 
-    if (logos.length == 0) {
-        alert('无Logo数据');
-        return;
-    }
-    if (logos.length != names.length) {
-        alert('Logo数据异常');
-        return;
+    if ($('#finddiff-game').size() > 0) {
+        if (logos.length == 0) {
+            alert('无Logo数据');
+            return;
+        }
+        if (logos.length != names.length) {
+            alert('Logo数据异常');
+            return;
+        }
     }
 
     // add event

@@ -22,6 +22,12 @@ $offset = -3px
         opacity 1
     100%
         opacity 0
+@-webkit-keyframes right-fade
+    0%
+        opacity 0.2
+    100%
+        -webkit-transform translate3d(-8px,0px,0)
+        opacity 1
 html
     //background-color #c5f8fe
     background-color #000
@@ -94,6 +100,7 @@ img
         img
             width 95%
     .button-wrap
+        position relative
         padding-top 1%
         text-align center
         a
@@ -102,6 +109,13 @@ img
             width 25%
         img
             width 100%  
+        .highlight
+            position absolute
+            right 0
+            top 45%
+            width 100px
+            vertical-align top
+            -webkit-animation right-fade 1s infinite ease
     .timeout
         padding-top 10%
         text-align center
@@ -195,20 +209,31 @@ img
         position relative
         padding-top 5%
         text-align center
-        img
+        div
+            margin 15px 0
+        span
+            color #ff6000
+            font-size 36px
+            vertical-align top
+        .label
+            height 36px
+            vertical-align top
+            margin 0 10px
+        .help-img
             margin 0 5%
             width 90%
-        span
+        .help-bonus
             position absolute
-            color #ff6000
             left 28%
             top 48%
-            font-size 36px
     .button-wrap
         text-align center
         a
             display inline-block
-            margin 0 1%
+            margin 0px 4%
+            width 25%
+        .long-link
+            margin 10px 2%
             width 33%
         img
             width 100%
@@ -234,6 +259,8 @@ img
             left 57%
             top 61%
             font-size 32px
+        .share-btn
+            width 40%
     .helpers
         background-color #fff
         margin 0 10%
