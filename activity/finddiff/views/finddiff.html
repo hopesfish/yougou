@@ -86,10 +86,14 @@
         </div>
         <div class="button-wrap">
             {% if owner %}
-            <a href="#"><img src="/public/images/restart-btn.png?__inline" title="重新开始" class="restart-btn"></a>
-            <a href="{{ finddiff.id }}/rank"><img src="/public/images/rank-btn.png?__inline" title="查看排行" class="rank-btn"></a>
-            <a href="award"><img src="/public/images/award-btn.png?__inline" title="如何领奖"></a>
-            <a href="#"><img src="/public/images/share-btn.png?__inline" title="分享到朋友圈" class="share-btn"></a>
+            <div>
+                <a href="#"><img src="/public/images/restart-btn.png?__inline" title="重新开始" class="restart-btn"></a>
+                <a href="{{ finddiff.id }}/rank"><img src="/public/images/rank-btn.png?__inline" title="查看排行" class="rank-btn"></a>
+            </div>
+            <div>
+                <a href="award"><img src="/public/images/award-btn.png?__inline" title="如何领奖"></a>
+                <a href="#"><img src="/public/images/share-btn.png?__inline" title="分享到朋友圈" class="share-btn"></a>
+            </div>
             {% endif %}
 
             {% if !owner %}
