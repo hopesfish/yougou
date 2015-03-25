@@ -71,11 +71,19 @@
         <div class="result-wrap">
             {% if owner %}
             <div>
-                <img src="/public/images/best-label.png?__inline" title="最好" class="label"><span> {{ vote.bonus }}</span>
+                <img src="/public/images/best-label.png?__inline" title="最好" class="label">
+                <span> {{ vote.bonus }}</span>
+                <img src="/public/images/gold-label.png?__inline" title="金币" class="label">
             </div>
             <div>
-                <img src="/public/images/total-label.png?__inline" title="总分" class="label"><span> {{ finddiff.bonus }}</span>
-                <img src="/public/images/rank-label.png?__inline" title="排名" class="label"><span> {{ finddiff.rank }}</span>
+                <img src="/public/images/total-label.png?__inline" title="总分" class="label">
+                <span> {{ finddiff.bonus }}</span>
+                <img src="/public/images/gold-label.png?__inline" title="金币" class="label">
+            </div>
+            <div>
+                <img src="/public/images/rank-label.png?__inline" title="排名" class="label">
+                <span> {{ finddiff.rank }}</span>
+                <img src="/public/images/rank-label2.png?__inline" title="名" class="label">
             </div>
             {% endif %}
             {% if !owner %}

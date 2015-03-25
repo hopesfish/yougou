@@ -184,8 +184,8 @@ router.get('/finddiff/:id/grant', function(req, res) {
             var url = oauthClient.getAuthorizeURL(
                 conf.server_root + '/finddiff/' + finddiff.id + '/fulfill',
                 '',
-                'snsapi_base'
-                //'snsapi_userinfo'
+                //'snsapi_base'
+                'snsapi_userinfo'
             );
             res.redirect(url);
         });
