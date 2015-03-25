@@ -77,14 +77,16 @@
             </div>
             <div>
                 <img src="/public/images/total-label.png?__inline" title="总分" class="label">
-                <span> {{ finddiff.bonus }}</span>
+                <span class="result"> {{ finddiff.bonus }}</span>
                 <img src="/public/images/gold-label.png?__inline" title="金币" class="label">
             </div>
-            <div>
-                <img src="/public/images/rank-label.png?__inline" title="排名" class="label">
-                <span> {{ finddiff.rank }}</span>
-                <img src="/public/images/rank-label2.png?__inline" title="名" class="label">
-            </div>
+                {% if finddiff.rank > 0 %}
+                <div>
+                    <img src="/public/images/rank-label.png?__inline" title="排名" class="label">
+                    <span> {{ finddiff.rank }}</span>
+                    <img src="/public/images/rank-label2.png?__inline" title="名" class="label">
+                </div>
+                {% endif %}
             {% endif %}
             {% if !owner %}
             <img src="/public/images/result1.png?__inline" class="help-img" title="结果">

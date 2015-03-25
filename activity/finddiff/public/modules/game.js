@@ -224,7 +224,7 @@ $().ready(function() {
 
     function end() {
         update();
-        $('#finddiff-end .result-wrap span').text(bonus);
+        $('#finddiff-end .result-wrap span.result').text(bonus);
         $('#finddiff-entry').hide();
         $('#finddiff-game').hide();
         $('#finddiff-end').show();
