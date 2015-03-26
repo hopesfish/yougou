@@ -145,6 +145,7 @@ class FinddiffController extends Controller
             $finddiff = new Finddiff();
             $finddiff->union_id = $unionId;
             $finddiff->bonus = 0; // 使用分为计量单位,从零开始
+            $finddiff->rank = Finddiff::model()->count(new CDbCriteria()) + 1;
 
             if (!$finddiff->save()) {
                 return $this->sendResponse(500, 'faild to save finddiff');
