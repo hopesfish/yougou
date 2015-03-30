@@ -33,7 +33,9 @@ $().ready(function() {
         $('#finddiff-set').click(function() {
             $(".set-img").hide();
             $(".loading-img").show();
-            window.location.reload();
+            setTimeout(function() {
+                window.location.reload();
+            }, 1000);
         });
         return;
     }
