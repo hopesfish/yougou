@@ -31,6 +31,8 @@ $().ready(function() {
     if (width <= 400) {
         $('#finddiff-set').show();
         $('#finddiff-set').click(function() {
+            $(".set-img").hide();
+            $(".loading-img").show();
             window.location.reload();
         });
         return;
