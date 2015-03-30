@@ -91,7 +91,15 @@ class FinddiffController extends Controller
         foreach ($items as $item) {
             $item->rank = $rank;
             $item->save();
-            $rank++;
+            if ($rank == 1) {
+                $rank = 6;
+            } else if ($rank == 7){
+                $rank = 11;
+            } else if ($rank == 13){
+                $rank = 31;
+            } else {
+                $rank++;
+            }
         }
 
         $this->sendResponse(200, 'ok');
