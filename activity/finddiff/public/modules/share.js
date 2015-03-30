@@ -16,9 +16,11 @@ wx.ready(function(){
         imgUrl: 'http://weixin.yougou.com/activity/finddiff/share.png', // 分享图标
         success: function () { 
             // 用户确认分享后执行的回调函数
+            alert('分享成功！亲~速度关注iyougou，发送“品牌大作战”，查看你的最新排名哦！');
         },
         cancel: function () { 
             // 用户取消分享后执行的回调函数
+            alert('亲~分享游戏给朋友，让他们为你赢更多金币哦！');
         }
     });
 
@@ -31,9 +33,11 @@ wx.ready(function(){
         dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
         success: function () { 
             // 用户确认分享后执行的回调函数
+            alert('分享成功！亲~速度关注iyougou，发送“品牌大作战”，查看你的最新排名哦！');
         },
         cancel: function () { 
             // 用户取消分享后执行的回调函数
+            alert('亲~分享游戏给朋友，让他们为你赢更多金币哦！');
         }
     });
 });
