@@ -37,7 +37,7 @@ module.exports = function(webot) {
     // 开始/领奖
     webot.set('znmaward', {
         pattern: function(info) {
-            return info.text === 'znm';
+            return info.text === 'znm' || info.text === '品牌大作战';
         },
         handler: function(info, next) {
             wechatApi.getUser(info.uid, function(err, user) {
