@@ -35,7 +35,7 @@ $().ready(function() {
             $(".loading-img").show();
             setTimeout(function() {
                 window.location.reload();
-            }, 1000);
+            }, 500);
         });
         return;
     }
