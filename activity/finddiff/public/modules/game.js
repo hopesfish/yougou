@@ -229,6 +229,8 @@ $().ready(function() {
     function end() {
         update();
         $('#finddiff-end .result-wrap span.result').text(bonus);
+        var remainResult = $('#finddiff-end .result-wrap span.result').attr('data-remain-result');
+        $('#finddiff-end .result-wrap span.total-result').text(parseInt(remainResult, 10) + bonus);
         $('#finddiff-entry').hide();
         $('#finddiff-game').hide();
         $('#finddiff-end').show();

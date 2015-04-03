@@ -72,12 +72,12 @@
             {% if owner %}
             <div>
                 <img src="/public/images/best-label.png?__inline" title="最好" class="label">
-                <span class="result"> {{ vote.bonus }}</span>
+                <span class="result" data-remain-result="{{ finddiff.bonus - vote.bonus }}">{{ vote.bonus }}</span>
                 <img src="/public/images/best-label2.png?__inline" title="金币" class="label">
             </div>
             <div>
                 <img src="/public/images/total-label.png?__inline" title="总分" class="label">
-                <span class="total-result"> {{ finddiff.bonus }}</span>
+                <span class="total-result">{{ finddiff.bonus }}</span>
                 <img src="/public/images/total-label2.png?__inline" title="金币" class="label">
             </div>
                 {% if finddiff.rank > 0 %}
