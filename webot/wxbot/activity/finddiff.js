@@ -52,17 +52,20 @@ module.exports = function(webot) {
                         ].join("\n"));
                     } else {
                         finddiff = finddiffs[0];
-                        if (finddiff.rank > 0 && finddiff.rank < 10 && award) {
-                            info.text = '2015FINDDIFFCODE4TOP10';
+                        if (finddiff.rank > 0 && finddiff.rank <= 5 && award) {
+                            info.text = '2015FINDDIFFCODE41000';
                             return next();
-                        } else if (finddiff.rank >= 11 && finddiff.rank < 30 && award) {
-                            info.text = '2015FINDDIFFCODE4TOP30';
+                        } else if (finddiff.rank > 5 && finddiff.rank <= 10 && award) {
+                            info.text = '2015FINDDIFFCODE4500';
                             return next();
-                        } else if (finddiff.rank >= 31 && finddiff.rank < 50 && award) {
-                            info.text = '2015FINDDIFFCODE4TOP50';
+                        } else if (finddiff.rank > 10 && finddiff.rank <= 30 && award) {
+                            info.text = '2015FINDDIFFCODE4300';
                             return next();
-                        } else if (finddiff.rank >= 51 && finddiff.rank < 200 && award) {
-                            info.text = '2015FINDDIFFCODE4TOP200';
+                        } else if (finddiff.rank > 30 && finddiff.rank <= 200 && award) {
+                            info.text = '2015FINDDIFFCODE450';
+                            return next();
+                        } else if (finddiff.rank > 200 && finddiff.rank <= 350 && award) {
+                            info.text = '2015FINDDIFFCODE430';
                             return next();
                         } else {
                             var over = false,
