@@ -16,7 +16,7 @@ wx.ready(function(){
         imgUrl: 'http://weixin.yougou.com/activity/finddiff/share.png', // 分享图标
         success: function () { 
             // 用户确认分享后执行的回调函数
-            alert('分享成功！亲~速度关注iyougou，发送“品牌大作战”，查看你的最新排名哦！');
+            alert('分享成功！亲~速度关注优购公众账号：iyougou，发送”品牌大作战“，查看你的最新排名哦！本活动截止至2015年4月9日23:59，届时系统会统一按照金币总数计算排名！大家加油啦！');
         },
         cancel: function () { 
             // 用户取消分享后执行的回调函数
@@ -33,7 +33,7 @@ wx.ready(function(){
         dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
         success: function () { 
             // 用户确认分享后执行的回调函数
-            alert('分享成功！亲~速度关注iyougou，发送“品牌大作战”，查看你的最新排名哦！');
+            alert('分享成功！亲~速度关注优购公众账号：iyougou，发送”品牌大作战“，查看你的最新排名哦！本活动截止至2015年4月9日23:59，届时系统会统一按照金币总数计算排名！大家加油啦！');
         },
         cancel: function () { 
             // 用户取消分享后执行的回调函数
