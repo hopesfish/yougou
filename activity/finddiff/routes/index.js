@@ -319,7 +319,7 @@ router.get('/finddiff/:id/bonus', function(req, res) {
         res.status(400).send('oauth is required!');
     }
 
-    if ((new Date()).getTime() >= 1428595200000) {
+    if ((new Date()).getTime() >= 1428681600000) {
         res.status(200).send('expired');
     }
 
