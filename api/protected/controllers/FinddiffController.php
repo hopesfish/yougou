@@ -78,7 +78,7 @@ class FinddiffController extends Controller
      * GET /api/activity/sort
      */
     public function actionRestsort() {
-        $this->checkRestAuth();
+        //$this->checkRestAuth();
 
         $criteria = new CDbCriteria();
 
