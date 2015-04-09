@@ -89,6 +89,7 @@ class FinddiffController extends Controller
         $rank = 389;
         foreach ($items as $item) {
             $item->rank = $rank;
+            $item->save();
             $rank++;
         }
         /*
