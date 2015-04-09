@@ -84,7 +84,6 @@ class FinddiffController extends Controller
 
         $criteria->order = 'bonus DESC';
 
-
         $items = Finddiff::model()->findAll($criteria);
 
         $rank = 389;
