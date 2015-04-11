@@ -28,38 +28,26 @@ $().ready(function() {
             '莱尔斯丹',
         ], found = {}, voice = true;
 
-    if (width <= 400) {
-        $('#finddiff-set').show();
-        $('#finddiff-set').click(function() {
-            $(".set-img").hide();
-            $(".loading-img").show();
-            setTimeout(function() {
-                window.location.reload();
-            }, 500);
-        });
-        return;
-    }
-
     var logos = $('.logo-wrap').children(),
         idx = 0,
         stages = [
             {theme: 'min-logo-wrap', total: 8, bonus: 1},
-            {theme: 'min-logo-wrap', total: 8, bonus: 1},
-            {theme: 'min-logo-wrap', total: 8, bonus: 1},
-            {theme: 'min-logo-wrap', total: 8, bonus: 1},
-            {theme: 'min-logo-wrap', total: 8, bonus: 1},
+            // {theme: 'min-logo-wrap', total: 8, bonus: 1},
+            // {theme: 'min-logo-wrap', total: 8, bonus: 1},
+            // {theme: 'min-logo-wrap', total: 8, bonus: 1},
+            // {theme: 'min-logo-wrap', total: 8, bonus: 1},
 
-            {theme: 'mid-logo-wrap', total: 10, bonus: 1},
-            {theme: 'mid-logo-wrap', total: 10, bonus: 1},
-            {theme: 'mid-logo-wrap', total: 10, bonus: 1},
-            {theme: 'mid-logo-wrap', total: 10, bonus: 1},
-            {theme: 'mid-logo-wrap', total: 10, bonus: 1},
+            // {theme: 'mid-logo-wrap', total: 10, bonus: 1},
+            // {theme: 'mid-logo-wrap', total: 10, bonus: 1},
+            // {theme: 'mid-logo-wrap', total: 10, bonus: 1},
+            // {theme: 'mid-logo-wrap', total: 10, bonus: 1},
+            // {theme: 'mid-logo-wrap', total: 10, bonus: 1},
 
-            {theme: 'max-logo-wrap', total: 12, bonus: 1},
-            {theme: 'max-logo-wrap', total: 12, bonus: 1},
-            {theme: 'max-logo-wrap', total: 12, bonus: 1},
-            {theme: 'max-logo-wrap', total: 12, bonus: 1},
-            {theme: 'max-logo-wrap', total: 12, bonus: 1},
+            // {theme: 'max-logo-wrap', total: 12, bonus: 1},
+            // {theme: 'max-logo-wrap', total: 12, bonus: 1},
+            // {theme: 'max-logo-wrap', total: 12, bonus: 1},
+            // {theme: 'max-logo-wrap', total: 12, bonus: 1},
+            // {theme: 'max-logo-wrap', total: 12, bonus: 1},
         ],
         finds = [],
         find = 0,
@@ -226,8 +214,7 @@ $().ready(function() {
         })
     }
 
-    function end() {
-        update();
+    function end(debug) {
         $('#finddiff-end .result-wrap span.result').text(bonus);
         var remainResult = $('#finddiff-end .result-wrap span.result').attr('data-remain-result');
         $('#finddiff-end .result-wrap span.total-result').text(parseInt(remainResult, 10) + bonus);
@@ -236,11 +223,15 @@ $().ready(function() {
         $('#finddiff-end').show();
         $('.remain-time .time').text('30秒');
         $('.remain-time .bonus').text('0个');
+
         setTimeout(function() {
             $('#wrongAudio')[0].pause();
             $('#rightAudio')[0].pause();
             $('#timeAudio')[0].pause();
         }, 1000);
+
+        if (debug === false) { return; }
+        update();
     }
 
     $('#finddiff-voice').click(function() {
@@ -275,4 +266,6 @@ $().ready(function() {
     });
 
     $('#finddiff-game').hide();
+
+    //end(false);
 });

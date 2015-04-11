@@ -31,11 +31,13 @@ $offset = -3px
 html
     //background-color #c5f8fe
     background-color #000
-    height 100%
+    min-height 100%
+    background url(/public/images/bg.png?__inline) no-repeat bottom center
+    background-size 100%
 body
     padding 0
     margin 0
-    height 100%
+    min-height 100%
 a
 img
     border 0
@@ -45,7 +47,6 @@ img
     display none
     position relative
     width 100%
-    background url(/public/images/bg.jpg?__inline) no-repeat top center
     background-size 100%
 .finddiff-mask
     position fixed
@@ -65,7 +66,7 @@ img
     position fixed
     left 8px
     top 8px
-    width 12%
+    width 20%
     z-index 100
     img
         width 100%
@@ -74,7 +75,7 @@ img
     position fixed
     right 3px
     top 3px
-    width 5%
+    width 8%
     z-index 100
     img
         display none
@@ -90,30 +91,29 @@ img
 #finddiff-entry
     height 100%
     .title-wrap
-        padding-top 2%
+        margin-top 10%
         text-align center
         img
-            width 50%
+            width 56%
     .rule-wrap
-        padding-top 2%
+        margin-top 1%
         text-align center
         img
-            width 95%
+            width 80%
     .button-wrap
-        position relative
-        padding-top 1%
         text-align center
         a
-            display inline-block
-            margin 0 3%
-            width 25%
+            position relative
+            display block
+            width 40%
+            margin auto
         img
             width 100%  
         .highlight
             position absolute
-            right 0
-            top 46%
-            width 23%
+            right -80%
+            top 30%
+            width 80%
             vertical-align top
             -webkit-animation right-fade 1s infinite ease
     .timeout
@@ -143,8 +143,8 @@ img
         text-align center
         img
             position relative
-            margin 22px 4%
-            width 15%
+            margin 7% 4%
+            width 30%
             display none
             border 0
             padding 0
@@ -207,17 +207,17 @@ img
     height 100%
     .result-wrap
         position relative
-        padding-top 5%
+        padding-top 20%
         text-align center
         div
             margin 10px 0
         span
             color #ff6000
-            font-size 32px
+            font-size 24px
             vertical-align top
             margin 0px 5px
         .label
-            height 32px
+            height 24px
             vertical-align top
             margin 0
         .total-result
@@ -230,7 +230,7 @@ img
         .help-bonus
             position absolute
             left 28%
-            top 48%
+            top 66%
         .rank-wrap
             position relative
             span
@@ -242,71 +242,24 @@ img
         margin-left 15%
         text-align center
         a
-            display inline-block
-            margin 0px 3%
-            width 35%
-        .long-link
-            margin 10px 2%
-            width 44%
-        img
-            width 100%
-#finddiff-helper.finddiff-layer
-    background url(/public/images/bg-simple.jpg?__inline) repeat-y top center
-    background-size 100%
-    min-height 100%
-    .rank-wrap
-        position relative
-        padding-top 5%
-        text-align center
-        img
-            margin 0 16%
-            width 68%
-        .bonus
-            position absolute
-            color #ff6000
-            left 68%
-            top 32%
-            font-size 32px
-        .rank
-            position absolute
-            color #fff
-            left 57%
-            top 61%
-            font-size 32px
-        .share-btn
-            width 40%
-    .helpers
-        background-color #fff
-        margin 0 10%
-        width 80%
-        height 100%
-        opacity 0.6
-    .helper
-        text-align center
-        color #000
-        line-height 36px
-        border-bottom 1px dotted #000
-        img
             position relative
-            top 3px
-            display inline-block
-            line-height 24px
-            height 24px
-            border-radius 12px
-        &:last-child
-            border-bottom none
+            display block
+            width 55%
+            margin auto
+        img
+            width 100%  
+        .long-link
+            width 75%
+            margin-top 10px
 #finddiff-notice.finddiff-layer
-    background url(/public/images/bg-simple.jpg?__inline) repeat-y top center
-    background-size 100%
-    min-height 100%
     .notice-wrap
         clear both
         position relative
         top 20px
         width 86%
-        margin 0 1%
-        padding 0 6%
-        margin-bottom 20px
+        margin 2%
+        margin-top 20px
+        padding 5%
         background-color #fff
         text-align center
         border-radius 30px
@@ -317,14 +270,16 @@ img
             top -15px
             text-align center
         .label
-            width 20%
+            width 50%
         ol
+            width 90%
+            margin 0 5%
             list-style decimal
         li
             color #313131
             text-align left
             font-size 12px
-            line-height 32px
+            line-height 18px
             border-bottom 1px dotted #d2d2d2
             strong
                 color red
@@ -353,9 +308,9 @@ img
         padding-top 5%
     img
         display inline-block
-        width 80%
+        width 100%
         margin auto
-        margin-top 10px
+        margin-top 10%
 #finddiff-set.finddiff-mask
     background #000 url(/public/images/bg-simple.jpg?__inline) repeat-y top center
     background-size 100%

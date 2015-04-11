@@ -113,10 +113,6 @@ router.get('/finddiff/started', function(req, res) {
     }
 });
 
-router.get('/finddiff/:id/set', function(req, res) {
-    res.render('set', {id: req.params.id});
-});
-
 router.get('/finddiff/:id', function(req, res) {
     Q.all([FinddiffServices.get(req.params.id),
            FinddiffServices.getVotes(req.params.id)
@@ -223,17 +219,6 @@ router.get('/finddiff/:id/fulfill', function(req, res) {
                 }
                 var openid = result.data.openid;
 
-                /*
-                fwWechatApi.getUser(openid, function(err, user) {
-                    console.info('fw user info...');
-                    console.info(user);
-                });
-
-                wechatApi.getUser(finddiff.openId, function(err, user) {
-                    console.info('dy user info...');
-                    console.info(user);
-                });*/
-
                 if (result.data.scope == 'snsapi_base') {
                     FinddiffServices.fulfill(finddiff.id, {
                         subOpenId: openid,
@@ -319,9 +304,10 @@ router.get('/finddiff/:id/bonus', function(req, res) {
         res.status(400).send('oauth is required!');
     }
 
+    /*
     if ((new Date()).getTime() >= 1428681600000) {
         res.status(200).send('expired');
-    }
+    }*/
 
     FinddiffServices.vote(req.params.id, {
         subOpenId: req.session.subOpenId || 'test',
@@ -331,19 +317,6 @@ router.get('/finddiff/:id/bonus', function(req, res) {
     }, function(err) {
         console.error(err);
         res.status(400).send('failed to update bonus');
-    });
-});
-
-// GET 助力结果
-router.get('/finddiff/:id/helpers', function(req, res) {
-    // 从redis里面读出数据
-    FinddiffServices.getVotes(req.params.id).then(function(paging) {
-        //console.info(paging);
-        //res.status(200).send('votes');
-        res.render('helpers', {helpers: paging, ownerId: req.session.subOpenId});
-    }, function(err) {
-        console.info(err);
-        res.status(400).send('获取投票历史失败!');
     });
 });
 
