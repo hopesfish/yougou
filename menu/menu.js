@@ -4,7 +4,7 @@ function initMenu() {
     return {
         "button": [{
             "name": "我的优购",
-            "sub_button": [{
+            "sub_button": [/*{
                 "type": "click",
                 "name": "我的账户",
                 "key": "ACCOUNT"
@@ -12,7 +12,7 @@ function initMenu() {
                 "type": "click",
                 "name": "物流查询",
                 "key": "DELIVER"
-            }, {
+            }, */{
                 "type": "view",
                 "name": "下载APP",
                 "url": "http://m.yougou.com/touch/agent"

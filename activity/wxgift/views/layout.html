@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}My Site1{% endblock %}</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="format-detection" content="telephone=no,address=no,email=no">
+  <meta name="mobileOptimized" content="width">
+  <meta name="handheldFriendly" content="true">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  {% block head %}
+  <link rel="stylesheet" type="text/css" href="/public/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/style.styl">
+  {% endblock %}
+</head>
+<body class="ip4">
+  {% block content %}{% endblock %}
+
+  {% block module %}
+  <script src="/public/lib/zepto.min.js"></script>
+  {% endblock %}
+</body>
+</html>

@@ -1,0 +1,141 @@
+{% extends 'layout.html' %}
+
+{% block title %}优购商城--认品牌，领奖品{% endblock %}
+
+{% block head %}
+    {% parent %}
+{% endblock %}
+
+{% block content %}
+    <div id="finddiff-logo">
+        <img src="/public/images/logo.png?__inline" title="Logo">
+    </div>
+    <div id="finddiff-voice">
+        <img src="/public/images/voice.png?__inline" title="Voice" class="enable">
+        <img src="/public/images/voice_disable.png?__inline" title="Voice" class="disable">
+    </div>
+    <div id="finddiff-entry" class="finddiff-layer {% if vote.bonus == 0 %} layer-show {% endif %}">
+        <div class="title-wrap">
+            <img src="/public/images/title.png?__inline" title="品牌大作战">
+        </div>
+        <div class="rule-wrap">
+            <img src="/public/images/rule.png?__inline" title="规则说明">
+        </div>
+        <div class="button-wrap">
+            <a href="javascript:void(0)"><img src="/public/images/start.png?__inline" title="开始" class="start-btn"></a>
+            <a href="notice"><img src="/public/images/notice.png?__inline" title="注意事项"><img src="/public/images/highlight-label.png?__inline" class="highlight" title="提示"></a>
+            
+        </div>
+    </div>
+    <div id="finddiff-game" class="finddiff-layer" data-id="{{ finddiff.id }}">
+        <div class="logo-name-wrap sidebar">
+            优购在售品牌 <span>-</span>
+        </div>
+        <div class="spitter"></div>
+        <div class="logo-wrap">
+            <img src="/public/images/logo/阿迪.png?__inline">
+            <img src="/public/images/logo/新百伦.png?__inline">
+            <img src="/public/images/logo/耐克.png?__inline">
+            <img src="/public/images/logo/他她.png?__inline">
+            <img src="/public/images/logo/万斯.png?__inline">
+
+            <img src="/public/images/logo/匡威.png?__inline">
+            <img src="/public/images/logo/彪马.png?__inline">
+            <img src="/public/images/logo/拔佳.png?__inline">
+            <img src="/public/images/logo/森达.png?__inline">
+            <img src="/public/images/logo/百丽.png?__inline">
+
+            <img src="/public/images/logo/鳄鱼.png?__inline">
+            <img src="/public/images/logo/三叶草.png?__inline">
+            <img src="/public/images/logo/亚瑟士.png?__inline">
+            <img src="/public/images/logo/大嘴猴.png?__inline">
+            <img src="/public/images/logo/天美意.png?__inline">
+
+            <img src="/public/images/logo/奥卡索.png?__inline">
+            <img src="/public/images/logo/接吻猫.png?__inline">
+            <img src="/public/images/logo/百思图.png?__inline">
+            <img src="/public/images/logo/鬼冢虎.png?__inline">
+
+            <img src="/public/images/logo/莱尔斯丹.png?__inline">
+        </div>
+        <div class="remain-time sidebar">
+            <img src="/public/images/clock.png?__inline"> <span class="time">45秒</span>
+            <img src="/public/images/bonus.png?__inline"> <span class="bonus">0个</span>
+        </div>
+        <div class="minus-seconds">
+            <img src="/public/images/wrong-tip.png?__inline">
+        </div>
+    </div>
+
+    <div id="finddiff-end" class="finddiff-layer {% if vote.bonus > 0 %} layer-show {% endif %}">
+        <div class="result-wrap">
+            {% if owner %}
+            <div>
+                <img src="/public/images/best-label.png?__inline" title="最好" class="label">
+                <span class="result" data-remain-result="{{ finddiff.bonus - vote.bonus }}">{{ vote.bonus }}</span>
+                <img src="/public/images/best-label2.png?__inline" title="金币" class="label">
+            </div>
+            <div>
+                <img src="/public/images/total-label.png?__inline" title="总分" class="label">
+                <span class="total-result">{{ finddiff.bonus }}</span>
+                <img src="/public/images/total-label2.png?__inline" title="金币" class="label">
+            </div>
+                {% if finddiff.rank > 0 %}
+                <div class="rank-wrap">
+                    <img src="/public/images/rank-label.png?__inline" title="排名" class="label">
+                    <span class="rank-result"> {{ finddiff.rank }}</span>
+                </div>
+                {% endif %}
+            {% endif %}
+            {% if !owner %}
+            <img src="/public/images/result1.png?__inline" class="help-img" title="结果">
+            <span class="help-bonus result"> {{ vote.bonus }}</span>
+            {% endif %}
+            
+        </div>
+        <div class="button-wrap">
+            {% if owner %}
+            <div>
+                <a href="javascript:void(0)"><img src="/public/images/restart-btn.png?__inline" title="重新开始" class="restart-btn"></a>
+                <a href="javascript:void(0)"><img src="/public/images/share-btn.png?__inline" title="分享到朋友圈" class="share-btn"></a>
+            </div>
+            <div>
+                <a href="award"><img src="/public/images/award-btn.png?__inline" title="如何领奖"></a>
+                <a href="{{ finddiff.id }}/rank"><img src="/public/images/rank-btn.png?__inline" title="查看排行" class="rank-btn"></a>
+            </div>
+            {% endif %}
+
+            {% if !owner %}
+            <a href="javascript:void(0)" class="long-link"><img src="/public/images/replay-btn.png?__inline" title="重新开始" class="restart-btn"></a>
+            <a href="start" class="long-link"><img src="/public/images/join-btn.png?__inline" title="我也要玩" class="btn total-btn"></a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div id="finddiff-mask" class="finddiff-mask">
+        <div class="mask-wrap content-wrap">
+            <img src="/public/images/mask.png?__inline" title="分享到朋友圈">
+        </div>
+    </div>
+
+    <div id="finddiff-set" class="finddiff-mask">
+        <img src="/public/images/set-label.png?__inline" title="重设" class="set-img">
+        <img src="/public/images/loading.png?__inline" title="loading" class="loading-img">
+    </div>
+
+    <audio id="rightAudio" src="/activity/finddiff/right.mp3" load="auto"></audio>
+    <audio id="wrongAudio" src="/activity/finddiff/wrong.mp3" load="auto"></audio>
+    <audio id="timeAudio" src="/activity/finddiff/time.mp3" loop=loop load="auto"></audio>
+
+    <div id="share-link" url="http://weixin.yougou.com/activity/finddiff/finddiff/{{finddiff.id}}/help"></div>
+    <div id="jsApi"
+         appId="{{jsApi.appId}}" timestamp="{{jsApi.timestamp}}"
+         nonceStr="{{jsApi.nonceStr}}" signature="{{jsApi.signature}}"></div>
+{% endblock %}
+
+{% block module %}
+    {% parent %}
+    <script src="/public/modules/game.js"></script>
+    <script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="/public/modules/share.js"></script>
+{% endblock %}

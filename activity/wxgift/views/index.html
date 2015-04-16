@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block title %}优购商城--认品牌，领奖品{% endblock %}
+
+{% block head %}
+    {% parent %}
+{% endblock %}
+
+{% block content %}
+    <div id="finddiff-entry" class="finddiff-layer layer-show">
+        <div class="logo"></div>
+        <div class="voice"></div>
+        <div class="start layer-show">
+            <div class="title-wrap content-wrap">
+                <img src="/public/images/title.png?__inline" title="优购品牌大作战">
+            </div>
+            <div class="rule-wrap content-wrap">
+                <img src="/public/images/rule.png?__inline" title="优购品牌大作战游戏规则">
+            </div>
+            <div class="button-wrap content-wrap">
+                <a href="notice">
+                    <img src="/public/images/notice.png?__inline" title="注意事项" class="btn notice-btn">
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block module %}
+    {% parent %}
+{% endblock %}
