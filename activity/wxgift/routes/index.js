@@ -5,7 +5,7 @@ var API = require('wechat-api');
 var express = require('express');
 var router = express.Router();
 var conf = require("../conf");
-var FinddiffServices = require("../services/FinddiffServices");
+var WxgiftServices = require("../services/WxgiftServices");
 
 var redis = require('node-redis');
 var rdsClient = redis.createClient(6379, 'localhost');
@@ -107,13 +107,14 @@ router.get('/wxgift/started', function(req, res) {
                 }
                 var userInfo = result;
 
-                FinddiffServices.start({
-                    unionid: unionid,
+                WxgiftServices.start({
+                    unionId: unionid,
                     subOpenId: userInfo.openid,
                     headimgurl: userInfo.headimgurl,
                     nickname: userInfo.nickname,
                 }).then(function(wxgift) {
-                    if (wxgift.awarded == 0) {
+                    console.info(wxgift);
+                    if (!wxgift.code) {
                         res.redirect(conf.server_root + '/wxgift/' + wxgift.id);
                     } else if (wxgift.awarded == 1) {
                         res.redirect(conf.server_root + '/wxgift/' + wxgift.id + '/award');
@@ -130,8 +131,35 @@ router.get('/wxgift/started', function(req, res) {
     }
 });
 
+// 发起人完成发起
+router.get('/wxgift/started.test', function(req, res) {
+    var unionid = (new Date()).getTime(),
+        userInfo = {
+            openid: 'openid' + unionid,
+            headimgurl: 'headimgurl' + unionid,
+            nickname: 'nickname' + unionid,
+        };
+
+    WxgiftServices.start({
+        unionId: unionid,
+        subOpenId: userInfo.openid,
+        headimgurl: userInfo.headimgurl,
+        nickname: userInfo.nickname,
+    }).then(function(wxgift) {
+        if (wxgift.code == null) {
+            res.redirect(conf.server_root + '/wxgift/' + wxgift.id);
+        } else if (wxgift.awarded == 1) {
+            res.redirect(conf.server_root + '/wxgift/' + wxgift.id + '/award');
+        }
+    }, function(err) {
+        console.error('failed to start');
+        console.error(err);
+    });
+});
+
 router.get('/wxgift/:id', function(req, res) {
-    FinddiffServices.get(req.params.id).then(function(result) {
+    console.info('1111');
+    WxgiftServices.get(req.params.id).then(function(wxgift) {
         var param = {
             debug:false,
             jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'],

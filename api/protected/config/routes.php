@@ -13,6 +13,8 @@ return array(
 
 		'api/activity/finddiff/<finddiffId:[\d\w-]{36}?>'=>'finddiff/restupdate',
 		'api/activity/finddiff/<finddiffId:[\d\w-]{36}?>/result'=>'finddiffResult/restcreate',
+
+		'api/activity/wxgift/<wxgiftId:[\d\w-]{36}?>'=>'wxgift/restupdate',
 		/*
 		'api/activity/dream/<dreamId:[\d\w-]{36}?>'=>'dream/restupdate',
 		'api/activity/dream/<dreamId:[\d\w-]{36}?>/vote'=>'vote/restcreate',
@@ -44,6 +46,9 @@ return array(
         'api/activity/finddiff/start'=>'finddiff/reststart',
         'api/activity/finddiff/sort'=>'finddiff/restsort',
         'api/activity/finddiff/<finddiffId:[\d\w-]{36}?>/result'=>'finddiffResult/restlist',
+
+        'api/activity/wxgift/<id:[\d\w-]{36}?>'=>'wxgift/restget',
+        'api/activity/wxgift/start'=>'wxgift/reststart',
 
 		/*
 		'api/activity/dream'=>'dream/restlist',

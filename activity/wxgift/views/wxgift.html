@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block title %}优购商城--分享领奖品{% endblock %}
+
+{% block head %}
+    {% parent %}
+{% endblock %}
+
+{% block content %}
+    <div>wxgift</div>
+    <div id="share-link" url="http://weixin.yougou.com/activity/finddiff/finddiff/{{finddiff.id}}/help"></div>
+    <div id="jsApi"
+         appId="{{jsApi.appId}}" timestamp="{{jsApi.timestamp}}"
+         nonceStr="{{jsApi.nonceStr}}" signature="{{jsApi.signature}}"></div>
+{% endblock %}
+
+{% block module %}
+    {% parent %}
+    <script src="/public/modules/gift.js"></script>
+    <script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="/public/modules/share.js"></script>
+{% endblock %}

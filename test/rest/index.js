@@ -12,7 +12,9 @@ module.exports = function() {
     require("./testXmas")();
     require("./testXmasVote")();*/
     //require("./testFinddiff")();
-    require("./testFinddiffResult")();
+    //require("./testFinddiffResult")();
     //require("./testLuckybag")();
 	//require("./testLuckybagVote")();
+
+    require("./testWxgift")();
 }
