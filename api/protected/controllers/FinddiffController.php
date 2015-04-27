@@ -86,13 +86,15 @@ class FinddiffController extends Controller
 
         $items = Finddiff::model()->findAll($criteria);
 
-        $rank = 389;
-        foreach ($items as $item) {
-            $item->rank = $rank;
-            $item->save();
-            $rank++;
-        }
-        /*
+        
+        //$rank = 389;
+        // foreach ($items as $item) {
+        //     $item->rank = $rank;
+        //     $item->save();
+        //     $rank++;
+        // }
+
+        $rank = 10;
         foreach ($items as $item) {
             $item->rank = $rank;
             $item->save();
@@ -105,7 +107,7 @@ class FinddiffController extends Controller
             } else {
                 $rank++;
             }
-        }*/
+        }
 
         $this->sendResponse(200, 'ok');
     }

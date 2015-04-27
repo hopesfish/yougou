@@ -146,10 +146,14 @@ router.get('/wxgift/started.test', function(req, res) {
         headimgurl: userInfo.headimgurl,
         nickname: userInfo.nickname,
     }).then(function(wxgift) {
+        console.info(wxgift);
+        req.session.wid = wxgift.id;
         if (wxgift.code == null) {
             res.redirect(conf.server_root + '/wxgift/' + wxgift.id);
-        } else if (wxgift.awarded == 1) {
-            res.redirect(conf.server_root + '/wxgift/' + wxgift.id + '/award');
+        } else if (wxgift.awarded == 1) { // 已活动
+            res.redirect(conf.server_root + '/wxgift/' + wxgift.id + '/awarded');
+        } else if (wxgift.awarded == 2) { // 抽完了
+            res.redirect(conf.server_root + '/wxgift/' + wxgift.id + '/out');
         }
     }, function(err) {
         console.error('failed to start');
@@ -158,7 +162,6 @@ router.get('/wxgift/started.test', function(req, res) {
 });
 
 router.get('/wxgift/:id', function(req, res) {
-    console.info('1111');
     WxgiftServices.get(req.params.id).then(function(wxgift) {
         var param = {
             debug:false,
@@ -190,6 +193,15 @@ router.get('/wxgift/:id', function(req, res) {
 // 查看领取进度
 router.get('/wxgift/:id/progress', function(req, res) {
     res.status(200).send('领取进度');
+});
+
+// 尝试领奖
+router.get('/wxgift/:id/award', function(req, res) {
+    WxgiftServices.award().then(function() {
+        res.status(200).send('awarded');
+    }, function(err) {
+        res.status(500).send(err);
+    });
 });
 
 // 显示奖品

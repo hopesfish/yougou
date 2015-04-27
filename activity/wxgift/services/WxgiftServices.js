@@ -20,16 +20,22 @@ exports.start = function(params) {
         url += '&nickname=' + params.nickname;
 
     BaseServices.get(url, {}).then(function(record) {
-        deferred.resolve(record);
-        /*
-        rdsClient.hset('wxgift', wxgiftId, JSON.stringify(record), function(err) {
+        rdsClient.hset('wxgift', record.id, JSON.stringify(record), function(err, txt) {
             if (err) {
-                console.error('failed to refresh wxgift record');
+                console.error('failed to set wxgift record');
                 console.error(err);
                 return deferred.reject(err);
             }
             deferred.resolve(record);
-        });*/
+        });
+        rdsClient.rpush('unionIds', JSON.stringify(record), function(err) {
+            if (err) {
+                console.error('failed to add unionId into list');
+                console.error(err);
+                return deferred.reject(err);
+            }
+            console.info('added in list');
+        });
     }, function(err) {
         console.error(err);
         deferred.reject(err);
@@ -102,6 +108,33 @@ exports.get = function(wxgiftId) {
             
         }
     });*/
+
+    return deferred.promise;
+};
+
+/*
+ * 领奖
+ */
+exports.award = function(wxgiftId) {
+    var deferred = Q.defer();
+
+    var url = '/api/activity/wxgift/' + wxgiftId;
+    
+    rdsClient.lpop('unionIds', function(err, recordStr) {
+        if (err) {
+            console.error('failed to pop unionId from list');
+            console.error(err);
+            return deferred.reject(err);
+        }
+        if (recordStr) {
+            var record = JSON.parse(recordStr);
+            console.info(record);
+            deferred.resolve(record);
+        } else {
+            deferred.resolve(null);
+        }
+        
+    });
 
     return deferred.promise;
 };
