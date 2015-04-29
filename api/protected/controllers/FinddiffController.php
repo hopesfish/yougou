@@ -249,8 +249,8 @@ class FinddiffController extends Controller
         // 所有异常的发起
         $criteria = new CDbCriteria();
 
-        $criteria->addCondition("bonus = :bonus"); 
-        $criteria->params[':bonus'] = 0; 
+        $criteria->addCondition("bonus > :bonus"); 
+        $criteria->params[':bonus'] = 150; 
 
         $finddiffs = Finddiff::model()->findAll($criteria);
 
@@ -273,7 +273,5 @@ class FinddiffController extends Controller
                 $finddiff->save();
             }
         }
-
-        echo 'ok';
     }
 }

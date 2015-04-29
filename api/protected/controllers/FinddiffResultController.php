@@ -70,9 +70,14 @@ class FinddiffResultController extends Controller {
             $result->headimgurl = $_POST['headimgurl'];
         }
 
-        if (intval($_POST['bonus']) > $result->bonus) {
-            $finddiff->bonus += intval($_POST['bonus']) - $result->bonus;
-            $result->bonus = intval($_POST['bonus']);
+        if (intval($_POST['bonus']) > intval($result->bonus)) {
+            if (intval($_POST['bonus']) > 35) {
+                $finddiff->bonus += 5;
+                $result->bonus = 5;
+            } else {
+                $finddiff->bonus += intval($_POST['bonus']) - intval($result->bonus);
+                $result->bonus = intval($_POST['bonus']);
+            }
         }
 
         if (!$result->save()) {
