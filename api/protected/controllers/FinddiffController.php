@@ -250,26 +250,28 @@ class FinddiffController extends Controller
         $criteria = new CDbCriteria();
 
         $criteria->addCondition("bonus > :bonus"); 
-        $criteria->params[':bonus'] = 200; 
+        $criteria->params[':bonus'] = 150; 
 
         $finddiffs = Finddiff::model()->findAll($criteria);
 
         foreach ($finddiffs as $finddiff) {
             $criteria = new CDbCriteria();
-            $criteria->addCondition('finddiff_id=:finddiffId', 'and');
-            $criteria->addCondition('sub_open_id=:sub_open_id');
-            $criteria->params = array(':sub_open_id' => $finddiff->sub_open_id, ':finddiffId' => $finddiff->id);
+            $criteria->addCondition('finddiff_id=:finddiffId');
+            $criteria->params = array(':finddiffId' => $finddiff->id);
             $results = FinddiffResult::model()->findAll($criteria);
 
             $bonus = 0;
             foreach ($results as $result) {
-                $bonus += $result->bonus;
+                $bonus += (int)$result->bonus;
             }
 
-            $finddiff->bonus = $bonus;
+            echo $bonus;
+            echo '<br>';
 
-            $finddiff->save();
-
+            if ($bonus > 0) {
+                $finddiff->bonus = $bonus;
+                $finddiff->save();
+            }
         }
 
         echo 'ok';
