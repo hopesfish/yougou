@@ -226,4 +226,30 @@ class FinddiffController extends Controller
 
         echo CJSON::encode($this->JSONMapper($finddiff));
     }
+
+    /**
+     * 重置榜单
+     * GET /api/activity/finddiff/fix
+     */
+    public function actionRestfix() {
+
+        // 所有异常的结果
+        $criteria = new CDbCriteria();
+
+        $criteria->addCondition("bonus > :bonus"); 
+        $criteria->params[':bonus'] = 31; 
+
+        $results = FinddiffResult::model()->findAll($criteria);
+
+        // 所有异常的发起
+        $criteria = new CDbCriteria();
+
+        $criteria->addCondition("bonus > :bonus"); 
+        $criteria->params[':bonus'] = 200; 
+
+        $finddiffs = Finddiff::model()->findAll($criteria);
+
+        echo count($results);
+        echo count($finddiffs);
+    }
 }

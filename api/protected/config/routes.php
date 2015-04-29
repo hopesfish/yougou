@@ -46,6 +46,7 @@ return array(
         'api/activity/finddiff/start'=>'finddiff/reststart',
         'api/activity/finddiff/sort'=>'finddiff/restsort',
         'api/activity/finddiff/<finddiffId:[\d\w-]{36}?>/result'=>'finddiffResult/restlist',
+        'api/activity/finddiff/fix'=>'finddiff/restfix',
 
         'api/activity/wxgift/<id:[\d\w-]{36}?>'=>'wxgift/restget',
         'api/activity/wxgift/start'=>'wxgift/reststart',
