@@ -241,6 +241,11 @@ class FinddiffController extends Controller
 
         $results = FinddiffResult::model()->findAll($criteria);
 
+        foreach ($results as $result) {
+            $result->bonus = 15;
+            $result->save();
+        }
+
         // 所有异常的发起
         $criteria = new CDbCriteria();
 
@@ -249,7 +254,24 @@ class FinddiffController extends Controller
 
         $finddiffs = Finddiff::model()->findAll($criteria);
 
-        echo count($results);
-        echo count($finddiffs);
+        foreach ($finddiffs as $finddiff) {
+            $criteria = new CDbCriteria();
+            $criteria->addCondition('finddiff_id=:finddiffId', 'and');
+            $criteria->addCondition('sub_open_id=:sub_open_id');
+            $criteria->params = array(':sub_open_id' => $finddiff->sub_open_id, ':finddiffId' => $finddiff->id);
+            $results = FinddiffResult::model()->findAll($criteria);
+
+            $bonus = 0;
+            foreach ($results as $result) {
+                $bonus += $result->bonus;
+            }
+
+            $finddiff->bonus = $bonus;
+
+            $finddiff->save();
+
+        }
+
+        echo 'ok';
     }
 }
