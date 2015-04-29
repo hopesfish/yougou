@@ -17,7 +17,7 @@ exports.start = function(unionId) {
 
     var url = '/api/activity/finddiff/start?unionId=' + unionId;
     BaseServices.get(url, {}).then(function(record) {
-        console.info(record);
+        //console.info(record);
         deferred.resolve(record);
         /*
         rdsClient.hset('finddiff', finddiffId, JSON.stringify(record), function(err) {
