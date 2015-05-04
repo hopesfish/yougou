@@ -94,4 +94,51 @@ module.exports = function(webot) {
             });
         }
     });
+    // 开始/领奖
+    webot.set('znmaward', {
+        pattern: function(info) {
+            return info.text === '领奖';
+        },
+        handler: function(info, next) {
+            wechatApi.getUser(info.uid, function(err, user) {
+                FinddiffServices.query(user.unionid).then(function(paging) {
+                    var url, award = false, finddiffs = paging.result, finddiff;
+
+                    if ((new Date()).getTime() > 1430711940000) {
+                        award = true;
+                    }
+                    if (finddiffs.length == 0) {
+                        url = conf.finddiff_root + "/finddiff/start";
+                        return next(null, [
+                            '亲~速度召集小伙伴们来玩【优购品牌大作战】游戏吧！手快眼力好，优购（←国内最大的时尚鞋服电商）送出的1000元/500元/300元的现金礼品卡就有机会被你妥妥赢走！',
+                            '\n<a href="' + url + '">点击这里</a>速度参与游戏！'
+                        ].join("\n"));
+                    } else {
+                        finddiff = finddiffs[0];
+                        if (finddiff.rank > 0 && finddiff.rank <= 5 && award) {
+                            return next('已经领完');
+                            //info.text = '2015FINDDIFFCODE41000';
+                            //return next();
+                        } else if (finddiff.rank > 5 && finddiff.rank <= 10 && award) {
+                            info.text = '2015FINDDIFFCODE4500';
+                            return next();
+                        } else if (finddiff.rank > 10 && finddiff.rank <= 30 && award) {
+                            info.text = '2015FINDDIFFCODE4300';
+                            return next();
+                        } else if (finddiff.rank > 30 && finddiff.rank <= 200 && award) {
+                            info.text = '2015FINDDIFFCODE450';
+                            return next();
+                        } else if (finddiff.rank > 200 && finddiff.rank <= 350 && award) {
+                            info.text = '2015FINDDIFFCODE430';
+                            return next();
+                        } else {
+                            return next('抱歉,您的排名过低,不能领奖!');
+                        }
+                    }
+                }, function(err) {
+                    return next('发生异常！');
+                });
+            });
+        }
+    });
 }
