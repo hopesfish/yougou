@@ -53,8 +53,9 @@ module.exports = function(webot) {
                     } else {
                         finddiff = finddiffs[0];
                         if (finddiff.rank > 0 && finddiff.rank <= 5 && award) {
-                            info.text = '2015FINDDIFFCODE41000';
-                            return next();
+                            return next('已经领完');
+                            //info.text = '2015FINDDIFFCODE41000';
+                            //return next();
                         } else if (finddiff.rank > 5 && finddiff.rank <= 10 && award) {
                             info.text = '2015FINDDIFFCODE4500';
                             return next();
