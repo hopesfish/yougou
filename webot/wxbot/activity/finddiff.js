@@ -101,8 +101,8 @@ module.exports = function(webot) {
         },
         handler: function(info, next) {
             wechatApi.getUser(info.uid, function(err, user) {
-                console.info(user);
-                console.info(user.unionid);
+                //console.info(user);
+                //console.info(user.unionid);
                 FinddiffServices.query(user.unionid).then(function(paging) {
                     var url, award = false, finddiffs = paging.result, finddiff;
 
