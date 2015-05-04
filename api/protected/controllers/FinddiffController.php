@@ -237,7 +237,7 @@ class FinddiffController extends Controller
         $criteria = new CDbCriteria();
 
         $criteria->addCondition("bonus > :bonus"); 
-        $criteria->params[':bonus'] = 31; 
+        $criteria->params[':bonus'] = 35; 
 
         $results = FinddiffResult::model()->findAll($criteria);
 
@@ -250,7 +250,7 @@ class FinddiffController extends Controller
         $criteria = new CDbCriteria();
 
         $criteria->addCondition("bonus > :bonus"); 
-        $criteria->params[':bonus'] = 150; 
+        $criteria->params[':bonus'] = 0; 
 
         $finddiffs = Finddiff::model()->findAll($criteria);
 
