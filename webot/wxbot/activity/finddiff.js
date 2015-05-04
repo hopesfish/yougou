@@ -108,6 +108,10 @@ module.exports = function(webot) {
                         award = true;
                     }
 
+                    if (finddiffs.length == 0) {
+                        return next('抱歉，您未参加本活动!');
+                    }
+
                     finddiff = finddiffs[0];
                     if (finddiff.rank > 0 && finddiff.rank <= 5 && award) {
                         return next('已经领完');
