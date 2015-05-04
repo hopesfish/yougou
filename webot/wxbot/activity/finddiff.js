@@ -95,7 +95,7 @@ module.exports = function(webot) {
         }
     });
     // 开始/领奖
-    webot.set('znmaward', {
+    webot.set('znmlj', {
         pattern: function(info) {
             return info.text === '领奖';
         },
