@@ -7,8 +7,32 @@
 {% endblock %}
 
 {% block content %}
-    <div>wxgift</div>
-    <div id="share-link" url="http://weixin.yougou.com/activity/finddiff/finddiff/{{finddiff.id}}/help"></div>
+    <div class="redbag-wrap">
+        <img src="/public/images/redbag.png?__inline">
+        <p>亲~感谢您转发本条内容</p>
+        <span>速度领取<a href="#">优购时尚商城</a>的卡券吧！</span>
+    </div>
+    <div class="progress-wrap">
+        <img src="/public/images/progress.gif?__inline">
+        <p>亲~您正在排队领取中，请耐心等待哦！</p>
+    </div>
+    <div class="runout-wrap">
+        <img src="/public/images/cry.png?__inline">
+        <p>亲~很遗憾地通知您：</p>
+        <p>本次活动已结束，卡券都被领完啦！</p>
+        <p class="barcode-tit">请扫描二维码关注<a href="#">优购官方微信</a></p>
+        <p>更多更好的活动等你哦！</p>
+        <img class="barcode" src="/public/images/barcode.gif?__inline">
+    </div>
+    <div class="got-wrap">
+        <img src="/public/images/redbaged.png?__inline">
+        <img class="tit" src="/public/images/greeting.png?__inline">
+        <p class="barcode-tit">请扫描二维码关注<a href="#">优购官方微信</a></p>
+        <p>回复"转发有礼"领取卡券吧！</p>
+        <img class="barcode" src="/public/images/barcode.gif?__inline">
+    </div>
+    <div id="share-link" url="http://weixin.yougou.com/activity/wxgift/start"></div>
+    <div id="progress-link" url="{{wxgift.id}}/progress"></div>
     <div id="jsApi"
          appId="{{jsApi.appId}}" timestamp="{{jsApi.timestamp}}"
          nonceStr="{{jsApi.nonceStr}}" signature="{{jsApi.signature}}"></div>

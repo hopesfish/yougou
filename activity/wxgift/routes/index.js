@@ -146,7 +146,6 @@ router.get('/wxgift/started.test', function(req, res) {
         headimgurl: userInfo.headimgurl,
         nickname: userInfo.nickname,
     }).then(function(wxgift) {
-        console.info(wxgift);
         req.session.wid = wxgift.id;
         if (wxgift.code == null) {
             res.redirect(conf.server_root + '/wxgift/' + wxgift.id);
@@ -177,6 +176,7 @@ router.get('/wxgift/:id', function(req, res) {
             }
 
             res.render('wxgift', {
+                wxgift: wxgift,
                 jsApi: {
                     appId: 'wx0f186d92b18bc5b0',
                     timestamp: result.timestamp || '',
@@ -186,27 +186,22 @@ router.get('/wxgift/:id', function(req, res) {
             });
         });
     }, function(err) {
-        res.status(500).send('服务异常!');
+        res.status(400).send('服务异常!');
     });
 });
 
 // 查看领取进度
 router.get('/wxgift/:id/progress', function(req, res) {
-    res.status(200).send('领取进度');
-});
-
-// 尝试领奖
-router.get('/wxgift/:id/award', function(req, res) {
-    WxgiftServices.award().then(function() {
-        res.status(200).send('awarded');
+    WxgiftServices.get(req.params.id).then(function(wxgift) {
+        res.send(wxgift);
     }, function(err) {
-        res.status(500).send(err);
+        res.status(500).send('服务异常!');
     });
-});
-
-// 显示奖品
-router.get('/wxgift/:id/award', function(req, res) {
-    res.status(200).send('显示奖品');
+    WxgiftServices.award(req.params.id).then(function() {
+        //res.status(200).send('awarded');
+    }, function(err) {
+        //res.status(500).send(err);
+    });
 });
 
 module.exports = router;
