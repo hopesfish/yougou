@@ -83,6 +83,11 @@ exports.award = function(wxgiftId) {
         }
         if (recordStr) {
             var record = JSON.parse(recordStr);
+            
+            if (!record.unionId) {
+                deferred.reject();
+            }
+
             ActivityServices.achieve('2015MAYCODEFORSHARETIMELINE', 'unionId' + record.unionId)
             .then(function(result) {
                 if (result && result.coupons.length > 0) {
