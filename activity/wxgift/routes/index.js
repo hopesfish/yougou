@@ -98,6 +98,7 @@ router.get('/wxgift/started', function(req, res) {
                 return;
             }
             var unionid = result.data.unionid;
+            var openid = result.data.openid;
             oauthClient.getUser(openid, function (err, result) {
                 if (err) {
                     console.error(err);
@@ -113,7 +114,6 @@ router.get('/wxgift/started', function(req, res) {
                     headimgurl: userInfo.headimgurl,
                     nickname: userInfo.nickname,
                 }).then(function(wxgift) {
-                    console.info(wxgift);
                     if (!wxgift.code) {
                         res.redirect(conf.server_root + '/wxgift/' + wxgift.id);
                     } else if (wxgift.awarded == 1) {
