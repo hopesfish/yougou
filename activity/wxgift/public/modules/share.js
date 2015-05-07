@@ -11,9 +11,9 @@ wx.config({
 wx.ready(function(){
 
     wx.onMenuShareTimeline({
-        title: '参加活动领取优购现金礼品卡！Adidas/Nike/NB买起哦！', // 分享标题
+        title: '优购写手火热征集，了解活动还有机会免费领取卡券', // 分享标题
         link: $("#share-link").attr('url'), // 分享链接
-        imgUrl: 'http://weixin.yougou.com/activity/finddiff/share.png', // 分享图标
+        imgUrl: 'http://weixin.yougou.com/activity/wxgift/share.png', // 分享图标
         success: function () { 
             // 用户确认分享后执行的回调函数
             onShared();
@@ -25,10 +25,10 @@ wx.ready(function(){
     });
 
     wx.onMenuShareAppMessage({
-        title: '优购五月送好礼！', // 分享标题 优购给您发新年红包啦！
-        desc: '参加活动领取优购现金礼品卡！Adidas/Nike/NB买起哦！', // 分享描述
+        title: '优购写手征集！', // 分享标题 优购给您发新年红包啦！
+        desc: '优购写手火热征集，了解活动还有机会免费领取卡券！', // 分享描述
         link: $("#share-link").attr('url'), // 分享链接
-        imgUrl: 'http://weixin.yougou.com/activity/finddiff/share.png', // 分享图标
+        imgUrl: 'http://weixin.yougou.com/activity/wxgift/share.png', // 分享图标
         type: 'link', // 分享类型,music、video或link，不填默认为link
         dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
         success: function () { 
