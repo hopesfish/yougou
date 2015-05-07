@@ -81,8 +81,8 @@ router.get('/wxgift/start', function(req, res) {
     var url = oauthClient.getAuthorizeURL(
         conf.server_root + '/wxgift/started',
         '',
-        //'snsapi_base'
-        'snsapi_userinfo'
+        'snsapi_base'
+        //'snsapi_userinfo'
     );
     res.redirect(url);
 });
@@ -99,30 +99,22 @@ router.get('/wxgift/started', function(req, res) {
             }
             var unionid = result.data.unionid;
             var openid = result.data.openid;
-            oauthClient.getUser(openid, function (err, result) {
-                if (err) {
-                    console.error(err);
-                    //res.status(400).send('无法获得用户信息');
-                    res.render('timeout', {});
-                    return;
-                }
-                var userInfo = result;
+            var userInfo = {
+                openid: openid,
+                headimgurl: 'fakeimg' + openid,
+                nickname: 'fakenickname' + openid
+            };
 
-                WxgiftServices.start({
-                    unionId: unionid,
-                    subOpenId: userInfo.openid,
-                    headimgurl: userInfo.headimgurl,
-                    nickname: userInfo.nickname,
-                }).then(function(wxgift) {
-                    if (!wxgift.code) {
-                        res.redirect(conf.server_root + '/wxgift/' + wxgift.id);
-                    } else if (wxgift.awarded == 1) {
-                        res.redirect(conf.server_root + '/wxgift/' + wxgift.id + '/award');
-                    }
-                }, function(err) {
-                    console.error('failed to start');
-                    console.error(err);
-                });
+            WxgiftServices.start({
+                unionId: unionid,
+                subOpenId: userInfo.openid,
+                headimgurl: userInfo.headimgurl,
+                nickname: userInfo.nickname,
+            }).then(function(wxgift) {
+                res.redirect(conf.server_root + '/wxgift/' + wxgift.id);
+            }, function(err) {
+                console.error('failed to start');
+                console.error(err);
             });
         });
     } else {
@@ -147,13 +139,7 @@ router.get('/wxgift/started.test', function(req, res) {
         nickname: userInfo.nickname,
     }).then(function(wxgift) {
         req.session.wid = wxgift.id;
-        if (wxgift.code == null) {
-            res.redirect(conf.server_root + '/wxgift/' + wxgift.id);
-        } else if (wxgift.awarded == 1) { // 已活动
-            res.redirect(conf.server_root + '/wxgift/' + wxgift.id + '/awarded');
-        } else if (wxgift.awarded == 2) { // 抽完了
-            res.redirect(conf.server_root + '/wxgift/' + wxgift.id + '/out');
-        }
+        res.redirect(conf.server_root + '/wxgift/' + wxgift.id);
     }, function(err) {
         console.error('failed to start');
         console.error(err);

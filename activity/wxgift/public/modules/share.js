@@ -45,26 +45,14 @@ wx.error(function(res){
     //alert(res.message || '签名过期！');
 });
 
+var shared = false;
+
 function onShared() {
     // 用户确认分享后执行的回调函数
     $('.redbag-wrap').hide();
     $('.progress-wrap').show();
-    var progressUrl = $('#progress-link').attr('url');
-    $.ajax({
-        url: progressUrl,
-        dataType: 'json',
-        success: function(data) {
-            if (data.shared === '1') {
-                onGot();
-            } else if (data.shared === '2') {
-                onRunout();
-            } else {
-                setTimeout(function() {
-                    onShared();
-                }, 3000);
-            }
-        }
-    });
+
+    shared = true;
 }
 
 function onGot() {
@@ -78,3 +66,30 @@ function onRunout() {
     $('.runout-wrap').show();
     $('.progress-wrap').hide();
 }
+
+function checkProgress() {
+    if (!shared) { 
+        setTimeout(function() {
+            checkProgress();
+        }, 4000);
+        return; 
+    }
+
+    var progressUrl = $('#progress-link').attr('url');
+    $.ajax({
+        url: progressUrl,
+        dataType: 'json',
+        success: function(data) {
+            if (data.shared === '1') {
+                onGot();
+            } else if (data.shared === '2') {
+                onRunout();
+            } else {
+                setTimeout(function() {
+                    checkProgress();
+                }, 4000);
+            }
+        }
+    });
+}
+checkProgress();
