@@ -9,8 +9,8 @@
 {% block content %}
     <div class="redbag-wrap">
         <img src="/public/images/redbag.png?__inline">
-        <p>亲，将本活动分享给朋友，就可以拆红包了！</p>
-        <span>速度领取<a href="#">优购时尚商城</a>的卡券吧！</span>
+        <p>亲，将本活动分享至朋友圈！</p>
+        <span>即可获得优购提供的购物卡券一张哦！</span>
     </div>
     <div class="progress-wrap">
         <img src="/public/images/progress.gif?__inline">
@@ -20,18 +20,19 @@
         <img src="/public/images/cry.png?__inline">
         <p>亲~很遗憾地通知您：</p>
         <p>本次活动已结束，卡券都被领完啦！</p>
-        <p class="barcode-tit">请扫描二维码关注<a href="#">优购官方微信</a></p>
+        <p class="barcode-tit">长按下方二维码即可关注优购时尚商城</p>
         <p>更多更好的活动等你哦！</p>
         <img class="barcode" src="/public/images/barcode.gif?__inline">
     </div>
     <div class="got-wrap">
         <img src="/public/images/redbaged.png?__inline">
         <img class="tit" src="/public/images/greeting.png?__inline">
-        <p class="barcode-tit">请扫描二维码关注<a href="#">优购官方微信</a></p>
-        <p>回复"转发有礼"领取卡券吧！</p>
+        <p class="barcode-tit">长按下方二维码即可关注优购时尚商城</p>
+        <p>回复<a href="#">"转发有礼"</a>领取购物卡券！</p>
         <img class="barcode" src="/public/images/barcode.gif?__inline">
     </div>
     <div id="share-link" url="http://mp.weixin.qq.com/s?__biz=MjM5NDA3MTk2MA==&mid=206674514&idx=1&sn=a9246cbe3679a816cd385a46d42598a6#rd"></div>
+    <div id="join-link" url="{{wxgift.id}}/join"></div>
     <div id="progress-link" url="{{wxgift.id}}/progress"></div>
     <div id="jsApi"
          appId="{{jsApi.appId}}" timestamp="{{jsApi.timestamp}}"

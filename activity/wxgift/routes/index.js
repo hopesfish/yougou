@@ -176,6 +176,15 @@ router.get('/wxgift/:id', function(req, res) {
     });
 });
 
+// 参加队列
+router.get('/wxgift/:id/join', function(req, res) {
+    WxgiftServices.join(req.params.id).then(function(wxgift) {
+        res.send(wxgift);
+    }, function(err) {
+        res.status(500).send('服务异常!');
+    });
+});
+
 // 查看领取进度
 router.get('/wxgift/:id/progress', function(req, res) {
     WxgiftServices.get(req.params.id).then(function(wxgift) {

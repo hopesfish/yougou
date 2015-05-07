@@ -29,13 +29,6 @@ exports.start = function(params) {
             }
             deferred.resolve(record);
         });
-        rdsClient.rpush('unionIds', JSON.stringify(record), function(err) {
-            if (err) {
-                console.error('failed to add unionId into list');
-                console.error(err);
-                return deferred.reject(err);
-            }
-        });
     }, function(err) {
         console.error(err);
         deferred.reject(err);
@@ -61,7 +54,35 @@ exports.get = function(wxgiftId) {
         } else {
             deferred.reject(null);
         }
-        
+    });
+
+    return deferred.promise;
+};
+
+/*
+ * 参加排队
+ */
+exports.join = function(wxgiftId) {
+    var deferred = Q.defer();
+
+    rdsClient.hget('wxgift', wxgiftId, function(err, txt) {
+        if (err) {
+            console.error('failed to refresh wxgift record');
+            console.error(err);
+            return deferred.reject(err);
+        }
+        if (txt) {
+            rdsClient.rpush('unionIds', txt.toString(), function(err) {
+            if (err) {
+                console.error('failed to add unionId into list');
+                console.error(err);
+                return deferred.reject(err);
+            }
+            deferred.resolve(JSON.parse(txt.toString()));
+        });
+        } else {
+            deferred.reject(null);
+        }
     });
 
     return deferred.promise;

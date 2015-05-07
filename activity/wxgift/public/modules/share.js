@@ -45,14 +45,12 @@ wx.error(function(res){
     //alert(res.message || '签名过期！');
 });
 
-var shared = false;
-
 function onShared() {
     // 用户确认分享后执行的回调函数
     $('.redbag-wrap').hide();
     $('.progress-wrap').show();
 
-    shared = true;
+    joinQuene();
 }
 
 function onGot() {
@@ -67,14 +65,16 @@ function onRunout() {
     $('.progress-wrap').hide();
 }
 
-function checkProgress() {
-    if (!shared) { 
-        setTimeout(function() {
-            checkProgress();
-        }, 4000);
-        return; 
-    }
+function joinQuene() {
+    var joinUrl = $('#join-link').attr('url');
+    $.ajax({
+        url: joinUrl,
+        dataType: 'json',
+        success: function(data) {}
+    });
+}
 
+function checkProgress() {
     var progressUrl = $('#progress-link').attr('url');
     $.ajax({
         url: progressUrl,
