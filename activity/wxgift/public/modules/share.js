@@ -20,7 +20,7 @@ wx.ready(function(){
         },
         cancel: function () { 
             // 用户取消分享后执行的回调函数
-            alert('亲~分享给好友才能领礼品卡哦！');
+            alert('亲~分享到朋友圈才能领礼品卡哦！');
         }
     });
 
@@ -33,11 +33,12 @@ wx.ready(function(){
         dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
         success: function () { 
             // 用户确认分享后执行的回调函数
-            onShared();
+            //onShared();
+            alert('亲~分享到朋友圈才能领礼品卡哦！');
         },
         cancel: function () { 
             // 用户取消分享后执行的回调函数
-            alert('亲~分享给好友才能领礼品卡哦！');
+            alert('亲~分享到朋友圈才能领礼品卡哦！');
         }
     });
 });
