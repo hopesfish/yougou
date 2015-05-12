@@ -91,7 +91,7 @@ class WxgiftController extends Controller
             return $this->sendResponse(400, 'missed required properties');
         }
 
-        if ($_POST['shared'] == '1' && !isset($_POST['code'])) {
+        if ($_POST['shared'] == 1 && !isset($_POST['code'])) {
             return $this->sendResponse(400, 'missed code');
         }
 
@@ -103,8 +103,7 @@ class WxgiftController extends Controller
         }
 
         // 只允许提交一次
-        if ($wxgift->shared == 0) {
-            $wxgift->shared = 1;
+        if ($wxgift->shared == 1) {
             $wxgift->code = $_POST['code'];
         }
 
