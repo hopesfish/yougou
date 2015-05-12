@@ -21,14 +21,18 @@ exports.start = function(params) {
         url += '&nickname=' + params.nickname;
 
     BaseServices.get(url, {}).then(function(record) {
-        rdsClient.hset('wxgift', record.id, JSON.stringify(record), function(err, txt) {
-            if (err) {
-                console.error('failed to set wxgift record');
-                console.error(err);
-                return deferred.reject(err);
-            }
+        if (record.shared == 0) {
+            rdsClient.hset('wxgift', record.id, JSON.stringify(record), function(err, txt) {
+                if (err) {
+                    console.error('failed to set wxgift record');
+                    console.error(err);
+                    return deferred.reject(err);
+                }
+                deferred.resolve(record);
+            });
+        } else {
             deferred.resolve(record);
-        });
+        }
     }, function(err) {
         console.error(err);
         deferred.reject(err);
@@ -116,6 +120,7 @@ exports.award = function(wxgiftId) {
                     record.code = result.coupons[0].code;
                 } else {
                     record.shared = "2";
+                    record.code = '';
                 }
 
                 BaseServices.update(url, record).then(function() {

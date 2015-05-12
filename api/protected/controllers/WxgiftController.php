@@ -11,7 +11,7 @@ class WxgiftController extends Controller
         $newwxgift['openId'] = $wxgift->open_id;
         $newwxgift['subOpenId'] = $wxgift->sub_open_id;
         $newwxgift['unionId'] = $wxgift->union_id;
-        $newwxgift['shared'] = $wxgift->shared;
+        $newwxgift['shared'] = (int)$wxgift->shared;
         $newwxgift['code'] = $wxgift->code;
 
         return $newwxgift;
@@ -89,6 +89,10 @@ class WxgiftController extends Controller
         //判断是否全部填写
         if (!isset($_POST['shared']) || !isset($_POST['code'])) {
             return $this->sendResponse(400, 'missed required properties');
+        }
+
+        if ($_POST['shared'] == '1' && !isset($_POST['code'])) {
+            return $this->sendResponse(400, 'missed code');
         }
 
         // 查询是否已经生成
