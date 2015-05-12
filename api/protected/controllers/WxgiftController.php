@@ -102,10 +102,8 @@ class WxgiftController extends Controller
             return $this->sendResponse(404, 'not found');
         }
 
-        // 只允许提交一次
-        if ($wxgift->shared == 1) {
-            $wxgift->code = $_POST['code'];
-        }
+        $wxgift->shared = $_POST['shared'];
+        $wxgift->code = $_POST['code'];
 
         if (!$wxgift->save()) {
             return $this->sendResponse(500, 'faild to save wxgift');
