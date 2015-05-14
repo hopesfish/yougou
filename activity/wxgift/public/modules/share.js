@@ -93,4 +93,4 @@ function checkProgress() {
         }
     });
 }
-checkProgress();
+onRunout();
