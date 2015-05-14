@@ -11,7 +11,7 @@ wx.config({
 wx.ready(function(){
 
     wx.onMenuShareTimeline({
-        title: '优购写手火热征集，了解活动还有机会免费领取卡券', // 分享标题
+        title: '分享本内容至朋友圈，即可获赠优购（←全国最大的鞋服电商平台）送出的30元礼品卡！', // 分享标题
         link: $("#share-link").attr('url'), // 分享链接
         imgUrl: 'http://weixin.yougou.com/activity/wxgift/share.png', // 分享图标
         success: function () { 
@@ -25,8 +25,8 @@ wx.ready(function(){
     });
 
     wx.onMenuShareAppMessage({
-        title: '优购写手征集！', // 分享标题 优购给您发新年红包啦！
-        desc: '优购写手火热征集，了解活动还有机会免费领取卡券！', // 分享描述
+        title: '优购送您30元礼品卡啦！', // 分享标题 优购给您发新年红包啦！
+        desc: '分享本内容至朋友圈，即可得到优购（←全国最大的鞋服电商平台）送出的30元礼品卡！限量500张，速度哟！', // 分享描述
         link: $("#share-link").attr('url'), // 分享链接
         imgUrl: 'http://weixin.yougou.com/activity/wxgift/share.png', // 分享图标
         type: 'link', // 分享类型,music、video或link，不填默认为link
