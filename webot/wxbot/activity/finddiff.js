@@ -151,10 +151,10 @@ module.exports = function(webot) {
         handler: function(info, next) {
             wechatApi.getUser(info.uid, function(err, user) {
                 console.info(user);
-                if (!user.unionId) {
+                if (!user.unionid) {
                     return next('');
                 }
-                ActivityServices.achieve('2015MAYCODEFORSHARETIMELINE', 'unionId' + user.unionId)
+                ActivityServices.achieve('2015MAYCODEFORSHARETIMELINE', 'unionId' + user.unionid)
                 .then(function(achieveResult) {
                     if (achieveResult.activities.length == 1) {
                         var activity = achieveResult.activities[0];
