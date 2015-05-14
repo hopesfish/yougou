@@ -150,6 +150,10 @@ module.exports = function(webot) {
         },
         handler: function(info, next) {
             wechatApi.getUser(info.uid, function(err, user) {
+                console.info(user);
+                if (!user.unionId) {
+                    return next('');
+                }
                 ActivityServices.achieve('2015MAYCODEFORSHARETIMELINE', 'unionId' + user.unionId)
                 .then(function(achieveResult) {
                     if (achieveResult.activities.length == 1) {
