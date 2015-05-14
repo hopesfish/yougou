@@ -11,7 +11,7 @@ wx.config({
 wx.ready(function(){
 
     wx.onMenuShareTimeline({
-        title: '分享本内容至朋友圈，即可获赠优购（←全国最大的鞋服电商平台）送出的30元礼品卡！', // 分享标题
+        title: '分享本内容至朋友圈，即可获赠优购送出的30元礼品卡！限量500张！', // 分享标题
         link: $("#share-link").attr('url'), // 分享链接
         imgUrl: 'http://weixin.yougou.com/activity/wxgift/share.png', // 分享图标
         success: function () { 
