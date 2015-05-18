@@ -143,43 +143,43 @@ module.exports = function(webot) {
         }
     });
 
-    // 转发有礼
-    webot.set('zfyouli', {
-        pattern: function(info) {
-            return info.text === '转发有礼';
-        },
-        handler: function(info, next) {
-            wechatApi.getUser(info.uid, function(err, user) {
-                console.info(user);
-                if (!user.unionid) {
-                    return next('');
-                }
-                ActivityServices.achieve('2015MAYCODEFORSHARETIMELINE', 'unionId' + user.unionid)
-                .then(function(achieveResult) {
-                    if (achieveResult.activities.length == 1) {
-                        var activity = achieveResult.activities[0];
-                        var coupons = achieveResult.coupons;
-                        var prompt = activity.reply || '恭喜您，您已经获得优惠券: {YHQ}';
-                        var code = '';
+    // // 转发有礼
+    // webot.set('zfyouli', {
+    //     pattern: function(info) {
+    //         return info.text === '转发有礼';
+    //     },
+    //     handler: function(info, next) {
+    //         wechatApi.getUser(info.uid, function(err, user) {
+    //             console.info(user);
+    //             if (!user.unionid) {
+    //                 return next('');
+    //             }
+    //             ActivityServices.achieve('2015MAYCODEFORSHARETIMELINE', 'unionId' + user.unionid)
+    //             .then(function(achieveResult) {
+    //                 if (achieveResult.activities.length == 1) {
+    //                     var activity = achieveResult.activities[0];
+    //                     var coupons = achieveResult.coupons;
+    //                     var prompt = activity.reply || '恭喜您，您已经获得优惠券: {YHQ}';
+    //                     var code = '';
 
-                        // 无优惠券可领取时
-                        if (coupons.length == 0) {
-                            return next(null, activity.end_reply);
-                        }
+    //                     // 无优惠券可领取时
+    //                     if (coupons.length == 0) {
+    //                         return next(null, activity.end_reply);
+    //                     }
 
-                        // 有优惠券可领取时
-                        code = _.map(coupons, function(coupon) {
-                            return coupon.code;
-                        }).join("\n");
-                        prompt = prompt.replace('{YHQ}', code);
-                        return next(null, prompt);
-                    } else {
-                        return next('您来晚了，券已经领光！');
-                    }
-                }, function(err) {
-                    return next(err || '领券异常');
-                });
-            });
-        }
-    });
+    //                     // 有优惠券可领取时
+    //                     code = _.map(coupons, function(coupon) {
+    //                         return coupon.code;
+    //                     }).join("\n");
+    //                     prompt = prompt.replace('{YHQ}', code);
+    //                     return next(null, prompt);
+    //                 } else {
+    //                     return next('您来晚了，券已经领光！');
+    //                 }
+    //             }, function(err) {
+    //                 return next(err || '领券异常');
+    //             });
+    //         });
+    //     }
+    // });
 }
