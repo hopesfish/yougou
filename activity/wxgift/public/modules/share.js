@@ -94,6 +94,6 @@ function checkProgress() {
         }
     });
 }
-//onRunout();
+onRunout();
 //onShared();
-checkProgress();
+//checkProgress();
