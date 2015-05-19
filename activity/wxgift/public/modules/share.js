@@ -96,4 +96,4 @@ function checkProgress() {
 }
 onRunout();
 //onShared();
-//checkProgress();
+checkProgress();
