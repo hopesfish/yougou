@@ -113,7 +113,7 @@ exports.award = function(wxgiftId) {
                 deferred.reject();
             }
 
-            ActivityServices.achieve('2015MAYCODEFORSHARETIMELINE', 'unionId' + record.unionId)
+            ActivityServices.achieve('2015MAYCODEFORSHARETIMELINE', 'unionId2' + record.unionId)
             .then(function(result) {
                 if (result && result.coupons.length > 0) {
                     record.shared = "1";
