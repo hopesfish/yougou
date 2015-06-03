@@ -48,26 +48,13 @@ module.exports = function(webot) {
                     if (finddiffs.length == 0) {
                         url = conf.finddiff_root + "/finddiff/start";
                         return next(null, [
-                            '亲~速度召集小伙伴们来玩【优购品牌大作战】游戏吧！手快眼力好，优购（←国内最大的时尚鞋服电商）送出的1000元/500元/300元的现金礼品卡就有机会被你妥妥赢走！',
+                            '亲~速度召集小伙伴们来玩【优购品牌大作战】游戏吧！手快眼力好，优购（←国内最大的时尚鞋服电商）送出的30元的现金礼品卡就有机会被你妥妥赢走！',
                             '\n<a href="' + url + '">点击这里</a>速度参与游戏！'
                         ].join("\n"));
                     } else {
                         finddiff = finddiffs[0];
-                        if (finddiff.rank > 0 && finddiff.rank <= 5 && award) {
-                            return next('已经领完');
-                            //info.text = '2015FINDDIFFCODE41000';
-                            //return next();
-                        } else if (finddiff.rank > 5 && finddiff.rank <= 10 && award) {
-                            info.text = '2015FINDDIFFCODE4500';
-                            return next();
-                        } else if (finddiff.rank > 10 && finddiff.rank <= 30 && award) {
-                            info.text = '2015FINDDIFFCODE4300';
-                            return next();
-                        } else if (finddiff.rank > 30 && finddiff.rank <= 200 && award) {
-                            info.text = '2015FINDDIFFCODE450';
-                            return next();
-                        } else if (finddiff.rank > 200 && finddiff.rank <= 350 && award) {
-                            info.text = '2015FINDDIFFCODE430';
+                        if (finddiff.bonus >= 100) {
+                            info.text = '2015FINDDIFFCODEATJUNE';
                             return next();
                         } else {
                             var over = false,
@@ -81,9 +68,8 @@ module.exports = function(webot) {
                                 ].join(""));
                             } else {
                                 return next(null, [
-                                    '亲~您现在总共有' + finddiff.bonus + '个金币，排在第' + finddiff.rank + '名！',
-                                    '\n截止至2015年4月30日23:59，届时我们会统一按照金币总数计算排名！届时输入"品牌大作战"即可查看总排名！',
-                                    '\n想提高排名，速度召集小伙伴们来玩【优购品牌大作战】游戏吧！手快眼力好，优购（←国内最大的时尚鞋服电商）送出的1000元/500元/300元的现金礼品卡就有机会被你妥妥赢走！',
+                                    '亲~您现在总共有' + finddiff.bonus + '个金币',
+                                    '\n想尽快集满100个金币领礼品卡，速度召集小伙伴们来玩【优购品牌大作战】游戏吧！手快眼力好，优购（←国内最大的时尚鞋服电商）送出的1000元/500元/300元的现金礼品卡就有机会被你妥妥赢走！',
                                     '\n<a href="' + url + '">点击这里</a>速度参与游戏！'
                                 ].join("\n"));
                             }
@@ -95,53 +81,53 @@ module.exports = function(webot) {
             });
         }
     });
-    // 开始/领奖
-    webot.set('znmlj', {
-        pattern: function(info) {
-            return info.text === '领奖';
-        },
-        handler: function(info, next) {
-            wechatApi.getUser(info.uid, function(err, user) {
-                //console.info(user);
-                //console.info(user.unionid);
-                FinddiffServices.query(user.unionid).then(function(paging) {
-                    var url, award = false, finddiffs = paging.result, finddiff;
+    // // 开始/领奖
+    // webot.set('znmlj', {
+    //     pattern: function(info) {
+    //         return info.text === '领奖';
+    //     },
+    //     handler: function(info, next) {
+    //         wechatApi.getUser(info.uid, function(err, user) {
+    //             //console.info(user);
+    //             //console.info(user.unionid);
+    //             FinddiffServices.query(user.unionid).then(function(paging) {
+    //                 var url, award = false, finddiffs = paging.result, finddiff;
 
-                    if ((new Date()).getTime() > 1430711940000) {
-                        award = true;
-                    }
+    //                 if ((new Date()).getTime() > 1430711940000) {
+    //                     award = true;
+    //                 }
 
-                    if (finddiffs.length == 0) {
-                        return next('抱歉，您未参加本活动!');
-                    }
+    //                 if (finddiffs.length == 0) {
+    //                     return next('抱歉，您未参加本活动!');
+    //                 }
 
-                    finddiff = finddiffs[0];
-                    if (finddiff.rank > 0 && finddiff.rank <= 5 && award) {
-                        return next('已经领完');
-                        //info.text = '2015FINDDIFFCODE41000';
-                        //return next();
-                    } else if (finddiff.rank > 5 && finddiff.rank <= 10 && award) {
-                        info.text = '2015FINDDIFFCODE4500';
-                        return next();
-                    } else if (finddiff.rank > 10 && finddiff.rank <= 30 && award) {
-                        info.text = '2015FINDDIFFCODE4300';
-                        return next();
-                    } else if (finddiff.rank > 30 && finddiff.rank <= 200 && award) {
-                        info.text = '2015FINDDIFFCODE450';
-                        return next();
-                    } else if (finddiff.rank > 200 && finddiff.rank <= 350 && award) {
-                        info.text = '2015FINDDIFFCODE430';
-                        return next();
-                    } else {
-                        return next('抱歉,您的排名过低,不能领奖!');
-                    }
+    //                 finddiff = finddiffs[0];
+    //                 if (finddiff.rank > 0 && finddiff.rank <= 5 && award) {
+    //                     return next('已经领完');
+    //                     //info.text = '2015FINDDIFFCODE41000';
+    //                     //return next();
+    //                 } else if (finddiff.rank > 5 && finddiff.rank <= 10 && award) {
+    //                     info.text = '2015FINDDIFFCODE4500';
+    //                     return next();
+    //                 } else if (finddiff.rank > 10 && finddiff.rank <= 30 && award) {
+    //                     info.text = '2015FINDDIFFCODE4300';
+    //                     return next();
+    //                 } else if (finddiff.rank > 30 && finddiff.rank <= 200 && award) {
+    //                     info.text = '2015FINDDIFFCODE450';
+    //                     return next();
+    //                 } else if (finddiff.rank > 200 && finddiff.rank <= 350 && award) {
+    //                     info.text = '2015FINDDIFFCODE430';
+    //                     return next();
+    //                 } else {
+    //                     return next('抱歉,您的排名过低,不能领奖!');
+    //                 }
 
-                }, function(err) {
-                    return next('发生异常！');
-                });
-            });
-        }
-    });
+    //             }, function(err) {
+    //                 return next('发生异常！');
+    //             });
+    //         });
+    //     }
+    // });
 
     // // 转发有礼
     // webot.set('zfyouli', {

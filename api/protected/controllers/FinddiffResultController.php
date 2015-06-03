@@ -39,6 +39,10 @@ class FinddiffResultController extends Controller {
             return $this->sendResponse(400, 'missed required properties');
         }
 
+        if (!is_numeric($_POST['bonus'])) {
+            return $this->sendResponse(400, 'bonus should be number');
+        }
+
         $finddiff = Finddiff::model()->findByPk($_GET['finddiffId']);
         if ($finddiff == null) {
             $this->sendResponse(404, 'not found');
@@ -60,6 +64,7 @@ class FinddiffResultController extends Controller {
             $result->finddiff_id = $_GET['finddiffId'];
             $result->sub_open_id = $_POST['subOpenId'];
             $result->bonus = 0;
+            $result->save();
         }
 
         if (isset($_POST['nickname'])) {
@@ -72,11 +77,13 @@ class FinddiffResultController extends Controller {
 
         if (intval($_POST['bonus']) > intval($result->bonus)) {
             if (intval($_POST['bonus']) > 35) {
-                $finddiff->bonus += 5;
-                $result->bonus = 5;
+                $result->bonus = 1;
             } else {
-                $finddiff->bonus += intval($_POST['bonus']) - intval($result->bonus);
-                $result->bonus = intval($_POST['bonus']);
+                $diff = intval($_POST['bonus']) - intval($result->bonus);
+                if ($diff < 35) {
+                    $finddiff->bonus += $diff;
+                    $result->bonus = intval($_POST['bonus']);
+                }
             }
         }
 
