@@ -302,10 +302,12 @@ router.get('/finddiff/:id/fulfill.test', function(req, res) {
 router.get('/finddiff/:id/bonus', function(req, res) {
     if (!req.session.subOpenId) {
         res.status(400).send('oauth is required!');
+        return;
     }
 
-    if ((new Date()).getTime() >= 1430409600000) {
-        res.status(200).send('expired');
+    if (req.query.bonus > 35) {
+        res.status(200).send('too much bonus');
+        return;
     }
 
     FinddiffServices.vote(req.params.id, {
