@@ -26,6 +26,13 @@ $().ready(function() {
             '鬼冢虎',
 
             '莱尔斯丹',
+            '玖熙',
+            '卡洛驰',
+            '乐途',
+            '美国职业棒球大联盟',
+            '斯凯奇',
+            '暇步士',
+            '尤尼克斯'
         ], found = {}, voice = true;
 
     var logos = $('.logo-wrap').children(),
