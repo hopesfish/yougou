@@ -11,12 +11,12 @@ wx.config({
 wx.ready(function(){
 
     wx.onMenuShareTimeline({
-        title: '速度玩起【优购】品牌大作战，1000元现金购物卡就是你哒！Adidas/Nike/NB买起哦！', // 分享标题
+        title: '速度玩起【优购】品牌大作战，1000张现金购物卡就是你们哒！Adidas/Nike/NB买起哦！', // 分享标题
         link: $("#share-link").attr('url'), // 分享链接
         imgUrl: 'http://weixin.yougou.com/activity/finddiff/share.png', // 分享图标
         success: function () { 
             // 用户确认分享后执行的回调函数
-            alert('分享成功！亲~速度关注优购公众账号：iyougou，发送"品牌大作战"，查看你的最新排名哦！本活动截止至2015年4月30日23:59，届时系统会统一按照金币总数计算排名！大家加油啦！');
+            alert('分享成功！亲~速度关注优购公众账号：iyougou，发送"品牌大作战"，查看你的最新排名哦！您和您的好友集够100个金币就可以领取30元礼品卡了！大家加油啦！');
         },
         cancel: function () { 
             // 用户取消分享后执行的回调函数
@@ -26,14 +26,14 @@ wx.ready(function(){
 
     wx.onMenuShareAppMessage({
         title: '优购版“找你妹”玩起来！', // 分享标题 优购给您发新年红包啦！
-        desc: '速度玩起【优购】品牌大作战，1000元现金购物卡就是你哒！Adidas/Nike/NB买起哦！', // 分享描述
+        desc: '速度玩起【优购】品牌大作战，1000张现金购物卡就是你们哒！Adidas/Nike/NB买起哦！', // 分享描述
         link: $("#share-link").attr('url'), // 分享链接
         imgUrl: 'http://weixin.yougou.com/activity/finddiff/share.png', // 分享图标
         type: 'link', // 分享类型,music、video或link，不填默认为link
         dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
         success: function () { 
             // 用户确认分享后执行的回调函数
-            alert('分享成功！亲~速度关注优购公众账号：iyougou，发送"品牌大作战"，查看你的最新排名哦！本活动截止至2015年4月30日23:59，届时系统会统一按照金币总数计算排名！大家加油啦！');
+            alert('分享成功！亲~速度关注优购公众账号：iyougou，发送"品牌大作战"，查看你的最新排名哦！您和您的好友集够100个金币就可以领取30元礼品卡了！大家加油啦！');
         },
         cancel: function () { 
             // 用户取消分享后执行的回调函数
