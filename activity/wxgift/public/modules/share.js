@@ -11,7 +11,7 @@ wx.config({
 wx.ready(function(){
 
     wx.onMenuShareTimeline({
-        title: '分享本内容至朋友圈，即可获赠优购（←全国最大的鞋服电商平台）送出的30元礼品卡！', // 分享标题
+        title: '分享本内容至朋友圈，即可获赠优购（←全国最大的鞋服电商平台）送出的40元优惠券！', // 分享标题
         link: $("#share-link").attr('url'), // 分享链接
         imgUrl: 'http://weixin.yougou.com/activity/wxgift/share.png', // 分享图标
         success: function () { 
@@ -26,7 +26,7 @@ wx.ready(function(){
 
     wx.onMenuShareAppMessage({
         title: '优购送您30元礼品卡啦！', // 分享标题 优购给您发新年红包啦！
-        desc: '分享本内容至朋友圈，即可获赠优购（←全国最大的鞋服电商平台）送出的30元礼品卡！', // 分享描述
+        desc: '分享本内容至朋友圈，即可获赠优购（←全国最大的鞋服电商平台）送出的40元优惠券！', // 分享描述
         link: $("#share-link").attr('url'), // 分享链接
         imgUrl: 'http://weixin.yougou.com/activity/wxgift/share.png', // 分享图标
         type: 'link', // 分享类型,music、video或link，不填默认为link
@@ -34,11 +34,11 @@ wx.ready(function(){
         success: function () { 
             // 用户确认分享后执行的回调函数
             //onShared();
-            alert('亲~分享到朋友圈才能领礼品卡哦！');
+            alert('亲~分享到朋友圈才能领优惠券哦！');
         },
         cancel: function () { 
             // 用户取消分享后执行的回调函数
-            alert('亲~分享到朋友圈才能领礼品卡哦！');
+            alert('亲~分享到朋友圈才能领优惠券哦！');
         }
     });
 });
